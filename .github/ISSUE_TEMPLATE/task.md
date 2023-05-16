@@ -1,6 +1,6 @@
 ---
-name: FEATURE
-about: Feature 작업 내용 입력
+name: TASK
+about: '작업하거나, 설정하거나, 개선하고 싶을때 '
 title: ''
 labels: ''
 assignees: ''
