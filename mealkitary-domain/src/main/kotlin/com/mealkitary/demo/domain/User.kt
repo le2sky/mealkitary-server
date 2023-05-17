@@ -14,4 +14,8 @@ class User(
     fun whatIsYourName(): String {
         return name
     }
+
+    fun isBadNamingCusReturnString(): String {
+        return "gpt test"
+    }
 }
