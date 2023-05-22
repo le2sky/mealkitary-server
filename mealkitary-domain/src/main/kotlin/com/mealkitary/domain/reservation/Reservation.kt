@@ -11,6 +11,9 @@ class Reservation private constructor(
         if (shop.isInvalid()) {
             throw IllegalArgumentException("유효하지 않은 가게입니다.")
         }
+        if (!shop.isReservableAt(reserveAt)) {
+            throw IllegalArgumentException("예약하시려는 가게는 해당 시간에 예약을 받지 않습니다.")
+        }
     }
 
     companion object {
