@@ -7,6 +7,12 @@ class Reservation private constructor(
     private val shop: Shop,
     private val reserveAt: LocalDateTime
 ) {
+    fun reserve() {
+        if (shop.isInvalid()) {
+            throw IllegalArgumentException("유효하지 않은 가게입니다.")
+        }
+    }
+
     companion object {
         fun of(lineItems: List<ReservationLineItem>, shop: Shop, reserveAt: LocalDateTime): Reservation {
             checkLineItemsAtLeastOne(lineItems)

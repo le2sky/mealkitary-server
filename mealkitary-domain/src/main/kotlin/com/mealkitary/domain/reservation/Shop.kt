@@ -1,3 +1,7 @@
 package com.mealkitary.domain.reservation
 
-class Shop
+class Shop(
+    private val status: ShopStatus
+) {
+    fun isInvalid() = status.isInvalidStatus()
+}
