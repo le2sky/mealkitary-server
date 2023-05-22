@@ -1,9 +1,5 @@
-package com.mealkitary.domain
+package com.mealkitary.domain.reservation
 
-import com.mealkitary.domain.reservation.Reservation
-import com.mealkitary.domain.reservation.ReservationLineItem
-import com.mealkitary.domain.reservation.Shop
-import com.mealkitary.domain.reservation.ShopStatus
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.throwable.shouldHaveMessage
