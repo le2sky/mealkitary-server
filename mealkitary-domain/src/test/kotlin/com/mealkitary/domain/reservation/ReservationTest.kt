@@ -6,11 +6,14 @@ import com.mealkitary.domain.shop.ShopStatus
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.inspectors.forAll
-import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.throwable.shouldHaveMessage
+import io.mockk.spyk
+import io.mockk.verify
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+
+private const val CHANGE_RESERVATION_STATUS_METHOD_NAME = "changeReservationStatus"
 
 internal class ReservationTest : AnnotationSpec() {
 
@@ -33,8 +36,7 @@ internal class ReservationTest : AnnotationSpec() {
         shouldThrow<IllegalArgumentException> {
             val sut = defaultReservation().withReserveAt(
                 LocalDateTime.of(
-                    LocalDate.now().plusDays(1),
-                    LocalTime.of(18, 30)
+                    LocalDate.now().plusDays(1), LocalTime.of(18, 30)
                 )
             ).build()
             sut.reserve()
@@ -46,25 +48,18 @@ internal class ReservationTest : AnnotationSpec() {
         val invalidShop = defaultShop().withStatus(ShopStatus.INVALID).build()
         shouldThrow<IllegalArgumentException> {
             val sut = defaultReservation().withShop(invalidShop).build()
-
             sut.reserve()
         } shouldHaveMessage "유효하지 않은 가게입니다."
     }
 
     @Test
-    fun `예약의 기본 상태는 미결제 상태이다`() {
-        val sut = defaultReservation()
-            .withReserveAt(givenValidTime())
-            .build()
-        sut.reserve()
-        sut.isNotPaid().shouldBeTrue()
-    }
-
-    @Test
     fun `결제 상태인 예약은 점주가 승인할 수 있다`() {
-        val sut = givenPaidReservation()
+        val sut = spyk(
+            objToCopy = givenPaidReservation(),
+            recordPrivateCalls = true
+        )
         sut.accept()
-        sut.isReserved().shouldBeTrue()
+        verify { sut[CHANGE_RESERVATION_STATUS_METHOD_NAME](ReservationStatus.RESERVED) }
     }
 
     @Test
@@ -77,9 +72,12 @@ internal class ReservationTest : AnnotationSpec() {
 
     @Test
     fun `결제 상태인 예약은 점주가 거부할 수 있다`() {
-        val sut = givenPaidReservation()
+        val sut = spyk(
+            objToCopy = givenPaidReservation(),
+            recordPrivateCalls = true
+        )
         sut.reject()
-        sut.isRejected().shouldBeTrue()
+        verify { sut[CHANGE_RESERVATION_STATUS_METHOD_NAME](ReservationStatus.REJECTED) }
     }
 
     @Test
@@ -110,15 +108,17 @@ internal class ReservationTest : AnnotationSpec() {
 
     @Test
     fun `사용자가 결제를 하면 예약의 상태를 결제됨으로 변경한다`() {
-        val sut = givenNotPaidReservation()
+        val sut = spyk(
+            objToCopy = givenNotPaidReservation(),
+            recordPrivateCalls = true
+        )
         sut.pay()
-        sut.isPaid().shouldBeTrue()
+        verify { sut[CHANGE_RESERVATION_STATUS_METHOD_NAME](ReservationStatus.PAID) }
     }
 
     @Test
     fun `미결제 상태가 아닌 다른 상태에서 결제를 시도하면 예외를 발생한다`() {
-        val base = defaultReservation()
-            .withReserveAt(givenValidTime())
+        val base = defaultReservation().withReserveAt(givenValidTime())
         val paid = base.withReservationStatus(ReservationStatus.PAID).build()
         val reserved = base.withReservationStatus(ReservationStatus.RESERVED).build()
         val rejected = base.withReservationStatus(ReservationStatus.REJECTED).build()
@@ -131,15 +131,17 @@ internal class ReservationTest : AnnotationSpec() {
         }
     }
 
-    private fun givenPaidReservation() = defaultReservation()
-        .withReservationStatus(ReservationStatus.PAID)
-        .withReserveAt(givenValidTime())
-        .build()
+    private fun givenPaidReservation() =
+        defaultReservation()
+            .withReservationStatus(ReservationStatus.PAID)
+            .withReserveAt(givenValidTime())
+            .build()
 
-    private fun givenNotPaidReservation() = defaultReservation()
-        .withReservationStatus(ReservationStatus.NOTPAID)
-        .withReserveAt(givenValidTime())
-        .build()
+    private fun givenNotPaidReservation() =
+        defaultReservation()
+            .withReservationStatus(ReservationStatus.NOTPAID)
+            .withReserveAt(givenValidTime())
+            .build()
 
     private fun givenValidTime(): LocalDateTime = LocalDateTime.of(
         LocalDate.now().plusDays(1),

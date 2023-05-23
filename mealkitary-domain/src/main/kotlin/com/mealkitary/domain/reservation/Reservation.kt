@@ -29,17 +29,21 @@ class Reservation private constructor(
     fun accept() {
         checkPaidReservation("미결제 상태인 예약은 승인할 수 없습니다.")
         checkAlreadyRejectedForAccept()
-        reservationStatus = ReservationStatus.RESERVED
+        changeReservationStatus(ReservationStatus.RESERVED)
+    }
+
+    private fun changeReservationStatus(status: ReservationStatus) {
+        reservationStatus = status
     }
 
     private fun checkPaidReservation(message: String) {
-        if (isNotPaid()) {
+        if (reservationStatus.isNotPaid()) {
             throw IllegalStateException(message)
         }
     }
 
     private fun checkAlreadyRejectedForAccept() {
-        if (isRejected()) {
+        if (reservationStatus.isRejected()) {
             throw IllegalStateException("이미 예약 거부된 건에 대해서 승인할 수 없습니다.")
         }
     }
@@ -47,30 +51,25 @@ class Reservation private constructor(
     fun reject() {
         checkPaidReservation("미결제 상태인 예약은 거부할 수 없습니다.")
         checkAlreadyAcceptedForReject()
-        reservationStatus = ReservationStatus.REJECTED
+        changeReservationStatus(ReservationStatus.REJECTED)
     }
 
     private fun checkAlreadyAcceptedForReject() {
-        if (isReserved()) {
+        if (reservationStatus.isReserved()) {
             throw IllegalStateException("이미 예약 확정된 건에 대해서 거부할 수 없습니다.")
         }
     }
 
     fun pay() {
         checkNotPaid()
-        reservationStatus = ReservationStatus.PAID
+        changeReservationStatus(ReservationStatus.PAID)
     }
 
     private fun checkNotPaid() {
-        if (!isNotPaid()) {
+        if (!reservationStatus.isNotPaid()) {
             throw IllegalStateException("미결제인 상태에서만 결제 상태를 변경할 수 있습니다.")
         }
     }
-
-    fun isReserved() = reservationStatus.isReserved()
-    fun isRejected() = reservationStatus.isRejected()
-    fun isNotPaid() = reservationStatus.isNotPaid()
-    fun isPaid() = reservationStatus.isPaid()
 
     companion object {
         fun of(
