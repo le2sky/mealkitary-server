@@ -5,6 +5,8 @@ import com.mealkitary.common.ShopTestData.Companion.defaultShop
 import com.mealkitary.domain.shop.ShopStatus
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.inspectors.forAll
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.throwable.shouldHaveMessage
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -40,26 +42,109 @@ internal class ReservationTest : AnnotationSpec() {
     }
 
     @Test
-    fun `예약하려는 가게가 제공하는 예약 시간을 포함한다면 성공적으로 예약이 된다`() {
-        val sut = defaultReservation().withReserveAt(
-            LocalDateTime.of(
-                LocalDate.now().plusDays(1),
-                LocalTime.of(18, 0)
-            )
-        ).build()
-        sut.reserve()
-    }
-
-    @Test
     fun `예약 하려는 가게가 정상 영업 중이 아니라면 예외를 발생한다`() {
         val invalidShop = defaultShop().withStatus(ShopStatus.INVALID).build()
-
         shouldThrow<IllegalArgumentException> {
             val sut = defaultReservation().withShop(invalidShop).build()
 
             sut.reserve()
         } shouldHaveMessage "유효하지 않은 가게입니다."
     }
+
+    @Test
+    fun `예약의 기본 상태는 미결제 상태이다`() {
+        val sut = defaultReservation()
+            .withReserveAt(givenValidTime())
+            .build()
+        sut.reserve()
+        sut.isNotPaid().shouldBeTrue()
+    }
+
+    @Test
+    fun `결제 상태인 예약은 점주가 승인할 수 있다`() {
+        val sut = givenPaidReservation()
+        sut.accept()
+        sut.isReserved().shouldBeTrue()
+    }
+
+    @Test
+    fun `미결제 상태인 예약을 승인 시도할 경우 예외를 발생한다`() {
+        val sut = givenNotPaidReservation()
+        shouldThrow<IllegalStateException> {
+            sut.accept()
+        } shouldHaveMessage "미결제 상태인 예약은 승인할 수 없습니다."
+    }
+
+    @Test
+    fun `결제 상태인 예약은 점주가 거부할 수 있다`() {
+        val sut = givenPaidReservation()
+        sut.reject()
+        sut.isRejected().shouldBeTrue()
+    }
+
+    @Test
+    fun `미결제 상태인 예약을 거부 시도할 경우 예외를 발생한다`() {
+        val sut = givenNotPaidReservation()
+        shouldThrow<IllegalStateException> {
+            sut.reject()
+        } shouldHaveMessage "미결제 상태인 예약은 거부할 수 없습니다."
+    }
+
+    @Test
+    fun `예약 확정인 상태에서 점주가 예약을 거부할 경우 예외를 발생한다 `() {
+        val sut = givenPaidReservation()
+        sut.accept()
+        shouldThrow<IllegalStateException> {
+            sut.reject()
+        } shouldHaveMessage "이미 예약 확정된 건에 대해서 거부할 수 없습니다."
+    }
+
+    @Test
+    fun `예약 거부 상태에서 점주가 예약을 승인할 경우 예외를 발생한다`() {
+        val sut = givenPaidReservation()
+        sut.reject()
+        shouldThrow<IllegalStateException> {
+            sut.accept()
+        } shouldHaveMessage "이미 예약 거부된 건에 대해서 승인할 수 없습니다."
+    }
+
+    @Test
+    fun `사용자가 결제를 하면 예약의 상태를 결제됨으로 변경한다`() {
+        val sut = givenNotPaidReservation()
+        sut.pay()
+        sut.isPaid().shouldBeTrue()
+    }
+
+    @Test
+    fun `미결제 상태가 아닌 다른 상태에서 결제를 시도하면 예외를 발생한다`() {
+        val base = defaultReservation()
+            .withReserveAt(givenValidTime())
+        val paid = base.withReservationStatus(ReservationStatus.PAID).build()
+        val reserved = base.withReservationStatus(ReservationStatus.RESERVED).build()
+        val rejected = base.withReservationStatus(ReservationStatus.REJECTED).build()
+        val sut = listOf(paid, reserved, rejected)
+
+        sut.forAll {
+            shouldThrow<IllegalStateException> {
+                it.pay()
+            } shouldHaveMessage "미결제인 상태에서만 결제 상태를 변경할 수 있습니다."
+        }
+    }
+
+    private fun givenPaidReservation() = defaultReservation()
+        .withReservationStatus(ReservationStatus.PAID)
+        .withReserveAt(givenValidTime())
+        .build()
+
+    private fun givenNotPaidReservation() = defaultReservation()
+        .withReservationStatus(ReservationStatus.NOTPAID)
+        .withReserveAt(givenValidTime())
+        .build()
+
+    private fun givenValidTime(): LocalDateTime = LocalDateTime.of(
+        LocalDate.now().plusDays(1),
+        LocalTime.of(18, 0)
+    )
 
     private fun shouldThrowWhenAcceptBeforeReservationTime(beforeTime: LocalDateTime) {
         shouldThrow<IllegalStateException> {
