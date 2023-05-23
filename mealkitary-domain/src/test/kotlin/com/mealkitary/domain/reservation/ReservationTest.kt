@@ -36,11 +36,12 @@ internal class ReservationTest : AnnotationSpec() {
         shouldThrow<IllegalArgumentException> {
             val sut = defaultReservation().withReserveAt(
                 LocalDateTime.of(
-                    LocalDate.now().plusDays(1), LocalTime.of(18, 30)
+                    LocalDate.now().plusDays(1),
+                    LocalTime.of(18, 30)
                 )
             ).build()
             sut.reserve()
-        } shouldHaveMessage "예약하시려는 가게는 해당 시간에 예약을 받지 않습니다."
+        } shouldHaveMessage "예약 대상 가게는 해당 시간에 예약을 받지 않습니다."
     }
 
     @Test
