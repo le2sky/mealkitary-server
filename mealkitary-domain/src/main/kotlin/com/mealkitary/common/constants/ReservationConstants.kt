@@ -1,4 +1,4 @@
-package com.mealkitary.common.constants.domain
+package com.mealkitary.common.constants
 
 internal object ReservationConstants {
 

@@ -1,6 +1,5 @@
 package com.mealkitary.shop.domain
 
-import com.mealkitary.common.constants.domain.ShopConstants.Validation.ErrorMessage.INVALID_SHOP
 import java.time.LocalDateTime
 import java.time.LocalTime
 
@@ -10,7 +9,7 @@ class Shop(
 ) {
     fun checkReservableShop() {
         if (status.isInvalidStatus()) {
-            throw IllegalArgumentException(INVALID_SHOP.message)
+            throw IllegalArgumentException("유효하지 않은 가게입니다.")
         }
     }
 
