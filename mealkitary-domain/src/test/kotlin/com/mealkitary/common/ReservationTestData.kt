@@ -3,7 +3,7 @@ package com.mealkitary.common
 import com.mealkitary.common.ShopTestData.Companion.defaultShop
 import com.mealkitary.domain.reservation.Reservation
 import com.mealkitary.domain.reservation.ReservationLineItem
-import com.mealkitary.domain.reservation.Shop
+import com.mealkitary.domain.shop.Shop
 import java.time.LocalDateTime
 
 class ReservationTestData {

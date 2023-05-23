@@ -1,4 +1,4 @@
-package com.mealkitary.domain.reservation
+package com.mealkitary.domain.shop
 
 enum class ShopStatus {
     INVALID,

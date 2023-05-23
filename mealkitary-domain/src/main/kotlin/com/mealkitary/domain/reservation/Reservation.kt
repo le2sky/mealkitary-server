@@ -1,5 +1,6 @@
 package com.mealkitary.domain.reservation
 
+import com.mealkitary.domain.shop.Shop
 import java.time.LocalDateTime
 
 class Reservation private constructor(

@@ -2,6 +2,7 @@ package com.mealkitary.domain.reservation
 
 import com.mealkitary.common.ReservationTestData.Companion.defaultReservation
 import com.mealkitary.common.ShopTestData.Companion.defaultShop
+import com.mealkitary.domain.shop.ShopStatus
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.throwable.shouldHaveMessage

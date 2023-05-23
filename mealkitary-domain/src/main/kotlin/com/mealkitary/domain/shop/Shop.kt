@@ -1,4 +1,4 @@
-package com.mealkitary.domain.reservation
+package com.mealkitary.domain.shop
 
 import java.time.LocalDateTime
 import java.time.LocalTime

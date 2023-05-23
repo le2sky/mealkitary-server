@@ -1,7 +1,7 @@
 package com.mealkitary.common
 
-import com.mealkitary.domain.reservation.Shop
-import com.mealkitary.domain.reservation.ShopStatus
+import com.mealkitary.domain.shop.Shop
+import com.mealkitary.domain.shop.ShopStatus
 import java.time.LocalTime
 
 class ShopTestData {
