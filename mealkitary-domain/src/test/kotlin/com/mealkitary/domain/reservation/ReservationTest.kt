@@ -55,7 +55,7 @@ internal class ReservationTest : AnnotationSpec() {
     @Test
     fun `결제 상태인 예약은 점주가 승인할 수 있다`() {
         val sut = spyk(
-            objToCopy = givenPaidReservation(),
+            objToCopy = paidReservation(),
             recordPrivateCalls = true
         )
         sut.accept()
@@ -64,7 +64,7 @@ internal class ReservationTest : AnnotationSpec() {
 
     @Test
     fun `미결제 상태인 예약을 승인 시도할 경우 예외를 발생한다`() {
-        val sut = givenNotPaidReservation()
+        val sut = notPaidReservation()
         shouldThrow<IllegalStateException> {
             sut.accept()
         } shouldHaveMessage "미결제 상태인 예약은 승인할 수 없습니다."
@@ -73,7 +73,7 @@ internal class ReservationTest : AnnotationSpec() {
     @Test
     fun `결제 상태인 예약은 점주가 거부할 수 있다`() {
         val sut = spyk(
-            objToCopy = givenPaidReservation(),
+            objToCopy = paidReservation(),
             recordPrivateCalls = true
         )
         sut.reject()
@@ -82,7 +82,7 @@ internal class ReservationTest : AnnotationSpec() {
 
     @Test
     fun `미결제 상태인 예약을 거부 시도할 경우 예외를 발생한다`() {
-        val sut = givenNotPaidReservation()
+        val sut = notPaidReservation()
         shouldThrow<IllegalStateException> {
             sut.reject()
         } shouldHaveMessage "미결제 상태인 예약은 거부할 수 없습니다."
@@ -90,7 +90,7 @@ internal class ReservationTest : AnnotationSpec() {
 
     @Test
     fun `예약 확정인 상태에서 점주가 예약을 거부할 경우 예외를 발생한다 `() {
-        val sut = givenPaidReservation()
+        val sut = paidReservation()
         sut.accept()
         shouldThrow<IllegalStateException> {
             sut.reject()
@@ -99,7 +99,7 @@ internal class ReservationTest : AnnotationSpec() {
 
     @Test
     fun `예약 거부 상태에서 점주가 예약을 승인할 경우 예외를 발생한다`() {
-        val sut = givenPaidReservation()
+        val sut = paidReservation()
         sut.reject()
         shouldThrow<IllegalStateException> {
             sut.accept()
@@ -109,7 +109,7 @@ internal class ReservationTest : AnnotationSpec() {
     @Test
     fun `사용자가 결제를 하면 예약의 상태를 결제됨으로 변경한다`() {
         val sut = spyk(
-            objToCopy = givenNotPaidReservation(),
+            objToCopy = notPaidReservation(),
             recordPrivateCalls = true
         )
         sut.pay()
@@ -118,7 +118,7 @@ internal class ReservationTest : AnnotationSpec() {
 
     @Test
     fun `미결제 상태가 아닌 다른 상태에서 결제를 시도하면 예외를 발생한다`() {
-        val base = defaultReservation().withReserveAt(givenValidTime())
+        val base = defaultReservation().withReserveAt(validTime())
         val paid = base.withReservationStatus(ReservationStatus.PAID).build()
         val reserved = base.withReservationStatus(ReservationStatus.RESERVED).build()
         val rejected = base.withReservationStatus(ReservationStatus.REJECTED).build()
@@ -131,19 +131,19 @@ internal class ReservationTest : AnnotationSpec() {
         }
     }
 
-    private fun givenPaidReservation() =
+    private fun paidReservation() =
         defaultReservation()
             .withReservationStatus(ReservationStatus.PAID)
-            .withReserveAt(givenValidTime())
+            .withReserveAt(validTime())
             .build()
 
-    private fun givenNotPaidReservation() =
+    private fun notPaidReservation() =
         defaultReservation()
             .withReservationStatus(ReservationStatus.NOTPAID)
-            .withReserveAt(givenValidTime())
+            .withReserveAt(validTime())
             .build()
 
-    private fun givenValidTime(): LocalDateTime = LocalDateTime.of(
+    private fun validTime(): LocalDateTime = LocalDateTime.of(
         LocalDate.now().plusDays(1),
         LocalTime.of(18, 0)
     )
