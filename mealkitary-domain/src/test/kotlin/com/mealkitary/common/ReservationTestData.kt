@@ -1,10 +1,10 @@
 package com.mealkitary.common
 
 import com.mealkitary.common.ShopTestData.Companion.defaultShop
-import com.mealkitary.domain.reservation.Reservation
-import com.mealkitary.domain.reservation.ReservationLineItem
-import com.mealkitary.domain.reservation.ReservationStatus
-import com.mealkitary.domain.shop.Shop
+import com.mealkitary.reservation.domain.Reservation
+import com.mealkitary.reservation.domain.ReservationLineItem
+import com.mealkitary.reservation.domain.ReservationStatus
+import com.mealkitary.shop.domain.Shop
 import java.time.LocalDateTime
 
 class ReservationTestData {
