@@ -9,7 +9,7 @@ on:
     types: [opened, reopened, synchronize]
 
 jobs:
-  test:
+  gpt-code-review:
     if: ${{ contains(github.event.*.labels.*.name, '리뷰') }}
     runs-on: ubuntu-latest
     steps:
