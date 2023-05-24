@@ -31,14 +31,6 @@ allprojects {
                 jvmTarget = jvmVersion
             }
         }
-
-        withType<BootJar> {
-            enabled = false
-        }
-
-        withType<Jar> {
-            enabled = true
-        }
     }
 
     repositories {
@@ -54,6 +46,12 @@ subprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
     apply(plugin = "jacoco")
+
+    val jar: Jar by tasks
+    val bootJar: BootJar by tasks
+
+    jar.enabled = true
+    bootJar.enabled = false
 
     jacoco {
         val jacocoVersion: String by properties
