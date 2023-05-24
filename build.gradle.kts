@@ -61,8 +61,8 @@ subprojects {
     tasks.jacocoTestReport {
         dependsOn(tasks.test)
         reports {
-            csv.required.set(true)
-            xml.required.set(false)
+            xml.required.set(true)
+            csv.required.set(false)
         }
         finalizedBy(tasks.jacocoTestCoverageVerification)
     }
