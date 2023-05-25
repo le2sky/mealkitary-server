@@ -30,7 +30,7 @@ jobs:
             -   name: Gradle 테스트
                 uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
                 with:
-                    arguments: test
+                    arguments: build test
 
             -   name: 테스트 결과 출력
                 uses: EnricoMi/publish-unit-test-result-action@v2
