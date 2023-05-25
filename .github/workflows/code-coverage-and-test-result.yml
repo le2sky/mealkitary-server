@@ -1,0 +1,49 @@
+name: Jacoco Code Coverage & Test Result workflow
+
+permissions:
+    checks: write
+    pull-requests: write
+
+on:
+    push:
+        branches:
+            - 'develop'
+            - 'main'
+    pull_request:
+        branches:
+            - 'develop'
+            - 'main'
+
+jobs:
+    code-coverage:
+        if: ${{ contains(github.event.*.labels.*.name, '테스트') }}
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v3
+            -   name: JDK 11 구성
+                uses: actions/setup-java@v3
+                with:
+                    java-version: '11'
+                    distribution: 'temurin'
+            -   name: Gradle 래퍼 유효성 검사
+                uses: gradle/wrapper-validation-action@ccb4328a959376b642e027874838f60f8e596de3
+            -   name: Gradle 테스트
+                uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
+                with:
+                    arguments: test
+
+            -   name: 테스트 결과 출력
+                uses: EnricoMi/publish-unit-test-result-action@v2
+                if: ${{ always() }}
+                with:
+                    files: |
+                        ./mealkitary-api/build/test-results/**/*.xml
+                        ./mealkitary-domain/build/test-results/**/*.xml
+
+            -   name: Jacoco Coverage 리포트 전송
+                uses: codecov/codecov-action@v3
+                with:
+                    token: ${{ secrets.CODECOV_TOKEN }}
+                    files: ./mealkitary-api/build/reports/jacoco/test/jacocoTestReport.xml,./mealkitary-domain/build/reports/jacoco/test/jacocoTestReport.xml
+                    name: mealkitary-codecov
+                    verbose: true
