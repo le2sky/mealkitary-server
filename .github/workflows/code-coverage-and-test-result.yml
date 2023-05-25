@@ -25,12 +25,12 @@ jobs:
                 with:
                     java-version: '11'
                     distribution: 'temurin'
-            -   name: Gradle 래퍼 유효성 검사
-                uses: gradle/wrapper-validation-action@ccb4328a959376b642e027874838f60f8e596de3
+                    cache: 'gradle'
+
+            -   name: Gradlew wrapper 실행 권한 부여
+                run: chmod +x gradlew
             -   name: Gradle 테스트
-                uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
-                with:
-                    arguments: build test
+                run: ./gradlew test
 
             -   name: 테스트 결과 출력
                 uses: EnricoMi/publish-unit-test-result-action@v2
