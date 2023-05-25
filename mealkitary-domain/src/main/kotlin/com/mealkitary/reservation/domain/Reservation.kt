@@ -25,6 +25,7 @@ class Reservation private constructor(
 
     private fun checkEachItem(reservationLineItem: ReservationLineItem) {
         // TODO: 하나의 상품이라도 유효하지 않다면, 예외를 발생한다
+        reservationLineItem.toString()
     }
 
     private fun checkReservableTime() {
