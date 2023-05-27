@@ -1,11 +1,14 @@
 package com.mealkitary.reservation.domain
 
-import com.mealkitary.common.ReservationTestData.Companion.defaultReservation
-import com.mealkitary.common.ShopTestData.Companion.defaultShop
-import com.mealkitary.shop.domain.ShopStatus
+import com.mealkitary.common.data.ReservationTestData.Companion.defaultReservation
+import com.mealkitary.common.data.ShopTestData.Companion.defaultShop
+import com.mealkitary.common.model.Money
+import com.mealkitary.shop.domain.product.ProductId
+import com.mealkitary.shop.domain.shop.ShopStatus
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.inspectors.forAll
+import io.kotest.matchers.shouldBe
 import io.kotest.matchers.throwable.shouldHaveMessage
 import io.mockk.spyk
 import io.mockk.verify
@@ -119,35 +122,111 @@ internal class ReservationTest : AnnotationSpec() {
 
     @Test
     fun `미결제 상태가 아닌 다른 상태에서 결제를 시도하면 예외를 발생한다`() {
-        val base = defaultReservation().withReserveAt(validTime())
+        val base = defaultReservation()
+        val none = base.withReservationStatus(ReservationStatus.NONE).build()
         val paid = base.withReservationStatus(ReservationStatus.PAID).build()
         val reserved = base.withReservationStatus(ReservationStatus.RESERVED).build()
         val rejected = base.withReservationStatus(ReservationStatus.REJECTED).build()
-        val sut = listOf(paid, reserved, rejected)
+        val sut = listOf(none, paid, reserved, rejected)
 
         sut.forAll {
             shouldThrow<IllegalStateException> {
                 it.pay()
-            } shouldHaveMessage "미결제인 상태에서만 결제 상태를 변경할 수 있습니다."
+            } shouldHaveMessage "미결제인 상태에서만 이용 가능한 기능입니다."
         }
+    }
+
+    @Test
+    fun `유효하지 않은 상품이 하나라도 존재한다면 예외를 발생한다`() {
+        val sut = defaultReservation()
+            .withLineItems(
+                ReservationLineItem.of(ProductId(1L), "부대찌개", Money.of(1000), 2),
+                ReservationLineItem.of(ProductId(2L), "닯보끔탕", Money.of(2000), 2)
+            ).build()
+        shouldThrow<IllegalArgumentException> {
+            sut.reserve()
+        } shouldHaveMessage "존재하지 않는 상품입니다."
+    }
+
+    @Test
+    fun `모든 상품과 가게, 시간이 유효하다면 예약이 가능하다`() {
+        val sut = defaultReservation().build()
+        sut.reserve()
+    }
+
+    @Test
+    fun `정상적으로 생성되지 않은 예약은 예약 거부할 수 없다`() {
+        val sut = defaultReservation().build()
+        shouldThrow<IllegalStateException> {
+            sut.reject()
+        } shouldHaveMessage "정상적으로 생성된 예약에 대해서만 수행 가능합니다."
+    }
+
+    @Test
+    fun `정상적으로 생성되지 않은 예약은 수락할 수 없다`() {
+        val sut = defaultReservation().build()
+        shouldThrow<IllegalStateException> {
+            sut.accept()
+        } shouldHaveMessage "정상적으로 생성된 예약에 대해서만 수행 가능합니다."
+    }
+
+    @Test
+    fun `이미 처리하고 있는 예약은 다시 예약 요청할 수 없다`() {
+        val sut = paidReservation()
+        shouldThrow<IllegalStateException> {
+            sut.reserve()
+        } shouldHaveMessage "이미 처리하고 있는 예약입니다."
+    }
+
+    @Test
+    fun `예약 생성 요청을 해야 예약의 상태가 미결제로 변경된다`() {
+        val sut = spyk(
+            objToCopy = defaultReservation().build(),
+            recordPrivateCalls = true
+        )
+        sut.reserve()
+        verify { sut[CHANGE_RESERVATION_STATUS_METHOD_NAME](ReservationStatus.NOTPAID) }
+    }
+
+    @Test
+    fun `미결제 상태인 상태가 아닌 경우 가격 계산을 할 수 없다`() {
+        val base = defaultReservation()
+        val none = base.withReservationStatus(ReservationStatus.NONE).build()
+        val paid = base.withReservationStatus(ReservationStatus.PAID).build()
+        val reserved = base.withReservationStatus(ReservationStatus.RESERVED).build()
+        val rejected = base.withReservationStatus(ReservationStatus.REJECTED).build()
+        val sut = listOf(none, paid, reserved, rejected)
+
+        sut.forAll {
+            shouldThrow<IllegalStateException> {
+                it.calculateTotalPrice()
+            } shouldHaveMessage "미결제인 상태에서만 이용 가능한 기능입니다."
+        }
+    }
+
+    @Test
+    fun `총 상품의 가격을 계산한다`() {
+        val totalPrice = defaultReservation()
+            .withReservationStatus(ReservationStatus.NOTPAID)
+            .withLineItems(
+                ReservationLineItem.of(ProductId(1L), "a", Money.of(1000), 10),
+                ReservationLineItem.of(ProductId(2L), "b", Money.of(9000), 2),
+                ReservationLineItem.of(ProductId(3L), "c", Money.of(3000), 3)
+            ).build()
+            .calculateTotalPrice()
+
+        totalPrice shouldBe Money.of(37000)
     }
 
     private fun paidReservation() =
         defaultReservation()
             .withReservationStatus(ReservationStatus.PAID)
-            .withReserveAt(validTime())
             .build()
 
     private fun notPaidReservation() =
         defaultReservation()
             .withReservationStatus(ReservationStatus.NOTPAID)
-            .withReserveAt(validTime())
             .build()
-
-    private fun validTime(): LocalDateTime = LocalDateTime.of(
-        LocalDate.now().plusDays(1),
-        LocalTime.of(18, 0)
-    )
 
     private fun shouldThrowWhenAcceptBeforeReservationTime(beforeTime: LocalDateTime) {
         shouldThrow<IllegalStateException> {
