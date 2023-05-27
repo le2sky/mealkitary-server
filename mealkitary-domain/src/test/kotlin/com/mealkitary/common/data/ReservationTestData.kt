@@ -16,13 +16,13 @@ class ReservationTestData {
     class ReservationBuilder(
         private var reservationStatus: ReservationStatus = ReservationStatus.NOTPAID,
         private var lineItems: List<ReservationLineItem> = listOf(
-            ReservationLineItem(
+            ReservationLineItem.of(
                 ProductId(1L),
                 "부대찌개",
                 Money.of(1000),
                 1
             ),
-            ReservationLineItem(
+            ReservationLineItem.of(
                 ProductId(2L),
                 "닭볶음탕",
                 Money.of(1000),

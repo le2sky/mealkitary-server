@@ -138,8 +138,8 @@ internal class ReservationTest : AnnotationSpec() {
     fun `유효하지 않은 상품이 하나라도 존재한다면 예외를 발생한다`() {
         val sut = defaultReservation()
             .withLineItems(
-                ReservationLineItem(ProductId(1L), "부대찌개", Money.of(1000), 2),
-                ReservationLineItem(ProductId(2L), "닯보끔탕", Money.of(2000), 2)
+                ReservationLineItem.of(ProductId(1L), "부대찌개", Money.of(1000), 2),
+                ReservationLineItem.of(ProductId(2L), "닯보끔탕", Money.of(2000), 2)
             ).build()
         shouldThrow<IllegalArgumentException> {
             sut.reserve()
