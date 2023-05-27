@@ -8,6 +8,7 @@ import com.mealkitary.shop.domain.shop.ShopStatus
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.inspectors.forAll
+import io.kotest.matchers.shouldBe
 import io.kotest.matchers.throwable.shouldHaveMessage
 import io.mockk.spyk
 import io.mockk.verify
@@ -201,6 +202,20 @@ internal class ReservationTest : AnnotationSpec() {
                 it.calculateTotalPrice()
             } shouldHaveMessage "미결제인 상태에서만 이용 가능한 기능입니다."
         }
+    }
+
+    @Test
+    fun `총 상품의 가격을 계산한다`() {
+        val totalPrice = defaultReservation()
+            .withReservationStatus(ReservationStatus.NOTPAID)
+            .withLineItems(
+                ReservationLineItem.of(ProductId(1L), "a", Money.of(1000), 10),
+                ReservationLineItem.of(ProductId(2L), "b", Money.of(9000), 2),
+                ReservationLineItem.of(ProductId(3L), "c", Money.of(3000), 3)
+            ).build()
+            .calculateTotalPrice()
+
+        totalPrice shouldBe Money.of(37000)
     }
 
     private fun paidReservation() =

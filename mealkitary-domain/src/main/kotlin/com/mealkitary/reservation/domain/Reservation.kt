@@ -10,6 +10,7 @@ import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMess
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.INVALID_RESERVE_TIME
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.NOTPAID_RESERVATION_CANNOT_ACCEPT
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.NOTPAID_RESERVATION_CANNOT_REJECT
+import com.mealkitary.common.model.Money
 import com.mealkitary.shop.domain.shop.Shop
 import java.time.LocalDateTime
 
@@ -19,8 +20,10 @@ class Reservation private constructor(
     private val reserveAt: LocalDateTime,
     private var reservationStatus: ReservationStatus = ReservationStatus.NONE
 ) {
-    fun calculateTotalPrice() {
+    fun calculateTotalPrice(): Money {
         checkNotPaid()
+        return lineItems.map { it.calculateEachItemTotalPrice() }
+            .reduce { acc, v -> acc + v }
     }
 
     fun reserve() {
