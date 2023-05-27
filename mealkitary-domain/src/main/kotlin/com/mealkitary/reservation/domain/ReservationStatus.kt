@@ -17,8 +17,4 @@ enum class ReservationStatus {
     fun isRejected(): Boolean {
         return this.equals(REJECTED)
     }
-
-    fun isPaid(): Boolean {
-        return this.equals(PAID)
-    }
 }

@@ -2,7 +2,8 @@ package com.mealkitary.reservation.domain
 
 import com.mealkitary.common.ReservationTestData.Companion.defaultReservation
 import com.mealkitary.common.ShopTestData.Companion.defaultShop
-import com.mealkitary.shop.domain.ShopStatus
+import com.mealkitary.shop.domain.product.ProductId
+import com.mealkitary.shop.domain.shop.ShopStatus
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.inspectors.forAll
@@ -119,7 +120,7 @@ internal class ReservationTest : AnnotationSpec() {
 
     @Test
     fun `미결제 상태가 아닌 다른 상태에서 결제를 시도하면 예외를 발생한다`() {
-        val base = defaultReservation().withReserveAt(validTime())
+        val base = defaultReservation()
         val paid = base.withReservationStatus(ReservationStatus.PAID).build()
         val reserved = base.withReservationStatus(ReservationStatus.RESERVED).build()
         val rejected = base.withReservationStatus(ReservationStatus.REJECTED).build()
@@ -132,22 +133,33 @@ internal class ReservationTest : AnnotationSpec() {
         }
     }
 
+    @Test
+    fun `유효하지 않은 상품이 하나라도 존재한다면 예외를 발생한다`() {
+        val sut = defaultReservation()
+            .withLineItems(
+                ReservationLineItem(ProductId(1L), "부대찌개", 1000, 2),
+                ReservationLineItem(ProductId(2L), "닯보끔탕", 2000, 2)
+            ).build()
+        shouldThrow<IllegalArgumentException> {
+            sut.reserve()
+        } shouldHaveMessage "존재하지 않는 상품입니다."
+    }
+
+    @Test
+    fun `모든 상품과 가게, 시간이 유효하다면 예약이 가능하다`() {
+        val sut = defaultReservation().build()
+        sut.reserve()
+    }
+
     private fun paidReservation() =
         defaultReservation()
             .withReservationStatus(ReservationStatus.PAID)
-            .withReserveAt(validTime())
             .build()
 
     private fun notPaidReservation() =
         defaultReservation()
             .withReservationStatus(ReservationStatus.NOTPAID)
-            .withReserveAt(validTime())
             .build()
-
-    private fun validTime(): LocalDateTime = LocalDateTime.of(
-        LocalDate.now().plusDays(1),
-        LocalTime.of(18, 0)
-    )
 
     private fun shouldThrowWhenAcceptBeforeReservationTime(beforeTime: LocalDateTime) {
         shouldThrow<IllegalStateException> {

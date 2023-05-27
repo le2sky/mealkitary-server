@@ -8,7 +8,7 @@ import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMess
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.INVALID_RESERVE_TIME
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.NOTPAID_RESERVATION_CANNOT_ACCEPT
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.NOTPAID_RESERVATION_CANNOT_REJECT
-import com.mealkitary.shop.domain.Shop
+import com.mealkitary.shop.domain.shop.Shop
 import java.time.LocalDateTime
 
 class Reservation private constructor(
@@ -18,13 +18,14 @@ class Reservation private constructor(
     private var reservationStatus: ReservationStatus = ReservationStatus.NOTPAID
 ) {
     fun reserve() {
-        lineItems.forEach(this::checkEachItem)
         shop.checkReservableShop()
         checkReservableTime()
+        checkEachItem()
     }
 
-    private fun checkEachItem(reservationLineItem: ReservationLineItem) {
-        // TODO: 하나의 상품이라도 유효하지 않다면, 예외를 발생한다
+    private fun checkEachItem() {
+        lineItems.map { it.mapToProduct() }
+            .forEach(shop::checkItem)
     }
 
     private fun checkReservableTime() {
