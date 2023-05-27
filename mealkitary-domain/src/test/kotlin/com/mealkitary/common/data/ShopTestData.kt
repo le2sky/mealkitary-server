@@ -1,7 +1,9 @@
-package com.mealkitary.common
+package com.mealkitary.common.data
 
-import com.mealkitary.shop.domain.Shop
-import com.mealkitary.shop.domain.ShopStatus
+import com.mealkitary.common.data.ProductTestData.Companion.defaultProduct
+import com.mealkitary.shop.domain.product.Product
+import com.mealkitary.shop.domain.shop.Shop
+import com.mealkitary.shop.domain.shop.ShopStatus
 import java.time.LocalTime
 
 class ShopTestData {
@@ -12,6 +14,10 @@ class ShopTestData {
             LocalTime.of(9, 0),
             LocalTime.of(12, 0),
             LocalTime.of(18, 0)
+        ),
+        private var products: List<Product> = listOf(
+            defaultProduct().withId(1L).withName("부대찌개").build(),
+            defaultProduct().withId(2L).withName("닭볶음탕").build()
         )
     ) {
 
@@ -25,10 +31,16 @@ class ShopTestData {
             return this
         }
 
+        fun withProducts(vararg products: Product): ShopBuilder {
+            this.products = products.toList()
+            return this
+        }
+
         fun build(): Shop {
             return Shop(
                 this.shopStatus,
-                this.reservableTimes
+                this.reservableTimes,
+                this.products
             )
         }
     }

@@ -1,30 +1,48 @@
 package com.mealkitary.reservation.domain
 
+import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.ALREADY_PROCESSED_RESERVATION
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.ALREADY_REJECTED_RESERVATION_CANNOT_ACCEPT
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.ALREADY_RESERVED_RESERVATION_CANNOT_REJECT
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.AT_LEAST_ONE_ITEM_REQUIRED
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.FUTURE_TIME_REQUIRED
+import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.INVALID_RESERVATION_STATUS_FOR_OPERATION
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.INVALID_RESERVATION_STATUS_FOR_PAYMENT
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.INVALID_RESERVE_TIME
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.NOTPAID_RESERVATION_CANNOT_ACCEPT
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.NOTPAID_RESERVATION_CANNOT_REJECT
-import com.mealkitary.shop.domain.Shop
+import com.mealkitary.common.model.Money
+import com.mealkitary.shop.domain.shop.Shop
 import java.time.LocalDateTime
 
 class Reservation private constructor(
     private val lineItems: List<ReservationLineItem>,
     private val shop: Shop,
     private val reserveAt: LocalDateTime,
-    private var reservationStatus: ReservationStatus = ReservationStatus.NOTPAID
+    private var reservationStatus: ReservationStatus = ReservationStatus.NONE
 ) {
-    fun reserve() {
-        lineItems.forEach(this::checkEachItem)
-        shop.checkReservableShop()
-        checkReservableTime()
+    fun calculateTotalPrice(): Money {
+        checkNotPaid()
+        return lineItems.map { it.calculateEachItemTotalPrice() }
+            .reduce { acc, v -> acc + v }
     }
 
-    private fun checkEachItem(reservationLineItem: ReservationLineItem) {
-        // TODO: 하나의 상품이라도 유효하지 않다면, 예외를 발생한다
+    fun reserve() {
+        checkNotNone()
+        shop.checkReservableShop()
+        checkReservableTime()
+        checkEachItem()
+        changeReservationStatus(ReservationStatus.NOTPAID)
+    }
+
+    private fun checkNotNone() {
+        if (!reservationStatus.isNone()) {
+            throw IllegalStateException(ALREADY_PROCESSED_RESERVATION.message)
+        }
+    }
+
+    private fun checkEachItem() {
+        lineItems.map { it.mapToProduct() }
+            .forEach(shop::checkItem)
     }
 
     private fun checkReservableTime() {
@@ -34,6 +52,7 @@ class Reservation private constructor(
     }
 
     fun accept() {
+        checkNone()
         checkPaidReservation(NOTPAID_RESERVATION_CANNOT_ACCEPT.message)
         checkAlreadyRejectedForAccept()
         changeReservationStatus(ReservationStatus.RESERVED)
@@ -56,9 +75,16 @@ class Reservation private constructor(
     }
 
     fun reject() {
+        checkNone()
         checkPaidReservation(NOTPAID_RESERVATION_CANNOT_REJECT.message)
         checkAlreadyAcceptedForReject()
         changeReservationStatus(ReservationStatus.REJECTED)
+    }
+
+    private fun checkNone() {
+        if (reservationStatus.isNone()) {
+            throw IllegalStateException(INVALID_RESERVATION_STATUS_FOR_OPERATION.message)
+        }
     }
 
     private fun checkAlreadyAcceptedForReject() {

@@ -84,7 +84,7 @@ subprojects {
 
                 excludes = listOf(
                     "com.mealkitary.*Application*",
-                    "com.mealkitary.common.**"
+                    "com.mealkitary.common.constants.**"
                 )
             }
         }
