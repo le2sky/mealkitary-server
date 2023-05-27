@@ -1,6 +1,7 @@
 package com.mealkitary.common.data
 
 import com.mealkitary.common.data.ShopTestData.Companion.defaultShop
+import com.mealkitary.common.model.Money
 import com.mealkitary.reservation.domain.Reservation
 import com.mealkitary.reservation.domain.ReservationLineItem
 import com.mealkitary.reservation.domain.ReservationStatus
@@ -18,13 +19,13 @@ class ReservationTestData {
             ReservationLineItem(
                 ProductId(1L),
                 "부대찌개",
-                1000,
+                Money.of(1000),
                 1
             ),
             ReservationLineItem(
                 ProductId(2L),
                 "닭볶음탕",
-                1000,
+                Money.of(1000),
                 1
             )
         ),

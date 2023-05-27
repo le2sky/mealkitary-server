@@ -1,9 +1,11 @@
 package com.mealkitary.shop.domain.product
 
+import com.mealkitary.common.model.Money
+
 class Product(
     private val id: ProductId,
     private val name: String,
-    private val price: Int
+    private val price: Money
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -19,7 +21,7 @@ class Product(
     override fun hashCode(): Int {
         var result = id.hashCode()
         result = 31 * result + name.hashCode()
-        result = 31 * result + price
+        result = 31 * result + price.hashCode()
         return result
     }
 }

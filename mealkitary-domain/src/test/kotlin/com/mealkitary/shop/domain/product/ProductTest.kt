@@ -1,6 +1,7 @@
 package com.mealkitary.shop.domain.product
 
 import com.mealkitary.common.data.ProductTestData.Companion.defaultProduct
+import com.mealkitary.common.model.Money
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
@@ -37,8 +38,8 @@ internal class ProductTest : AnnotationSpec() {
 
     @Test
     fun `가격이 다르다면 동등하지 않다`() {
-        val product = defaultProduct().withPrice(1000).build()
-        val targetProduct = defaultProduct().withPrice(2000).build()
+        val product = defaultProduct().withPrice(Money.of(1000)).build()
+        val targetProduct = defaultProduct().withPrice(Money.of(2000)).build()
 
         (product == targetProduct).shouldBeFalse()
         (product.equals(targetProduct)).shouldBeFalse()
