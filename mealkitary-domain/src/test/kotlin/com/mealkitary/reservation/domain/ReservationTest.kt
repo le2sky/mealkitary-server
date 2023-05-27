@@ -1,7 +1,7 @@
 package com.mealkitary.reservation.domain
 
-import com.mealkitary.common.ReservationTestData.Companion.defaultReservation
-import com.mealkitary.common.ShopTestData.Companion.defaultShop
+import com.mealkitary.common.data.ReservationTestData.Companion.defaultReservation
+import com.mealkitary.common.data.ShopTestData.Companion.defaultShop
 import com.mealkitary.shop.domain.product.ProductId
 import com.mealkitary.shop.domain.shop.ShopStatus
 import io.kotest.assertions.throwables.shouldThrow

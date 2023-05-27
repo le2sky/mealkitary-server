@@ -1,4 +1,4 @@
-package com.mealkitary.common
+package com.mealkitary.common.data
 
 import com.mealkitary.shop.domain.product.Product
 import com.mealkitary.shop.domain.product.ProductId

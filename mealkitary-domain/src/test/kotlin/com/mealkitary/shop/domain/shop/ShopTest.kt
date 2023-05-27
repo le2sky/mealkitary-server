@@ -1,7 +1,7 @@
 package com.mealkitary.shop.domain.shop
 
-import com.mealkitary.common.ProductTestData.Companion.defaultProduct
-import com.mealkitary.common.ShopTestData.Companion.defaultShop
+import com.mealkitary.common.data.ProductTestData.Companion.defaultProduct
+import com.mealkitary.common.data.ShopTestData.Companion.defaultShop
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.throwable.shouldHaveMessage

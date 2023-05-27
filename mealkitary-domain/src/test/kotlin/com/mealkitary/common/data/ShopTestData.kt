@@ -1,6 +1,6 @@
-package com.mealkitary.common
+package com.mealkitary.common.data
 
-import com.mealkitary.common.ProductTestData.Companion.defaultProduct
+import com.mealkitary.common.data.ProductTestData.Companion.defaultProduct
 import com.mealkitary.shop.domain.product.Product
 import com.mealkitary.shop.domain.shop.Shop
 import com.mealkitary.shop.domain.shop.ShopStatus

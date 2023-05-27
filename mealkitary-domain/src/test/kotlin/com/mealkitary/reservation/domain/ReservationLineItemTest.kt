@@ -1,6 +1,6 @@
 package com.mealkitary.reservation.domain
 
-import com.mealkitary.common.ProductTestData.Companion.defaultProduct
+import com.mealkitary.common.data.ProductTestData.Companion.defaultProduct
 import com.mealkitary.shop.domain.product.ProductId
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.booleans.shouldBeTrue

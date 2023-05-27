@@ -1,6 +1,6 @@
-package com.mealkitary.common
+package com.mealkitary.common.data
 
-import com.mealkitary.common.ShopTestData.Companion.defaultShop
+import com.mealkitary.common.data.ShopTestData.Companion.defaultShop
 import com.mealkitary.reservation.domain.Reservation
 import com.mealkitary.reservation.domain.ReservationLineItem
 import com.mealkitary.reservation.domain.ReservationStatus
