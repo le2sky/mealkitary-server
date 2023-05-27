@@ -1,5 +1,6 @@
 package com.mealkitary.reservation.domain
 
+import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.AT_LEAST_ONE_ITEM_COUNT_REQUIRED
 import com.mealkitary.common.model.Money
 import com.mealkitary.shop.domain.product.Product
 import com.mealkitary.shop.domain.product.ProductId
@@ -28,7 +29,7 @@ class ReservationLineItem private constructor(
 
         private fun checkCount(count: Int) {
             if (count < 1) {
-                throw IllegalArgumentException("개별 항목의 수량은 적어도 한 개 이상이어야 합니다.")
+                throw IllegalArgumentException(AT_LEAST_ONE_ITEM_COUNT_REQUIRED.message)
             }
         }
     }
