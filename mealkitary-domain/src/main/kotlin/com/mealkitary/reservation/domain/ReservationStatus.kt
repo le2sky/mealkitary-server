@@ -1,10 +1,11 @@
 package com.mealkitary.reservation.domain
 
 enum class ReservationStatus {
+    NONE,
     NOTPAID,
     PAID,
     RESERVED,
-    REJECTED, ;
+    REJECTED;
 
     fun isNotPaid(): Boolean {
         return this.equals(NOTPAID)
@@ -16,5 +17,9 @@ enum class ReservationStatus {
 
     fun isRejected(): Boolean {
         return this.equals(REJECTED)
+    }
+
+    fun isNone(): Boolean {
+        return this.equals(NONE)
     }
 }

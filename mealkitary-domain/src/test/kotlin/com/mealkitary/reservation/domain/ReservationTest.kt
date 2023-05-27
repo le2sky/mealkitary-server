@@ -122,15 +122,16 @@ internal class ReservationTest : AnnotationSpec() {
     @Test
     fun `미결제 상태가 아닌 다른 상태에서 결제를 시도하면 예외를 발생한다`() {
         val base = defaultReservation()
+        val none = base.withReservationStatus(ReservationStatus.NONE).build()
         val paid = base.withReservationStatus(ReservationStatus.PAID).build()
         val reserved = base.withReservationStatus(ReservationStatus.RESERVED).build()
         val rejected = base.withReservationStatus(ReservationStatus.REJECTED).build()
-        val sut = listOf(paid, reserved, rejected)
+        val sut = listOf(none, paid, reserved, rejected)
 
         sut.forAll {
             shouldThrow<IllegalStateException> {
                 it.pay()
-            } shouldHaveMessage "미결제인 상태에서만 결제 상태를 변경할 수 있습니다."
+            } shouldHaveMessage "미결제인 상태에서만 이용 가능한 기능입니다."
         }
     }
 
@@ -150,6 +151,56 @@ internal class ReservationTest : AnnotationSpec() {
     fun `모든 상품과 가게, 시간이 유효하다면 예약이 가능하다`() {
         val sut = defaultReservation().build()
         sut.reserve()
+    }
+
+    @Test
+    fun `정상적으로 생성되지 않은 예약은 예약 거부할 수 없다`() {
+        val sut = defaultReservation().build()
+        shouldThrow<IllegalStateException> {
+            sut.reject()
+        } shouldHaveMessage "정상적으로 생성된 예약에 대해서만 수행 가능합니다."
+    }
+
+    @Test
+    fun `정상적으로 생성되지 않은 예약은 수락할 수 없다`() {
+        val sut = defaultReservation().build()
+        shouldThrow<IllegalStateException> {
+            sut.accept()
+        } shouldHaveMessage "정상적으로 생성된 예약에 대해서만 수행 가능합니다."
+    }
+
+    @Test
+    fun `이미 처리하고 있는 예약은 다시 예약 요청할 수 없다`() {
+        val sut = paidReservation()
+        shouldThrow<IllegalStateException> {
+            sut.reserve()
+        } shouldHaveMessage "이미 처리하고 있는 예약입니다."
+    }
+
+    @Test
+    fun `예약 생성 요청을 해야 예약의 상태가 미결제로 변경된다`() {
+        val sut = spyk(
+            objToCopy = defaultReservation().build(),
+            recordPrivateCalls = true
+        )
+        sut.reserve()
+        verify { sut[CHANGE_RESERVATION_STATUS_METHOD_NAME](ReservationStatus.NOTPAID) }
+    }
+
+    @Test
+    fun `미결제 상태인 상태가 아닌 경우 가격 계산을 할 수 없다`() {
+        val base = defaultReservation()
+        val none = base.withReservationStatus(ReservationStatus.NONE).build()
+        val paid = base.withReservationStatus(ReservationStatus.PAID).build()
+        val reserved = base.withReservationStatus(ReservationStatus.RESERVED).build()
+        val rejected = base.withReservationStatus(ReservationStatus.REJECTED).build()
+        val sut = listOf(none, paid, reserved, rejected)
+
+        sut.forAll {
+            shouldThrow<IllegalStateException> {
+                it.calculateTotalPrice()
+            } shouldHaveMessage "미결제인 상태에서만 이용 가능한 기능입니다."
+        }
     }
 
     private fun paidReservation() =

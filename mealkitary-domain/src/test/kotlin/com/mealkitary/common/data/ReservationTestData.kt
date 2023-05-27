@@ -14,7 +14,7 @@ import java.time.LocalTime
 class ReservationTestData {
 
     class ReservationBuilder(
-        private var reservationStatus: ReservationStatus = ReservationStatus.NOTPAID,
+        private var reservationStatus: ReservationStatus = ReservationStatus.NONE,
         private var lineItems: List<ReservationLineItem> = listOf(
             ReservationLineItem.of(
                 ProductId(1L),
