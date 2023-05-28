@@ -5,6 +5,8 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class Shop(
+    private val id: Long,
+    private val title: String,
     private val status: ShopStatus,
     private val reservableTimes: List<LocalTime>,
     private val products: List<Product>
