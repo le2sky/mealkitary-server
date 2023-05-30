@@ -7,7 +7,24 @@ import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.inspectors.forAll
 import io.kotest.matchers.throwable.shouldHaveMessage
 
-internal class ShopTest : AnnotationSpec() {
+class ShopTest : AnnotationSpec() {
+
+    @Test
+    fun `유효하지 않은 가게라면 예외를 발생한다`() {
+        val sut = defaultShop().withStatus(ShopStatus.INVALID)
+            .build()
+        shouldThrow<IllegalStateException> {
+            sut.checkReservableShop()
+        } shouldHaveMessage "유효하지 않은 가게입니다."
+    }
+
+    @Test
+    fun `유효한 가게라면 검사에 통과한다`() {
+        val sut = defaultShop().withStatus(ShopStatus.VALID)
+            .build()
+
+        sut.checkReservableShop()
+    }
 
     @Test
     fun `검증하려는 상품이 존재하지 않는다면 예외를 발생한다`() {
