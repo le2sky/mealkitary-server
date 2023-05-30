@@ -18,3 +18,4 @@ spring:
         init:
             mode: embedded
             data-locations: classpath:data.sql
+            encoding: UTF-8
