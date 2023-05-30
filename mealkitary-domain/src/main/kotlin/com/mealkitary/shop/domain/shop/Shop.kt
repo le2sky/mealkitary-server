@@ -1,5 +1,6 @@
 package com.mealkitary.shop.domain.shop
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import com.mealkitary.shop.domain.product.Product
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -48,6 +49,7 @@ class Shop(
         joinColumns = [JoinColumn(name = "shop_id")]
     )
     @Column(name = "reservable_time")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm", timezone = "Asia/Seoul")
     var reservableTimes: MutableList<LocalTime> = reservableTimes
         protected set
 
