@@ -1,6 +1,11 @@
 package com.mealkitary.shop.domain.product
 
-class ProductId(val id: Long) {
+import java.io.Serializable
+import javax.persistence.Column
+import javax.persistence.Embeddable
+
+@Embeddable
+class ProductId(@Column(name = "product_id") var id: Long) : Serializable {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

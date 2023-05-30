@@ -1,12 +1,27 @@
 package com.mealkitary.shop.domain.product
 
 import com.mealkitary.common.model.Money
+import javax.persistence.Embedded
+import javax.persistence.EmbeddedId
+import javax.persistence.Entity
 
+@Entity
 class Product(
-    private val id: ProductId,
-    private val name: String,
-    private val price: Money
+    id: ProductId,
+    name: String,
+    price: Money
 ) {
+    @EmbeddedId
+    var id: ProductId = id
+        protected set
+
+    var name: String = name
+        protected set
+
+    @Embedded
+    var price: Money = price
+        protected set
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
