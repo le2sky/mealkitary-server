@@ -25,6 +25,7 @@ class Shop(
     reservableTimes: MutableList<LocalTime>,
     products: MutableList<Product>
 ) {
+
     init {
         checkShopName(title)
     }

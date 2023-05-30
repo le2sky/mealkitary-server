@@ -10,6 +10,7 @@ import io.mockk.every
 import io.mockk.mockk
 
 class GetShopServiceTest : AnnotationSpec() {
+
     private val loadShopPort = mockk<LoadShopPort>()
     private val getShopService = GetShopService(loadShopPort)
 

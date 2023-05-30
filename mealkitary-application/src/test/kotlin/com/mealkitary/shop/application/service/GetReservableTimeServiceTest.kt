@@ -8,6 +8,7 @@ import io.mockk.mockk
 import java.time.LocalTime
 
 class GetReservableTimeServiceTest : AnnotationSpec() {
+
     private val loadReservableTimePort = mockk<LoadReservableTimePort>()
     private val getReservableTimeService = GetReservableTimeService(loadReservableTimePort)
 

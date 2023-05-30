@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController
 class GetShopController(
     private val getShopQuery: GetShopQuery
 ) {
+
     @GetMapping("/")
     fun getAllShop() = ResponseEntity.ok(getShopQuery.loadAllShop())
 }

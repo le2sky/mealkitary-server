@@ -11,6 +11,7 @@ import io.mockk.every
 import io.mockk.mockk
 
 class GetProductServiceTest : AnnotationSpec() {
+
     private val loadProductPort = mockk<LoadProductPort>()
     private val getProductService = GetProductService(loadProductPort)
 

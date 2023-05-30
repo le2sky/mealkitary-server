@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 class GetReservableTimeController(
     private val getReservableTimeQuery: GetReservableTimeQuery
 ) {
+
     @GetMapping("/{shopId}/reservable-time")
     fun getAllReservableTimeOfShop(@PathVariable("shopId") shopId: Long) =
         ResponseEntity.ok(getReservableTimeQuery.loadAllReservableTimeByShopId(shopId))

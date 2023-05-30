@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 class GetProductController(
     private val getProductQuery: GetProductQuery
 ) {
+
     @GetMapping("/{shopId}/products")
     fun getAllProductOfShop(@PathVariable("shopId") shopId: Long) =
         ResponseEntity.ok(getProductQuery.loadAllProductByShopId(shopId))

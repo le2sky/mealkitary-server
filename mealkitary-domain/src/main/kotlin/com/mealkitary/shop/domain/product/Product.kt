@@ -11,6 +11,7 @@ class Product(
     name: String,
     price: Money
 ) {
+
     @EmbeddedId
     var id: ProductId = id
         protected set
