@@ -84,7 +84,8 @@ subprojects {
 
                 excludes = listOf(
                     "com.mealkitary.*Application*",
-                    "com.mealkitary.common.constants.**"
+                    "com.mealkitary.common.constants.**",
+                    "com.mealkitary.application.shop.port.input.**"
                 )
             }
         }
@@ -100,6 +101,7 @@ subprojects {
     dependencies {
         val kotestVersion: String by properties
         val mockkVersion: String by properties
+        val springmockkVersion: String by properties
 
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -107,6 +109,8 @@ subprojects {
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
         testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+        testImplementation("io.kotest:kotest-extensions-spring:$kotestVersion")
+        testImplementation("com.ninja-squad:springmockk:$springmockkVersion")
         testImplementation("io.mockk:mockk:$mockkVersion")
     }
 }
