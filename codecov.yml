@@ -1,40 +1,5 @@
 codecov:
     require_ci_to_pass: yes
-    status:
-        project: off
-        patch: off
-
-flag_management:
-    individual_flags:
-        -   name: mealkitary-api-integration
-            paths:
-                - mealkitary-api/
-            statuses:
-                -   type: project
-                    target: auto
-                    threshold: 50%
-
-        -   name: mealkitary-application-unit
-            paths:
-                - mealkitary-application/
-            statuses:
-                -   type: project
-                    target: auto
-                    threshold: 50%
-        -   name: mealkitary-domain-unit
-            paths:
-                - mealkitary-domain/
-            statuses:
-                -   type: project
-                    target: auto
-                    threshold: 50%
-        -   name: mealkitary-infrastructure-integration
-            paths:
-                - mealkitary-infrastructure/
-            statuses:
-                -   type: project
-                    target: auto
-                    threshold: 50%
 
 comment:
     layout: "reach,diff,flags,files,footer"
