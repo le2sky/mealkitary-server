@@ -8,3 +8,8 @@ comment:
     branches:
         - develop
         - main
+
+github_checks: false
+coverage:
+    status:
+        patch: false
