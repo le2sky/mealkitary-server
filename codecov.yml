@@ -5,6 +5,16 @@ comment:
     layout: "reach,diff,flags,files,footer"
     behavior: default
     require_changes: false
+    require_base: yes
+    require_head: yes
     branches:
         - develop
         - main
+
+coverage:
+    status:
+        patch: false
+        project:
+            default:
+                target: auto
+                threshold: 70%

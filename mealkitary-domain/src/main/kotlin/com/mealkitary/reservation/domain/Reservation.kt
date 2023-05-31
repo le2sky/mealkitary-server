@@ -20,6 +20,7 @@ class Reservation private constructor(
     private val reserveAt: LocalDateTime,
     private var reservationStatus: ReservationStatus = ReservationStatus.NONE
 ) {
+
     fun calculateTotalPrice(): Money {
         checkNotPaid()
         return lineItems.map { it.calculateEachItemTotalPrice() }

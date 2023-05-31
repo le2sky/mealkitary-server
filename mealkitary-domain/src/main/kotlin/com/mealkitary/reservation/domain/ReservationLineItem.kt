@@ -11,6 +11,7 @@ class ReservationLineItem private constructor(
     private val price: Money,
     private val count: Int
 ) {
+
     fun mapToProduct(): Product {
         return Product(
             this.itemId,
