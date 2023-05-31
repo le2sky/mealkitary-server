@@ -1,6 +1,13 @@
 package com.mealkitary.common.model
 
-data class Money private constructor(val value: Int) {
+import javax.persistence.Column
+import javax.persistence.Embeddable
+
+@Embeddable
+data class Money private constructor(
+    @Column(name = "price")
+    val value: Int
+) {
 
     operator fun times(target: Int): Money {
         return of(value * target)
@@ -23,4 +30,3 @@ data class Money private constructor(val value: Int) {
         }
     }
 }
-

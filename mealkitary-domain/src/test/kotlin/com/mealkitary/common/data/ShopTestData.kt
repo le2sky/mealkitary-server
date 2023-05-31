@@ -9,6 +9,7 @@ import java.time.LocalTime
 class ShopTestData {
 
     class ShopBuilder(
+        private var title: String = "집밥뚝딱 안양점",
         private var shopStatus: ShopStatus = ShopStatus.VALID,
         private var reservableTimes: List<LocalTime> = listOf(
             LocalTime.of(9, 0),
@@ -20,6 +21,11 @@ class ShopTestData {
             defaultProduct().withId(2L).withName("닭볶음탕").build()
         )
     ) {
+
+        fun withTitle(title: String): ShopBuilder {
+            this.title = title
+            return this
+        }
 
         fun withReservableTimes(vararg times: LocalTime): ShopBuilder {
             this.reservableTimes = times.toList()
@@ -38,9 +44,10 @@ class ShopTestData {
 
         fun build(): Shop {
             return Shop(
+                this.title,
                 this.shopStatus,
-                this.reservableTimes,
-                this.products
+                this.reservableTimes.toMutableList(),
+                this.products.toMutableList()
             )
         }
     }

@@ -1,6 +1,7 @@
 package com.mealkitary.shop.domain.shop
 
 enum class ShopStatus {
+
     INVALID,
     VALID;
 

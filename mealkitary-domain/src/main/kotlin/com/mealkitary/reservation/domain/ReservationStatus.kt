@@ -1,6 +1,7 @@
 package com.mealkitary.reservation.domain
 
 enum class ReservationStatus {
+
     NONE,
     NOTPAID,
     PAID,

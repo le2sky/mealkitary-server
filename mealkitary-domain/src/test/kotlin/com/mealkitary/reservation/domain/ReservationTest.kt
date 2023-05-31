@@ -18,7 +18,7 @@ import java.time.LocalTime
 
 private const val CHANGE_RESERVATION_STATUS_METHOD_NAME = "changeReservationStatus"
 
-internal class ReservationTest : AnnotationSpec() {
+class ReservationTest : AnnotationSpec() {
 
     @Test
     fun `예약 상품이 하나도 존재하지 않는다면 예외를 발생한다`() {
@@ -50,7 +50,7 @@ internal class ReservationTest : AnnotationSpec() {
     @Test
     fun `예약 하려는 가게가 정상 영업 중이 아니라면 예외를 발생한다`() {
         val invalidShop = defaultShop().withStatus(ShopStatus.INVALID).build()
-        shouldThrow<IllegalArgumentException> {
+        shouldThrow<IllegalStateException> {
             val sut = defaultReservation().withShop(invalidShop).build()
             sut.reserve()
         } shouldHaveMessage "유효하지 않은 가게입니다."

@@ -7,7 +7,7 @@ import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
-internal class ProductTest : AnnotationSpec() {
+class ProductTest : AnnotationSpec() {
 
     @Test
     fun `id, 이름, 가격이 같다면 동등하다`() {
