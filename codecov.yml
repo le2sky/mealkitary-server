@@ -1,7 +1,6 @@
 comment:
-    layout: "newheader, reach, diff, flags, files, newfooter"
+    layout: "header, reach, diff, flags, files, footer"
     behavior: default
-    hide_comment_details: true
     require_changes: false
     branches:
         - develop
