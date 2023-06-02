@@ -1,19 +1,16 @@
-codecov:
-    require_ci_to_pass: yes
-
 comment:
-    layout: "reach,diff,flags,files,footer"
     behavior: default
     require_changes: false
-    require_base: yes
-    require_head: yes
     branches:
         - develop
         - main
 
 coverage:
     status:
-        patch: false
+        patch:
+            default:
+                target: auto
+                threshold: 0.1%
         project:
             default:
                 target: auto

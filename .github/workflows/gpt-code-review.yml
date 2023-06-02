@@ -1,24 +1,24 @@
 name: GPT code review workflow
 
 permissions:
-  contents: read
-  pull-requests: write
+    contents: read
+    pull-requests: write
 
 on:
-  pull_request:
-    types: [opened, reopened, synchronize]
+    pull_request:
+        types: [ opened, reopened, synchronize ]
 
 jobs:
-  gpt-code-review:
-    if: ${{ contains(github.event.*.labels.*.name, '리뷰') }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: anc95/ChatGPT-CodeReview@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          LANGUAGE: Korean
-          OPENAI_API_ENDPOINT: https://api.openai.com/v1
-          MODEL:
-          top_p: 1
-          temperature: 1
+    gpt-code-review:
+        if: ${{ contains(github.event.*.labels.*.name, format('run{0} gpt code review', ':')) }}
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: anc95/ChatGPT-CodeReview@main
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+                    LANGUAGE: Korean
+                    OPENAI_API_ENDPOINT: https://api.openai.com/v1
+                    MODEL:
+                    top_p: 1
+                    temperature: 1
