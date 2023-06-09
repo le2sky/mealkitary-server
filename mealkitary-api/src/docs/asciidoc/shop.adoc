@@ -1,0 +1,21 @@
+=== 가게(Shop)
+
+가게의 상태를 변경하거나, 가게의 속한 요소(상품, 예약 가능 시간)들을 조회할 수 있습니다.
+
+==== 상품 조회
+
+가게의 식별자를 이용해서 가게의 않은 상품 목록을 제공합니다.
+
+[CAUTION]
+====
+현재 상품 조회 API는 페이징을 지원하지 않습니다.
+====
+
+===== 요청
+include::{snippets}/shop-get-products/curl-request.adoc[]
+include::{snippets}/shop-get-products/http-request.adoc[]
+include::{snippets}/shop-get-products/path-parameters.adoc[]
+
+===== 응답
+include::{snippets}/shop-get-products/http-response.adoc[]
+include::{snippets}/shop-get-products/response-fields.adoc[]
