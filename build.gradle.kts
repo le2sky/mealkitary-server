@@ -65,6 +65,15 @@ subprojects {
             csv.required.set(false)
         }
         finalizedBy(tasks.jacocoTestCoverageVerification)
+
+        classDirectories.setFrom(
+            sourceSets.main.get().output.asFileTree.matching {
+                exclude(
+                    "com.mealkitary.**.Q*",
+                    "com.mealkitary.*Application*"
+                )
+            }
+        )
     }
 
     tasks.jacocoTestCoverageVerification {
@@ -83,9 +92,8 @@ subprojects {
                 }
 
                 excludes = listOf(
-                    "com.mealkitary.*Application*",
-                    "com.mealkitary.common.constants.**",
-                    "com.mealkitary.application.shop.port.input.**"
+                    "com.mealkitary.**.Q*",
+                    "com.mealkitary.*Application*"
                 )
             }
         }
