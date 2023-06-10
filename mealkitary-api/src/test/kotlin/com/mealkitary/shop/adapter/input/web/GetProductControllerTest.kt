@@ -8,14 +8,22 @@ import io.kotest.extensions.spring.SpringExtension
 import io.mockk.every
 import io.mockk.verify
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
+import org.springframework.restdocs.payload.JsonFieldType
+import org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath
+import org.springframework.restdocs.payload.PayloadDocumentation.responseFields
+import org.springframework.restdocs.request.RequestDocumentation.parameterWithName
+import org.springframework.restdocs.request.RequestDocumentation.pathParameters
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @WebMvcTest(controllers = [GetProductController::class])
+@AutoConfigureRestDocs
 class GetProductControllerTest : AnnotationSpec() {
 
     override fun extensions() = listOf(SpringExtension)
@@ -32,10 +40,23 @@ class GetProductControllerTest : AnnotationSpec() {
             listOf(ProductResponse(1L, "부대찌개", 15000))
         }
 
-        mvc.perform(MockMvcRequestBuilders.get("/shops/1/products"))
+        mvc.perform(RestDocumentationRequestBuilders.get("/shops/{shopId}/products", 1))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-
+            .andDo(
+                document(
+                    "shop-get-products",
+                    pathParameters(
+                        parameterWithName("shopId").description("상품을 조회하려는 대상 가게의 식별자.")
+                    ),
+                    responseFields(
+                        fieldWithPath("[]").type(JsonFieldType.ARRAY).description("상품 목록 배열"),
+                        fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("상품 식별자"),
+                        fieldWithPath("[].name").type(JsonFieldType.STRING).description("상품명"),
+                        fieldWithPath("[].price").type(JsonFieldType.NUMBER).description("상품 가격")
+                    )
+                )
+            )
         verify { getProductQuery.loadAllProductByShopId(1L) }
     }
 }

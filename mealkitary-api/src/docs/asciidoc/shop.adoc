@@ -1,0 +1,63 @@
+=== 가게(Shop)
+
+가게의 상태를 변경하거나, 가게의 속한 요소(상품, 예약 가능 시간)들을 조회할 수 있습니다.
+
+==== 가게 조회
+
+가게 목록을 조회합니다.
+
+[CAUTION]
+====
+현재 가게 조회 API는 페이징을 지원하지 않으며, 향후 지원 계획 없습니다.
+대신, 쿼리 파라미터 기반 조회 지원 계획은 있습니다.
+====
+
+===== 요청
+
+include::{snippets}/shop-get-list/curl-request.adoc[]
+include::{snippets}/shop-get-list/http-request.adoc[]
+
+===== 응답
+
+include::{snippets}/shop-get-list/http-response.adoc[]
+include::{snippets}/shop-get-list/response-fields.adoc[]
+
+==== 상품 조회
+
+가게의 식별자를 이용해서 가게의 않은 상품 목록을 제공합니다.
+
+[CAUTION]
+====
+현재 상품 조회 API는 페이징을 지원하지 않습니다.
+====
+
+===== 요청
+
+include::{snippets}/shop-get-products/curl-request.adoc[]
+include::{snippets}/shop-get-products/http-request.adoc[]
+include::{snippets}/shop-get-products/path-parameters.adoc[]
+
+===== 응답
+
+include::{snippets}/shop-get-products/http-response.adoc[]
+include::{snippets}/shop-get-products/response-fields.adoc[]
+
+==== 예약 가능 시간 조회
+
+상품을 예약할 수 있는 시간대의 목록을 조회합니다.
+
+[CAUTION]
+====
+현재 예약 가능 시간 조회 API는 페이징을 지원하지 않으며, 향후 지원 계획 없습니다.
+====
+
+===== 요청
+
+include::{snippets}/shop-get-reservable-time/curl-request.adoc[]
+include::{snippets}/shop-get-reservable-time/http-request.adoc[]
+include::{snippets}/shop-get-reservable-time/path-parameters.adoc[]
+
+===== 응답
+
+include::{snippets}/shop-get-reservable-time/http-response.adoc[]
+include::{snippets}/shop-get-reservable-time/response-fields.adoc[]
