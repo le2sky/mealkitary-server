@@ -19,3 +19,22 @@ include::{snippets}/shop-get-products/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/shop-get-products/http-response.adoc[]
 include::{snippets}/shop-get-products/response-fields.adoc[]
+
+==== 예약 가능 시간 조회
+
+상품을 예약할 수 있는 시간대의 목록을 조회합니다.
+
+[CAUTION]
+====
+현재 예약 가능 시간 조회 API는 페이징을 지원하지 않으며, 향후 지원 계획 없습니다.
+====
+
+===== 요청
+include::{snippets}/shop-get-reservable-time/curl-request.adoc[]
+include::{snippets}/shop-get-reservable-time/http-request.adoc[]
+include::{snippets}/shop-get-reservable-time/path-parameters.adoc[]
+
+===== 응답
+include::{snippets}/shop-get-reservable-time/http-response.adoc[]
+include::{snippets}/shop-get-reservable-time/response-fields.adoc[]
+
