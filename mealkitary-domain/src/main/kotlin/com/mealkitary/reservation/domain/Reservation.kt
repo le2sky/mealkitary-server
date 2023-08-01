@@ -13,13 +13,52 @@ import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMess
 import com.mealkitary.common.model.Money
 import com.mealkitary.shop.domain.shop.Shop
 import java.time.LocalDateTime
+import javax.persistence.CollectionTable
+import javax.persistence.Column
+import javax.persistence.ElementCollection
+import javax.persistence.Entity
+import javax.persistence.EnumType
+import javax.persistence.Enumerated
+import javax.persistence.FetchType
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+import javax.persistence.JoinColumn
+import javax.persistence.ManyToOne
 
+@Entity
 class Reservation private constructor(
-    private val lineItems: List<ReservationLineItem>,
-    private val shop: Shop,
-    private val reserveAt: LocalDateTime,
-    private var reservationStatus: ReservationStatus = ReservationStatus.NONE
+    lineItems: MutableList<ReservationLineItem>,
+    shop: Shop,
+    reserveAt: LocalDateTime,
+    reservationStatus: ReservationStatus = ReservationStatus.NONE
 ) {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "reservation_id")
+    var id: Long? = null
+        protected set
+
+    @ElementCollection
+    @CollectionTable(
+        name = "reservation_line_item",
+        joinColumns = [JoinColumn(name = "reservation_id")]
+    )
+    var lineItems: MutableList<ReservationLineItem> = lineItems
+        protected set
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shop_id")
+    var shop: Shop = shop
+        protected set
+
+    var reserveAt: LocalDateTime = reserveAt
+        protected set
+
+    @Enumerated(EnumType.STRING)
+    var reservationStatus: ReservationStatus = reservationStatus
+        protected set
 
     fun calculateTotalPrice(): Money {
         checkNotPaid()
@@ -120,7 +159,7 @@ class Reservation private constructor(
             checkLineItemsAtLeastOne(lineItems)
             checkBeforeTime(reserveAt)
 
-            return Reservation(lineItems, shop, reserveAt, reservationStatus)
+            return Reservation(lineItems.toMutableList(), shop, reserveAt, reservationStatus)
         }
 
         private fun checkLineItemsAtLeastOne(lineItems: List<ReservationLineItem>) {

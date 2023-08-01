@@ -39,7 +39,6 @@ class MoneyTest : AnnotationSpec() {
         val money = Money.from(1000)
         val targetMoney = Money.from(1000)
         val set = setOf(money, targetMoney)
-
         set.size shouldBe 1
     }
 
@@ -47,7 +46,6 @@ class MoneyTest : AnnotationSpec() {
     fun `금액을 더한다`() {
         val money = Money.from(1000)
         val targetMoney = Money.from(200)
-
         (money + targetMoney).value shouldBe 1200
     }
 

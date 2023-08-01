@@ -1,9 +1,12 @@
 package com.mealkitary.common.model
 
+import javax.persistence.Access
+import javax.persistence.AccessType
 import javax.persistence.Column
 import javax.persistence.Embeddable
 
 @Embeddable
+@Access(AccessType.FIELD)
 data class Money private constructor(
     @Column(name = "price")
     val value: Int
