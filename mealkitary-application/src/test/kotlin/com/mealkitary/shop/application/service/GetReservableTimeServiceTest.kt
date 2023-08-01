@@ -20,11 +20,13 @@ class GetReservableTimeServiceTest : AnnotationSpec() {
                 LocalTime.of(18, 30)
             )
         }
-        val actual = getReservableTimeService.loadAllReservableTimeByShopId(1L)
         val expected = listOf(
             LocalTime.of(6, 30),
             LocalTime.of(18, 30)
         )
+
+        val actual = getReservableTimeService.loadAllReservableTimeByShopId(1L)
+
         actual shouldBe expected
         actual.size shouldBe 2
     }

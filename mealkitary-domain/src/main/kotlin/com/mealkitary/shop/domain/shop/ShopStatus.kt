@@ -6,6 +6,6 @@ enum class ShopStatus {
     VALID;
 
     fun isInvalidStatus(): Boolean {
-        return this.equals(INVALID)
+        return this == INVALID
     }
 }

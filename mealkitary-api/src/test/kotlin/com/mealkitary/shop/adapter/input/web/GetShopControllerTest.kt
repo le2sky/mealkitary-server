@@ -36,6 +36,7 @@ class GetShopControllerTest : AnnotationSpec() {
         every { getShopQuery.loadAllShop() }.answers {
             listOf(ShopResponse(1L, "집밥뚝딱"))
         }
+
         mvc.perform(RestDocumentationRequestBuilders.get("/shops/"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))

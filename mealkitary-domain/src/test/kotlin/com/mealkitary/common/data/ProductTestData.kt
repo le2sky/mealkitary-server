@@ -9,7 +9,7 @@ class ProductTestData {
     class ProductBuilder(
         private var id: ProductId = ProductId(1L),
         private var name: String = "부대찌개",
-        private var price: Money = Money.of(1000)
+        private var price: Money = Money.from(1000)
     ) {
         fun withId(id: Long): ProductBuilder {
             this.id = ProductId(id)

@@ -25,6 +25,7 @@ class ReservationLineItem private constructor(
     companion object {
         fun of(itemId: ProductId, name: String, price: Money, count: Int): ReservationLineItem {
             checkCount(count)
+
             return ReservationLineItem(itemId, name, price, count)
         }
 

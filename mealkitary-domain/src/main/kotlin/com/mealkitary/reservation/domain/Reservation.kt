@@ -23,6 +23,7 @@ class Reservation private constructor(
 
     fun calculateTotalPrice(): Money {
         checkNotPaid()
+
         return lineItems.map { it.calculateEachItemTotalPrice() }
             .reduce { acc, v -> acc + v }
     }
@@ -32,6 +33,7 @@ class Reservation private constructor(
         shop.checkReservableShop()
         checkReservableTime()
         checkEachItem()
+
         changeReservationStatus(ReservationStatus.NOTPAID)
     }
 
@@ -56,6 +58,7 @@ class Reservation private constructor(
         checkNone()
         checkPaidReservation(NOTPAID_RESERVATION_CANNOT_ACCEPT.message)
         checkAlreadyRejectedForAccept()
+
         changeReservationStatus(ReservationStatus.RESERVED)
     }
 
@@ -79,6 +82,7 @@ class Reservation private constructor(
         checkNone()
         checkPaidReservation(NOTPAID_RESERVATION_CANNOT_REJECT.message)
         checkAlreadyAcceptedForReject()
+
         changeReservationStatus(ReservationStatus.REJECTED)
     }
 
@@ -96,6 +100,7 @@ class Reservation private constructor(
 
     fun pay() {
         checkNotPaid()
+
         changeReservationStatus(ReservationStatus.PAID)
     }
 
@@ -114,6 +119,7 @@ class Reservation private constructor(
         ): Reservation {
             checkLineItemsAtLeastOne(lineItems)
             checkBeforeTime(reserveAt)
+
             return Reservation(lineItems, shop, reserveAt, reservationStatus)
         }
 

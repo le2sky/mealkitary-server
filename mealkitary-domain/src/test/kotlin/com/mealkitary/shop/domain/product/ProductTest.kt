@@ -38,8 +38,8 @@ class ProductTest : AnnotationSpec() {
 
     @Test
     fun `가격이 다르다면 동등하지 않다`() {
-        val product = defaultProduct().withPrice(Money.of(1000)).build()
-        val targetProduct = defaultProduct().withPrice(Money.of(2000)).build()
+        val product = defaultProduct().withPrice(Money.from(1000)).build()
+        val targetProduct = defaultProduct().withPrice(Money.from(2000)).build()
 
         (product == targetProduct).shouldBeFalse()
         (product.equals(targetProduct)).shouldBeFalse()
@@ -50,6 +50,7 @@ class ProductTest : AnnotationSpec() {
         val product = defaultProduct().build()
         val targetProduct = defaultProduct().build()
         val set = setOf(product, targetProduct)
+
         set.size shouldBe 1
     }
 }

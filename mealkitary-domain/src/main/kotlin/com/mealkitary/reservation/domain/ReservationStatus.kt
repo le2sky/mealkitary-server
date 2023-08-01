@@ -9,18 +9,18 @@ enum class ReservationStatus {
     REJECTED;
 
     fun isNotPaid(): Boolean {
-        return this.equals(NOTPAID)
+        return this == NOTPAID
     }
 
     fun isReserved(): Boolean {
-        return this.equals(RESERVED)
+        return this == RESERVED
     }
 
     fun isRejected(): Boolean {
-        return this.equals(REJECTED)
+        return this == REJECTED
     }
 
     fun isNone(): Boolean {
-        return this.equals(NONE)
+        return this == NONE
     }
 }

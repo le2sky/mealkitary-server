@@ -57,6 +57,7 @@ class GetProductControllerTest : AnnotationSpec() {
                     )
                 )
             )
+
         verify { getProductQuery.loadAllProductByShopId(1L) }
     }
 }

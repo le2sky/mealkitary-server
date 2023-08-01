@@ -11,6 +11,7 @@ class ProductIdTest : AnnotationSpec() {
     fun `id 내부 값이 같다면 동등하다`() {
         val productId = ProductId(1L)
         val targetId = ProductId(1L)
+
         (productId == targetId).shouldBeTrue()
     }
 
@@ -18,6 +19,7 @@ class ProductIdTest : AnnotationSpec() {
     fun `id 내부 값이 다르다면 동등하지 않다`() {
         val productId = ProductId(1L)
         val targetId = ProductId(2L)
+
         (productId == targetId).shouldBeFalse()
     }
 
@@ -26,6 +28,7 @@ class ProductIdTest : AnnotationSpec() {
         val productId = ProductId(1L)
         val targetId = ProductId(1L)
         val set = setOf(productId, targetId)
+
         set.size shouldBe 1
     }
 }
