@@ -19,8 +19,10 @@ class GetShopServiceTest : AnnotationSpec() {
         every { loadShopPort.loadAllShop() } answers {
             listOf(Shop("집밥뚝딱", ShopStatus.VALID, mutableListOf(), mutableListOf()))
         }
-        val actual = getShopService.loadAllShop()
         val expected = ShopResponse(null, "집밥뚝딱")
+
+        val actual = getShopService.loadAllShop()
+
         actual shouldBe listOf(expected)
     }
 }

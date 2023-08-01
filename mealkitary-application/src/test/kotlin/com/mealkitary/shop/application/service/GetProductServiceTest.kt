@@ -18,10 +18,12 @@ class GetProductServiceTest : AnnotationSpec() {
     @Test
     fun `service unit test - 가게 ID에 해당하는 가게의 상품 목록을 조회한다`() {
         every { loadProductPort.loadAllProductByShopId(1L) } answers {
-            listOf(Product(ProductId(1L), "부대찌개", Money.of(15000)))
+            listOf(Product(ProductId(1L), "부대찌개", Money.from(15000)))
         }
-        val actual = getProductService.loadAllProductByShopId(1L)
         val expected = listOf(ProductResponse(1L, "부대찌개", 15000))
+
+        val actual = getProductService.loadAllProductByShopId(1L)
+
         actual shouldBe expected
     }
 }

@@ -10,16 +10,17 @@ data class Money private constructor(
 ) {
 
     operator fun times(target: Int): Money {
-        return of(value * target)
+        return from(value * target)
     }
 
     operator fun plus(target: Money): Money {
-        return of(value + target.value)
+        return from(value + target.value)
     }
 
     companion object {
-        fun of(value: Int): Money {
+        fun from(value: Int): Money {
             checkValue(value)
+
             return Money(value)
         }
 

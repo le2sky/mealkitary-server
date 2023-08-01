@@ -19,13 +19,13 @@ class ReservationTestData {
             ReservationLineItem.of(
                 ProductId(1L),
                 "부대찌개",
-                Money.of(1000),
+                Money.from(1000),
                 1
             ),
             ReservationLineItem.of(
                 ProductId(2L),
                 "닭볶음탕",
-                Money.of(1000),
+                Money.from(1000),
                 1
             )
         ),
