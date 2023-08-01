@@ -36,10 +36,12 @@ class Shop(
     var id: Long? = null
         protected set
 
+    @Column(nullable = false)
     var title: String = title
         protected set
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     var status: ShopStatus = status
         protected set
 
@@ -48,12 +50,12 @@ class Shop(
         name = "reservable_time",
         joinColumns = [JoinColumn(name = "shop_id")]
     )
-    @Column(name = "reservable_time")
+    @Column(name = "reservable_time", nullable = false)
     var reservableTimes: MutableList<LocalTime> = reservableTimes
         protected set
 
     @OneToMany(cascade = [CascadeType.ALL])
-    @JoinColumn(name = "shop_id")
+    @JoinColumn(name = "shop_id", nullable = false)
     var products: MutableList<Product> = products
         protected set
 

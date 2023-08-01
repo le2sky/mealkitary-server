@@ -4,6 +4,7 @@ import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMess
 import com.mealkitary.common.model.Money
 import com.mealkitary.shop.domain.product.Product
 import com.mealkitary.shop.domain.product.ProductId
+import javax.persistence.Column
 import javax.persistence.Embeddable
 import javax.persistence.Embedded
 
@@ -19,6 +20,7 @@ class ReservationLineItem private constructor(
     var itemId: ProductId = itemId
         protected set
 
+    @Column(nullable = false)
     var name: String = name
         protected set
 
@@ -26,6 +28,7 @@ class ReservationLineItem private constructor(
     var price: Money = price
         protected set
 
+    @Column(nullable = false)
     var count: Int = count
         protected set
 

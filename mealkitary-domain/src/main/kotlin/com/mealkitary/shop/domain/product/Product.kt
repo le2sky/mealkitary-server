@@ -1,11 +1,14 @@
 package com.mealkitary.shop.domain.product
 
 import com.mealkitary.common.model.Money
+import javax.persistence.Column
 import javax.persistence.Embedded
 import javax.persistence.EmbeddedId
 import javax.persistence.Entity
+import javax.persistence.Table
 
 @Entity
+@Table(name = "product")
 class Product(
     id: ProductId,
     name: String,
@@ -16,6 +19,7 @@ class Product(
     var id: ProductId = id
         protected set
 
+    @Column(nullable = false)
     var name: String = name
         protected set
 

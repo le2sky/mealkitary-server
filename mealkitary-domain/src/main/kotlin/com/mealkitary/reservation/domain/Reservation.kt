@@ -25,8 +25,10 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
+import javax.persistence.Table
 
 @Entity
+@Table(name = "reservation")
 class Reservation private constructor(
     lineItems: MutableList<ReservationLineItem>,
     shop: Shop,
@@ -49,13 +51,15 @@ class Reservation private constructor(
         protected set
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shop_id")
+    @JoinColumn(name = "shop_id", nullable = false)
     var shop: Shop = shop
         protected set
 
+    @Column(nullable = false)
     var reserveAt: LocalDateTime = reserveAt
         protected set
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     var reservationStatus: ReservationStatus = reservationStatus
         protected set
@@ -82,15 +86,15 @@ class Reservation private constructor(
         }
     }
 
-    private fun checkEachItem() {
-        lineItems.map { it.mapToProduct() }
-            .forEach(shop::checkItem)
-    }
-
     private fun checkReservableTime() {
         if (!shop.isReservableAt(reserveAt)) {
             throw IllegalArgumentException(INVALID_RESERVE_TIME.message)
         }
+    }
+
+    private fun checkEachItem() {
+        lineItems.map { it.mapToProduct() }
+            .forEach(shop::checkItem)
     }
 
     fun accept() {
