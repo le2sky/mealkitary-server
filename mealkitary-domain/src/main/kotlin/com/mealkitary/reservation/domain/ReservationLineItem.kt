@@ -4,13 +4,29 @@ import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMess
 import com.mealkitary.common.model.Money
 import com.mealkitary.shop.domain.product.Product
 import com.mealkitary.shop.domain.product.ProductId
+import javax.persistence.Column
+import javax.persistence.Embeddable
+import javax.persistence.Embedded
 
+@Embeddable
 class ReservationLineItem private constructor(
-    private val itemId: ProductId,
-    private val name: String,
-    private val price: Money,
-    private val count: Int
+    itemId: ProductId,
+    name: String,
+    price: Money,
+    count: Int
 ) {
+
+    @Embedded
+    private val itemId: ProductId = itemId
+
+    @Column(nullable = false)
+    private val name: String = name
+
+    @Embedded
+    private val price: Money = price
+
+    @Column(nullable = false)
+    private val count: Int = count
 
     fun mapToProduct(): Product {
         return Product(

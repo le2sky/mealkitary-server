@@ -12,6 +12,6 @@ class GetShopController(
     private val getShopQuery: GetShopQuery
 ) {
 
-    @GetMapping("/")
+    @GetMapping
     fun getAllShop() = ResponseEntity.ok(getShopQuery.loadAllShop())
 }

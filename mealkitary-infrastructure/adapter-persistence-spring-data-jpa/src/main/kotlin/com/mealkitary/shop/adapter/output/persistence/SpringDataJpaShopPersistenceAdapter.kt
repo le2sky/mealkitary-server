@@ -12,6 +12,8 @@ class SpringDataJpaShopPersistenceAdapter(
 
     override fun loadAllShop() = shopRepository.findAll()
 
+    override fun loadOneShopById(shopId: Long) = shopRepository.findOneWithProductsById(shopId)
+
     override fun loadAllProductByShopId(shopId: Long) = shopRepository.findOneWithProductsById(shopId)
         .products
 

@@ -1,4 +1,4 @@
-package com.mealkitary.common.data
+package data
 
 import com.mealkitary.common.model.Money
 import com.mealkitary.shop.domain.product.Product
@@ -11,6 +11,7 @@ class ProductTestData {
         private var name: String = "부대찌개",
         private var price: Money = Money.from(1000)
     ) {
+
         fun withId(id: Long): ProductBuilder {
             this.id = ProductId(id)
             return this

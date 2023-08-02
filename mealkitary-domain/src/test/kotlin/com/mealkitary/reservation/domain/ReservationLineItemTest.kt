@@ -1,8 +1,8 @@
 package com.mealkitary.reservation.domain
 
-import com.mealkitary.common.data.ProductTestData.Companion.defaultProduct
 import com.mealkitary.common.model.Money
 import com.mealkitary.shop.domain.product.ProductId
+import data.ProductTestData.Companion.defaultProduct
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.booleans.shouldBeTrue

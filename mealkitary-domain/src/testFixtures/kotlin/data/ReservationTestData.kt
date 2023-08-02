@@ -1,12 +1,12 @@
-package com.mealkitary.common.data
+package data
 
-import com.mealkitary.common.data.ShopTestData.Companion.defaultShop
 import com.mealkitary.common.model.Money
 import com.mealkitary.reservation.domain.Reservation
 import com.mealkitary.reservation.domain.ReservationLineItem
 import com.mealkitary.reservation.domain.ReservationStatus
 import com.mealkitary.shop.domain.product.ProductId
 import com.mealkitary.shop.domain.shop.Shop
+import data.ShopTestData.Companion.defaultShop
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -35,6 +35,7 @@ class ReservationTestData {
             LocalTime.of(18, 0)
         )
     ) {
+
         fun withReservationStatus(status: ReservationStatus): ReservationBuilder {
             this.reservationStatus = status
             return this

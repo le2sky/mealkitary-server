@@ -1,38 +1,24 @@
 package com.mealkitary.shop.adapter.input.web
 
-import com.mealkitary.shop.application.port.input.GetProductQuery
+import com.mealkitary.WebIntegrationTestSupport
 import com.mealkitary.shop.application.port.input.ProductResponse
-import com.ninjasquad.springmockk.MockkBean
-import io.kotest.core.spec.style.AnnotationSpec
-import io.kotest.extensions.spring.SpringExtension
 import io.mockk.every
 import io.mockk.verify
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
+import org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest
+import org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse
+import org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint
 import org.springframework.restdocs.payload.JsonFieldType
 import org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath
 import org.springframework.restdocs.payload.PayloadDocumentation.responseFields
 import org.springframework.restdocs.request.RequestDocumentation.parameterWithName
 import org.springframework.restdocs.request.RequestDocumentation.pathParameters
-import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-@WebMvcTest(controllers = [GetProductController::class])
-@AutoConfigureRestDocs
-class GetProductControllerTest : AnnotationSpec() {
-
-    override fun extensions() = listOf(SpringExtension)
-
-    @Autowired
-    private lateinit var mvc: MockMvc
-
-    @MockkBean
-    private lateinit var getProductQuery: GetProductQuery
+class GetProductControllerTest : WebIntegrationTestSupport() {
 
     @Test
     fun `api integration test - getAllProductOfShopTest`() {
@@ -46,8 +32,10 @@ class GetProductControllerTest : AnnotationSpec() {
             .andDo(
                 document(
                     "shop-get-products",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
                     pathParameters(
-                        parameterWithName("shopId").description("상품을 조회하려는 대상 가게의 식별자.")
+                        parameterWithName("shopId").description("상품을 조회하려는 대상 가게의 식별자")
                     ),
                     responseFields(
                         fieldWithPath("[]").type(JsonFieldType.ARRAY).description("상품 목록 배열"),

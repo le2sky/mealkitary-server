@@ -1,7 +1,7 @@
 package com.mealkitary.shop.domain.product
 
-import com.mealkitary.common.data.ProductTestData.Companion.defaultProduct
 import com.mealkitary.common.model.Money
+import data.ProductTestData.Companion.defaultProduct
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
