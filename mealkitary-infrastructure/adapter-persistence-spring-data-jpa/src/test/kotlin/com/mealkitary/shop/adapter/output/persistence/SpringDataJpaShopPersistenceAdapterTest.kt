@@ -1,23 +1,16 @@
 package com.mealkitary.shop.adapter.output.persistence
 
+import com.mealkitary.PersistenceIntegrationTestSupport
 import com.mealkitary.common.model.Money
-import io.kotest.core.spec.style.AnnotationSpec
-import io.kotest.extensions.spring.SpringExtension
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
-import org.springframework.context.annotation.Import
 import java.time.LocalTime
 import javax.persistence.EntityManagerFactory
 
-@DataJpaTest
-@Import(SpringDataJpaShopPersistenceAdapter::class)
 class SpringDataJpaShopPersistenceAdapterTest(
     private val adapterUnderTest: SpringDataJpaShopPersistenceAdapter,
     private val emf: EntityManagerFactory
-) : AnnotationSpec() {
-
-    override fun extensions() = listOf(SpringExtension)
+) : PersistenceIntegrationTestSupport() {
 
     @Test
     fun `db integration test - 모든 가게를 조회한다`() {
