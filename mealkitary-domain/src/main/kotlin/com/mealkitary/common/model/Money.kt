@@ -1,25 +1,29 @@
 package com.mealkitary.common.model
 
+import javax.persistence.Access
+import javax.persistence.AccessType
 import javax.persistence.Column
 import javax.persistence.Embeddable
 
 @Embeddable
+@Access(AccessType.FIELD)
 data class Money private constructor(
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     val value: Int
 ) {
 
     operator fun times(target: Int): Money {
-        return of(value * target)
+        return from(value * target)
     }
 
     operator fun plus(target: Money): Money {
-        return of(value + target.value)
+        return from(value + target.value)
     }
 
     companion object {
-        fun of(value: Int): Money {
+        fun from(value: Int): Money {
             checkValue(value)
+
             return Money(value)
         }
 

@@ -1,9 +1,9 @@
-package com.mealkitary.common.data
+package data
 
-import com.mealkitary.common.data.ProductTestData.Companion.defaultProduct
 import com.mealkitary.shop.domain.product.Product
 import com.mealkitary.shop.domain.shop.Shop
 import com.mealkitary.shop.domain.shop.ShopStatus
+import data.ProductTestData.Companion.defaultProduct
 import java.time.LocalTime
 
 class ShopTestData {

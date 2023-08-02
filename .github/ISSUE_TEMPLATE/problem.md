@@ -12,6 +12,7 @@ assignees: ''
 
 **재현 방법(optional)**
 다음 순서에 따라서 재현 가능 :
+
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'

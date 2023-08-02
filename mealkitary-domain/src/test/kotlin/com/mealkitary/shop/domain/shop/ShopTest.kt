@@ -1,7 +1,7 @@
 package com.mealkitary.shop.domain.shop
 
-import com.mealkitary.common.data.ProductTestData.Companion.defaultProduct
-import com.mealkitary.common.data.ShopTestData.Companion.defaultShop
+import data.ProductTestData.Companion.defaultProduct
+import data.ShopTestData.Companion.defaultShop
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.inspectors.forAll
@@ -13,6 +13,7 @@ class ShopTest : AnnotationSpec() {
     fun `유효하지 않은 가게라면 예외를 발생한다`() {
         val sut = defaultShop().withStatus(ShopStatus.INVALID)
             .build()
+
         shouldThrow<IllegalStateException> {
             sut.checkReservableShop()
         } shouldHaveMessage "유효하지 않은 가게입니다."
@@ -70,6 +71,7 @@ class ShopTest : AnnotationSpec() {
     @Test
     fun `가게 이름이 공백으로만 이루어져 있을 경우, 예외를 발생한다`() {
         val params = listOf(" ", "  ", "   ", "\n", "\t")
+
         params.forAll {
             shouldThrow<IllegalArgumentException> {
                 defaultShop().withTitle(it).build()
