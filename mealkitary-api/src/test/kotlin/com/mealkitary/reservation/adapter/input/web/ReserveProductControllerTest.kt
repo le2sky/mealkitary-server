@@ -1,16 +1,9 @@
 package com.mealkitary.reservation.adapter.input.web
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.mealkitary.WebIntegrationTestSupport
 import com.mealkitary.reservation.application.port.input.ReserveProductRequest
-import com.mealkitary.reservation.application.port.input.ReserveProductUseCase
 import com.mealkitary.reservation.application.port.input.ReservedProduct
-import com.ninjasquad.springmockk.MockkBean
-import io.kotest.core.spec.style.AnnotationSpec
-import io.kotest.extensions.spring.SpringExtension
 import io.mockk.every
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.restdocs.headers.HeaderDocumentation.headerWithName
 import org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders
@@ -19,27 +12,13 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
 import org.springframework.restdocs.payload.JsonFieldType
 import org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath
 import org.springframework.restdocs.payload.PayloadDocumentation.requestFields
-import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.header
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-@WebMvcTest(controllers = [ReserveProductController::class])
-@AutoConfigureRestDocs
-class ReserveProductControllerTest : AnnotationSpec() {
-
-    override fun extensions() = listOf(SpringExtension)
-
-    @Autowired
-    private lateinit var mvc: MockMvc
-
-    @Autowired
-    private lateinit var objectMapper: ObjectMapper
-
-    @MockkBean
-    private lateinit var reserveProductUseCase: ReserveProductUseCase
+class ReserveProductControllerTest : WebIntegrationTestSupport() {
 
     @Test
     fun `api integration test - reserveProduct`() {
@@ -82,7 +61,7 @@ class ReserveProductControllerTest : AnnotationSpec() {
                     ),
                     responseHeaders(
                         headerWithName("Location")
-                            .description("생성된 예약 리소스의 URI입니다.")
+                            .description("생성된 예약 리소스 URI")
                     ),
                 )
             )
