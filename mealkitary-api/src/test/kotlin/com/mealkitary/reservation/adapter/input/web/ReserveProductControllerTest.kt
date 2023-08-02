@@ -9,6 +9,9 @@ import org.springframework.restdocs.headers.HeaderDocumentation.headerWithName
 import org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
+import org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest
+import org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse
+import org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint
 import org.springframework.restdocs.payload.JsonFieldType
 import org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath
 import org.springframework.restdocs.payload.PayloadDocumentation.requestFields
@@ -51,6 +54,8 @@ class ReserveProductControllerTest : WebIntegrationTestSupport() {
             .andDo(
                 document(
                     "reservation-post",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
                     requestFields(
                         fieldWithPath("shopId").type(JsonFieldType.NUMBER).description("예약 대상 가게 식별자"),
                         fieldWithPath("products.[].productId").type(JsonFieldType.NUMBER).description("예약 대상 상품 식별자"),

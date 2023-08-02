@@ -6,6 +6,9 @@ import io.mockk.verify
 import org.springframework.http.MediaType
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
+import org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest
+import org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse
+import org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint
 import org.springframework.restdocs.payload.JsonFieldType
 import org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath
 import org.springframework.restdocs.payload.PayloadDocumentation.responseFields
@@ -29,6 +32,8 @@ class GetReservableTimeControllerTest : WebIntegrationTestSupport() {
             .andDo(
                 document(
                     "shop-get-reservable-time",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
                     pathParameters(
                         parameterWithName("shopId").description("예약 가능 시간을 조회하려는 대상 가게의 식별자")
                     ),

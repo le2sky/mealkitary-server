@@ -7,6 +7,9 @@ import io.mockk.verify
 import org.springframework.http.MediaType
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
+import org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest
+import org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse
+import org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint
 import org.springframework.restdocs.payload.JsonFieldType
 import org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath
 import org.springframework.restdocs.payload.PayloadDocumentation.responseFields
@@ -29,6 +32,8 @@ class GetProductControllerTest : WebIntegrationTestSupport() {
             .andDo(
                 document(
                     "shop-get-products",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
                     pathParameters(
                         parameterWithName("shopId").description("상품을 조회하려는 대상 가게의 식별자")
                     ),

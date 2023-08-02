@@ -6,6 +6,9 @@ import io.mockk.every
 import org.springframework.http.MediaType
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
+import org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest
+import org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse
+import org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint
 import org.springframework.restdocs.payload.JsonFieldType
 import org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath
 import org.springframework.restdocs.payload.PayloadDocumentation.responseFields
@@ -26,6 +29,8 @@ class GetShopControllerTest : WebIntegrationTestSupport() {
             .andDo(
                 document(
                     "shop-get-list",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint()),
                     responseFields(
                         fieldWithPath("[]").type(JsonFieldType.ARRAY).description("가게 목록 배열"),
                         fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("가게 식별자"),
