@@ -11,6 +11,7 @@ class ProductTestData {
         private var name: String = "부대찌개",
         private var price: Money = Money.from(1000)
     ) {
+
         fun withId(id: Long): ProductBuilder {
             this.id = ProductId(id)
             return this

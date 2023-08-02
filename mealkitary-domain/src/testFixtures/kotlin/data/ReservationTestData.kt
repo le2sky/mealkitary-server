@@ -35,6 +35,7 @@ class ReservationTestData {
             LocalTime.of(18, 0)
         )
     ) {
+
         fun withReservationStatus(status: ReservationStatus): ReservationBuilder {
             this.reservationStatus = status
             return this
