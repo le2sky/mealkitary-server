@@ -1,0 +1,27 @@
+=== 예약(Reservation)
+
+신규 예약을 생성하거나, 생성된 예약의 상태를 변경할 수 있습니다.
+또한 생성된 예약을 조회할 수 있습니다.
+
+==== 예약 생성
+
+신규 예약을 생성합니다.
+
+[NOTE]
+====
+신규 리소스 생성 시, 반환 헤더의 Location 값은 신규 리소스의 URI입니다.
+====
+
+===== 요청
+
+include::{snippets}/reservation-post/curl-request.adoc[]
+include::{snippets}/reservation-post/http-request.adoc[]
+include::{snippets}/reservation-post/request-fields.adoc[]
+
+===== 응답
+
+include::{snippets}/reservation-post/http-response.adoc[]
+
+===== 응답 헤더
+
+include::{snippets}/reservation-post/response-headers.adoc[]
