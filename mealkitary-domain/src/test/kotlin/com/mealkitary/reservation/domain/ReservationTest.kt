@@ -1,10 +1,10 @@
 package com.mealkitary.reservation.domain
 
-import com.mealkitary.common.data.ReservationTestData.Companion.defaultReservation
-import com.mealkitary.common.data.ShopTestData.Companion.defaultShop
 import com.mealkitary.common.model.Money
 import com.mealkitary.shop.domain.product.ProductId
 import com.mealkitary.shop.domain.shop.ShopStatus
+import data.ReservationTestData.Companion.defaultReservation
+import data.ShopTestData.Companion.defaultShop
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.inspectors.forAll

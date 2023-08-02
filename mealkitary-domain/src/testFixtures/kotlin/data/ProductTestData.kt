@@ -1,4 +1,4 @@
-package com.mealkitary.common.data
+package data
 
 import com.mealkitary.common.model.Money
 import com.mealkitary.shop.domain.product.Product
