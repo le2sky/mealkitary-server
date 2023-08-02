@@ -22,10 +22,8 @@ class ReserveProductController(
             .fromCurrentRequest()
             .path("/{id}")
             .buildAndExpand(resourceId)
-            .toUri();
+            .toUri()
 
         return ResponseEntity.created(location).build()
     }
 }
-
-
