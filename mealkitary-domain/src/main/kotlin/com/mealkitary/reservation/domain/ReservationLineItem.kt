@@ -17,20 +17,16 @@ class ReservationLineItem private constructor(
 ) {
 
     @Embedded
-    var itemId: ProductId = itemId
-        protected set
+    private val itemId: ProductId = itemId
 
     @Column(nullable = false)
-    var name: String = name
-        protected set
+    private val name: String = name
 
     @Embedded
-    var price: Money = price
-        protected set
+    private val price: Money = price
 
     @Column(nullable = false)
-    var count: Int = count
-        protected set
+    private val count: Int = count
 
     fun mapToProduct(): Product {
         return Product(

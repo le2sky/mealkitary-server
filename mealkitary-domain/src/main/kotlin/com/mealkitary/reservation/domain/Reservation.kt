@@ -47,17 +47,14 @@ class Reservation private constructor(
         name = "reservation_line_item",
         joinColumns = [JoinColumn(name = "reservation_id")]
     )
-    var lineItems: MutableList<ReservationLineItem> = lineItems
-        protected set
+    private val lineItems: MutableList<ReservationLineItem> = lineItems
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id", nullable = false)
-    var shop: Shop = shop
-        protected set
+    private val shop: Shop = shop
 
     @Column(nullable = false)
-    var reserveAt: LocalDateTime = reserveAt
-        protected set
+    private val reserveAt: LocalDateTime = reserveAt
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
