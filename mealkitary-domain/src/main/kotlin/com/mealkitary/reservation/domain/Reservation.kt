@@ -33,7 +33,7 @@ class Reservation private constructor(
     lineItems: MutableList<ReservationLineItem>,
     shop: Shop,
     reserveAt: LocalDateTime,
-    reservationStatus: ReservationStatus = ReservationStatus.NONE
+    reservationStatus: ReservationStatus
 ) {
 
     @Id
@@ -158,7 +158,7 @@ class Reservation private constructor(
             lineItems: List<ReservationLineItem>,
             shop: Shop,
             reserveAt: LocalDateTime,
-            reservationStatus: ReservationStatus
+            reservationStatus: ReservationStatus = ReservationStatus.NONE
         ): Reservation {
             checkLineItemsAtLeastOne(lineItems)
             checkBeforeTime(reserveAt)
