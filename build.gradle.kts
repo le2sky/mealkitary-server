@@ -70,7 +70,8 @@ subprojects {
             sourceSets.main.get().output.asFileTree.matching {
                 exclude(
                     "com.mealkitary.**.Q*",
-                    "com.mealkitary.*Application*"
+                    "com.mealkitary.*Application*",
+                    "com.mealkitary.common.exception.*"
                 )
             }
         )
@@ -93,7 +94,8 @@ subprojects {
 
                 excludes = listOf(
                     "com.mealkitary.**.Q*",
-                    "com.mealkitary.*Application*"
+                    "com.mealkitary.*Application*",
+                    "com.mealkitary.common.exception.*"
                 )
             }
         }
