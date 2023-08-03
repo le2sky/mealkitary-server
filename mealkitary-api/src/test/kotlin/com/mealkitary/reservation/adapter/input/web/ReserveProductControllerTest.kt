@@ -1,8 +1,8 @@
 package com.mealkitary.reservation.adapter.input.web
 
 import com.mealkitary.WebIntegrationTestSupport
-import com.mealkitary.reservation.application.port.input.ReserveProductRequest
-import com.mealkitary.reservation.application.port.input.ReservedProduct
+import com.mealkitary.reservation.adapter.input.web.request.ReserveProductWebRequest
+import com.mealkitary.reservation.adapter.input.web.request.ReservedWebProduct
 import io.mockk.every
 import org.springframework.http.MediaType
 import org.springframework.restdocs.headers.HeaderDocumentation.headerWithName
@@ -28,10 +28,10 @@ class ReserveProductControllerTest : WebIntegrationTestSupport() {
         every { reserveProductUseCase.reserve(any()) }.answers {
             1L
         }
-        val reserveProductRequest = ReserveProductRequest(
+        val reserveProductWebRequest = ReserveProductWebRequest(
             1L,
             listOf(
-                ReservedProduct(
+                ReservedWebProduct(
                     2L,
                     "부대찌개",
                     3000,
@@ -41,13 +41,13 @@ class ReserveProductControllerTest : WebIntegrationTestSupport() {
             LocalDateTime.of(
                 LocalDate.now().plusDays(1),
                 LocalTime.of(16, 0)
-            )
+            ).toString()
         )
 
         mvc.perform(
             RestDocumentationRequestBuilders.post("/reservations")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(reserveProductRequest))
+                .content(objectMapper.writeValueAsString(reserveProductWebRequest))
         )
             .andExpect(status().isCreated)
             .andExpect(header().string("Location", "http://localhost:8080/reservations/1"))
