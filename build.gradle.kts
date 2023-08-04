@@ -69,8 +69,9 @@ subprojects {
         classDirectories.setFrom(
             sourceSets.main.get().output.asFileTree.matching {
                 exclude(
-                    "com.mealkitary.**.Q*",
-                    "com.mealkitary.*Application*"
+                    "**/Q*",
+                    "**/*Application*",
+                    "**/exception/*"
                 )
             }
         )
@@ -92,8 +93,9 @@ subprojects {
                 }
 
                 excludes = listOf(
-                    "com.mealkitary.**.Q*",
-                    "com.mealkitary.*Application*"
+                    "**.Q*",
+                    "**.*Application*",
+                    "**.exception.*"
                 )
             }
         }
