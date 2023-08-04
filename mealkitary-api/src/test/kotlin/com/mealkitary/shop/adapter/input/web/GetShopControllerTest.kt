@@ -6,6 +6,7 @@ import io.mockk.every
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 class GetShopControllerTest : WebIntegrationTestSupport() {
@@ -19,5 +20,7 @@ class GetShopControllerTest : WebIntegrationTestSupport() {
         mvc.perform(MockMvcRequestBuilders.get("/shops/"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.[0].id").value(1))
+            .andExpect(jsonPath("$.[0].title").value("집밥뚝딱"))
     }
 }
