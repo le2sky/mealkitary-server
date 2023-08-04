@@ -14,6 +14,7 @@ plugins {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation(project(":mealkitary-application"))
     implementation(project(":mealkitary-domain"))
     implementation(project(":mealkitary-infrastructure:adapter-persistence-spring-data-jpa"))
