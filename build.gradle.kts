@@ -58,7 +58,6 @@ subprojects {
         toolVersion = jacocoVersion
     }
 
-
     tasks.jacocoTestReport {
         dependsOn(tasks.test)
         reports {
@@ -70,9 +69,9 @@ subprojects {
         classDirectories.setFrom(
             sourceSets.main.get().output.asFileTree.matching {
                 exclude(
-                    "**.Q*",
-                    "**.*Application*",
-                    "**.exception.*"
+                    "**/Q*",
+                    "**/*Application*",
+                    "**/exception/*"
                 )
             }
         )
