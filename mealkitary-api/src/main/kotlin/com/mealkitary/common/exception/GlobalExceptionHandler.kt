@@ -58,6 +58,13 @@ class GlobalExceptionHandler {
             .body(ErrorResponse.unprocessableEntity(e.message!!))
     }
 
+    @ExceptionHandler(EntityNotFoundException::class)
+    fun handleEntityNotFoundException(e: EntityNotFoundException): ResponseEntity<ErrorResponse> {
+        logger.error("handleEntityNotFoundException", e)
+
+        return ResponseEntity(ErrorResponse.notFound(e.message!!), HttpStatus.NOT_FOUND)
+    }
+
     @ExceptionHandler(Exception::class)
     fun handleUnexpectedException(e: Exception): ResponseEntity<ErrorResponse> {
         logger.error("handleUnexpectedException", e)
