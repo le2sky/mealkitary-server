@@ -13,7 +13,6 @@ import com.ninjasquad.springmockk.MockkBean
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.extensions.spring.SpringExtension
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.test.web.servlet.MockMvc
 
@@ -25,7 +24,6 @@ import org.springframework.test.web.servlet.MockMvc
         GetProductController::class
     ]
 )
-@AutoConfigureRestDocs
 abstract class WebIntegrationTestSupport : AnnotationSpec() {
 
     override fun extensions() = listOf(SpringExtension)
