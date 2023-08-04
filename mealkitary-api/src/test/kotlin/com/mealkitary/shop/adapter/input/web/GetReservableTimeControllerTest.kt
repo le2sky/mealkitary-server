@@ -6,6 +6,7 @@ import io.mockk.verify
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.time.LocalTime
 
@@ -20,6 +21,7 @@ class GetReservableTimeControllerTest : WebIntegrationTestSupport() {
         mvc.perform(MockMvcRequestBuilders.get("/shops/{shopId}/reservable-time", 1))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.[0]").value("06:30:00"))
 
         verify { getReservableTimeQuery.loadAllReservableTimeByShopId(1L) }
     }
