@@ -58,6 +58,7 @@ subprojects {
         toolVersion = jacocoVersion
     }
 
+
     tasks.jacocoTestReport {
         dependsOn(tasks.test)
         reports {
@@ -69,9 +70,9 @@ subprojects {
         classDirectories.setFrom(
             sourceSets.main.get().output.asFileTree.matching {
                 exclude(
-                    "com.mealkitary.**.Q*",
-                    "com.mealkitary.*Application*",
-                    "com.mealkitary.common.exception.*"
+                    "**.Q*",
+                    "**.*Application*",
+                    "**.exception.*"
                 )
             }
         )
@@ -93,9 +94,9 @@ subprojects {
                 }
 
                 excludes = listOf(
-                    "com.mealkitary.**.Q*",
-                    "com.mealkitary.*Application*",
-                    "com.mealkitary.common.exception.*"
+                    "**.Q*",
+                    "**.*Application*",
+                    "**.exception.*"
                 )
             }
         }
