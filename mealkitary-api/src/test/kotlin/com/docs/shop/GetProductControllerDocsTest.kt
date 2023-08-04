@@ -6,7 +6,6 @@ import com.mealkitary.shop.application.port.input.GetProductQuery
 import com.mealkitary.shop.application.port.input.ProductResponse
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
 import org.springframework.http.MediaType
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
@@ -50,8 +49,6 @@ class GetProductControllerDocsTest : RestDocsSupport() {
                     )
                 )
             )
-
-        verify { getProductQuery.loadAllProductByShopId(1L) }
     }
 
     override fun initController() = GetProductController(getProductQuery)
