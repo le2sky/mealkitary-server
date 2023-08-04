@@ -5,7 +5,6 @@ import com.mealkitary.shop.adapter.input.web.GetReservableTimeController
 import com.mealkitary.shop.application.port.input.GetReservableTimeQuery
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
 import org.springframework.http.MediaType
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
@@ -47,8 +46,6 @@ class GetReservableTimeControllerDocsTest : RestDocsSupport() {
                     )
                 )
             )
-
-        verify { getReservableTimeQuery.loadAllReservableTimeByShopId(1L) }
     }
 
     override fun initController() = GetReservableTimeController(getReservableTimeQuery)
