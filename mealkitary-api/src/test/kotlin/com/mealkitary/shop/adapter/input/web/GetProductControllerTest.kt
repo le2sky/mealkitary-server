@@ -40,4 +40,12 @@ class GetProductControllerTest : WebIntegrationTestSupport() {
             .andExpect(jsonPath("$.status").value(404))
             .andExpect(jsonPath("$.message").value("존재하지 않는 가게입니다."))
     }
+
+    @Test
+    fun `api integration test - 가게의 상품이 존재하지 않는다면 204 NoContent를 반환한다`() {
+        every { getProductQuery.loadAllProductByShopId(1L) } answers { emptyList() }
+
+        mvc.perform(get("/shops/{shopId}/products", 1))
+            .andExpect(status().isNoContent())
+    }
 }
