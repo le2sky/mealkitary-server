@@ -23,4 +23,12 @@ class GetShopControllerTest : WebIntegrationTestSupport() {
             .andExpect(jsonPath("$.[0].id").value(1))
             .andExpect(jsonPath("$.[0].title").value("집밥뚝딱"))
     }
+
+    @Test
+    fun `api integration test - 어떠한 가게도 존재하지 않는다면 204 NoContent를 반환한다`() {
+        every { getShopQuery.loadAllShop() }.answers { emptyList() }
+
+        mvc.perform(MockMvcRequestBuilders.get("/shops/"))
+            .andExpect(status().isNoContent())
+    }
 }

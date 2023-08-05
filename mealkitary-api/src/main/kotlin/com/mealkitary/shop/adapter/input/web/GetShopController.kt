@@ -1,7 +1,7 @@
 package com.mealkitary.shop.adapter.input.web
 
+import com.mealkitary.common.utils.HttpResponseUtils
 import com.mealkitary.shop.application.port.input.GetShopQuery
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -13,5 +13,6 @@ class GetShopController(
 ) {
 
     @GetMapping
-    fun getAllShop() = ResponseEntity.ok(getShopQuery.loadAllShop())
+    fun getAllShop() =
+        HttpResponseUtils.mapToResponseEntity(emptiableList = getShopQuery.loadAllShop())
 }

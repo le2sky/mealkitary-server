@@ -1,6 +1,7 @@
 package com.mealkitary.reservation.adapter.input.web
 
 import com.mealkitary.WebIntegrationTestSupport
+import com.mealkitary.common.exception.EntityNotFoundException
 import com.mealkitary.reservation.adapter.input.web.request.ReserveProductWebRequest
 import com.mealkitary.reservation.adapter.input.web.request.ReservedWebProduct
 import io.mockk.every
@@ -137,5 +138,34 @@ class ReserveProductControllerTest : WebIntegrationTestSupport() {
             .andExpect(status().isBadRequest)
             .andExpect(jsonPath("$.status").value("400"))
             .andExpect(jsonPath("$.message").value("JSON 형식이 잘못되었습니다."))
+    }
+
+    @Test
+    fun `api integration test - 예약 대상 가게가 존재하지 않는 경우 404 에러를 발생한다`() {
+        every { reserveProductUseCase.reserve(any()) }
+            .throws(EntityNotFoundException("존재하지 않는 가게입니다."))
+        val reserveProductWebRequest = ReserveProductWebRequest(
+            1L,
+            listOf(
+                ReservedWebProduct(
+                    2L,
+                    "부대찌개",
+                    3000,
+                    3
+                )
+            ),
+            LocalDateTime.of(
+                LocalDate.now().plusDays(1),
+                LocalTime.of(16, 0)
+            ).toString()
+        )
+
+        mvc.perform(
+            post("/reservations")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(reserveProductWebRequest))
+        )
+            .andExpect(jsonPath("$.status").value(404))
+            .andExpect(jsonPath("$.message").value("존재하지 않는 가게입니다."))
     }
 }
