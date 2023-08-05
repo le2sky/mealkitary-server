@@ -13,7 +13,7 @@ class SpringDataJpaReservationPersistenceAdapterTest(
     @Test
     fun `db integration test - 신규 예약을 저장한다`() {
         val reservation = ReservationTestData.defaultReservation()
-            .withShop(shopRepository.findOneWithProductsById(1L))
+            .withShop(shopRepository.findOneWithProductsById(1L).orElseThrow())
             .build()
 
         val saved = adapterUnderTest.saveOne(reservation)

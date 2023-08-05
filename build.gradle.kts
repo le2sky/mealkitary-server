@@ -71,7 +71,8 @@ subprojects {
                 exclude(
                     "**/Q*",
                     "**/*Application*",
-                    "**/exception/*"
+                    "**/exception/*",
+                    "**/utils/*"
                 )
             }
         )
@@ -95,7 +96,8 @@ subprojects {
                 excludes = listOf(
                     "**.Q*",
                     "**.*Application*",
-                    "**.exception.*"
+                    "**.exception.*",
+                    "**.utils.*"
                 )
             }
         }

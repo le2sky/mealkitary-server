@@ -3,6 +3,7 @@ package com.mealkitary.common.exception
 import org.springframework.http.HttpStatus.BAD_REQUEST
 import org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR
 import org.springframework.http.HttpStatus.METHOD_NOT_ALLOWED
+import org.springframework.http.HttpStatus.NOT_FOUND
 import org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY
 import org.springframework.validation.BindingResult
 
@@ -19,6 +20,9 @@ data class ErrorResponse(
         fun badRequest(message: String) = ErrorResponse(BAD_REQUEST.value(), message, emptyList())
 
         fun unprocessableEntity(message: String) = ErrorResponse(UNPROCESSABLE_ENTITY.value(), message, emptyList())
+
+        fun notFound(message: String) =
+            ErrorResponse(NOT_FOUND.value(), message, emptyList())
 
         fun methodNotAllowed() =
             ErrorResponse(METHOD_NOT_ALLOWED.value(), "지원하지 않는 메서드입니다.", emptyList())
