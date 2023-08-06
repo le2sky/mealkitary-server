@@ -63,7 +63,7 @@ jib {
     }
 
     to {
-        image = "leehaneul/mealkitary-api-${project.version.toString().toLowerCase()}"
+        image = "leehaneul/mealkitary-api"
         tags = setOf("${project.version}")
     }
 
