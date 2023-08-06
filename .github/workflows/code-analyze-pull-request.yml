@@ -1,4 +1,4 @@
-name: Jacoco Code Coverage & Test Result workflow
+name: Code Analyze - Pull Request
 
 permissions:
     checks: write
@@ -11,8 +11,7 @@ on:
             - 'main'
 
 jobs:
-    code-coverage:
-        if: ${{ contains(github.event.*.labels.*.name, format('run{0} gradle test', ':')) }}
+    code-analyze:
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v3
@@ -25,8 +24,19 @@ jobs:
 
             -   name: Gradlew wrapper 실행 권한 부여
                 run: chmod +x gradlew
-            -   name: Gradle 테스트
-                run: ./gradlew test
+
+            -   name: Gradle 캐싱
+                uses: actions/cache@v3
+                with:
+                    path: |
+                        ~/.gradle/caches
+                        ~/.gradle/wrapper
+                    key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+                    restore-keys: |
+                        ${{ runner.os }}-gradle-
+
+            -   name: Gradle 빌드
+                run: ./gradlew clean build --exclude-task asciidoctor
 
             -   name: 테스트 결과 출력
                 uses: EnricoMi/publish-unit-test-result-action@v2
