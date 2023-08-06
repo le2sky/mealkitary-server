@@ -13,6 +13,7 @@ pluginManagement {
     val springBootVersion: String by settings
     val springDependencyManagementVersion: String by settings
     val asciidoctorVersion: String by settings
+    val jibVersion: String by settings
 
     resolutionStrategy {
         eachPlugin {
@@ -25,6 +26,7 @@ pluginManagement {
                 "org.jetbrains.kotlin.plugin.jpa" -> useVersion(kotlinVersion)
                 "org.jlleitschuh.gradle.ktlint" -> useVersion(ktlintVersion)
                 "org.asciidoctor.jvm.convert" -> useVersion(asciidoctorVersion)
+                "com.google.cloud.tools.jib" -> useVersion(jibVersion)
             }
         }
     }
