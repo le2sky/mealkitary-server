@@ -13,8 +13,8 @@
     <a href="https://codecov.io/gh/le2sky/mealkitary-server" >
         <img src="https://codecov.io/gh/le2sky/mealkitary-server/branch/main/graph/badge.svg?token=MRR5C1OFUL"/>
     </a>
-    <a href="https://github.com/le2sky/mealkitary-server/.git/workflows/ci/mealkitary-main-ci.yml">
-        <img src="https://github.com/le2sky/mealkitary-server/actions/workflows/code-coverage-and-test-result.yml/badge.svg" alt="Build Status">
+    <a href="https://github.com/le2sky/mealkitary-server/.git/workflows/mealkitary-main-ci.yml">
+        <img src="https://github.com/le2sky/mealkitary-server/actions/workflows/mealkitary-main-ci.yml/badge.svg" alt="Build Status">
     </a>
 </p>
 
