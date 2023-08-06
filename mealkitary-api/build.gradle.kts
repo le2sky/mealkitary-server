@@ -10,6 +10,7 @@ jar.enabled = false
 
 plugins {
     id("org.asciidoctor.jvm.convert")
+    id("com.google.cloud.tools.jib")
 }
 
 dependencies {
@@ -54,4 +55,31 @@ tasks.register<Copy>("copyFile") {
 
 tasks.build {
     dependsOn("copyFile")
+}
+
+jib {
+    from {
+        image = "adoptopenjdk/openjdk11:alpine-jre"
+    }
+
+    to {
+        image = "leehaneul/mealkitary-api-${project.version.toString().toLowerCase()}"
+        tags = setOf("${project.version}")
+    }
+
+    container {
+        creationTime = "USE_CURRENT_TIMESTAMP"
+        mainClass = "com.mealkitary.MealkitaryApplicationKt"
+        jvmFlags = listOf(
+            "-Xms512m",
+            "-Xmx512m",
+            "-Xdebug",
+            "-XshowSettings:vm",
+            "-XX:+UnlockExperimentalVMOptions",
+            "-XX:+UseContainerSupport",
+            "-Dfile.encoding=UTF-8"
+        )
+        environment = mapOf("SPRING_OUTPUT_ANSI_ENABLED" to "ALWAYS")
+        ports = listOf("8080")
+    }
 }
