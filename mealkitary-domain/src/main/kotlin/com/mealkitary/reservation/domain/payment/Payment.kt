@@ -5,6 +5,8 @@ import com.mealkitary.reservation.domain.reservation.Reservation
 import javax.persistence.Column
 import javax.persistence.Embedded
 import javax.persistence.Entity
+import javax.persistence.EnumType
+import javax.persistence.Enumerated
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.OneToOne
@@ -15,7 +17,6 @@ class Payment private constructor(
     reservation: Reservation,
     amount: Money
 ) {
-
     @Id
     @Column(name = "payment_id")
     val paymentKey: String = paymentKey
@@ -26,6 +27,28 @@ class Payment private constructor(
 
     @Embedded
     val amount: Money = amount
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    var paymentStatus: PaymentStatus = PaymentStatus.READY
+        protected set
+
+    fun approve() {
+        checkAlreadyApproved()
+
+        reservation.pay()
+        paymentStatus = PaymentStatus.APPROVED
+    }
+
+    private fun checkAlreadyApproved() {
+        if (isApproved()) {
+            throw IllegalStateException("이미 승인된 결제는 다시 승인될 수 없습니다.")
+        }
+    }
+
+    fun isApproved(): Boolean {
+        return paymentStatus.isApproved()
+    }
 
     companion object {
         fun of(paymentKey: String, reservation: Reservation, amount: Money): Payment {
