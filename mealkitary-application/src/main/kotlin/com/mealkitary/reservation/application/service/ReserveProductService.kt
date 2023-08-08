@@ -3,7 +3,7 @@ package com.mealkitary.reservation.application.service
 import com.mealkitary.reservation.application.port.input.ReserveProductRequest
 import com.mealkitary.reservation.application.port.input.ReserveProductUseCase
 import com.mealkitary.reservation.application.port.output.SaveReservationPort
-import com.mealkitary.reservation.domain.Reservation
+import com.mealkitary.reservation.domain.reservation.Reservation
 import com.mealkitary.shop.application.port.output.LoadShopPort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

@@ -1,6 +1,6 @@
 package com.mealkitary.reservation.application.port.output
 
-import com.mealkitary.reservation.domain.Reservation
+import com.mealkitary.reservation.domain.reservation.Reservation
 
 interface SaveReservationPort {
 

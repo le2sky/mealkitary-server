@@ -1,7 +1,7 @@
 package com.mealkitary.reservation.adapter.output.persistence
 
 import com.mealkitary.reservation.application.port.output.SaveReservationPort
-import com.mealkitary.reservation.domain.Reservation
+import com.mealkitary.reservation.domain.reservation.Reservation
 import org.springframework.stereotype.Repository
 
 @Repository

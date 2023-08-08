@@ -1,4 +1,4 @@
-package com.mealkitary.reservation.domain
+package com.mealkitary.reservation.domain.reservation
 
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.ALREADY_PROCESSED_RESERVATION
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.ALREADY_REJECTED_RESERVATION_CANNOT_ACCEPT

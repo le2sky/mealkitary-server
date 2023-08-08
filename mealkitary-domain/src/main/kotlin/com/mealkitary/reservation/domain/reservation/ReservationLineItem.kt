@@ -1,4 +1,4 @@
-package com.mealkitary.reservation.domain
+package com.mealkitary.reservation.domain.reservation
 
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.AT_LEAST_ONE_ITEM_COUNT_REQUIRED
 import com.mealkitary.common.model.Money

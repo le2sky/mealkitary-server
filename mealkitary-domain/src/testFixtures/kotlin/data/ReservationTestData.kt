@@ -1,9 +1,9 @@
 package data
 
 import com.mealkitary.common.model.Money
-import com.mealkitary.reservation.domain.Reservation
-import com.mealkitary.reservation.domain.ReservationLineItem
-import com.mealkitary.reservation.domain.ReservationStatus
+import com.mealkitary.reservation.domain.reservation.Reservation
+import com.mealkitary.reservation.domain.reservation.ReservationLineItem
+import com.mealkitary.reservation.domain.reservation.ReservationStatus
 import com.mealkitary.shop.domain.product.ProductId
 import com.mealkitary.shop.domain.shop.Shop
 import data.ShopTestData.Companion.defaultShop

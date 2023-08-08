@@ -1,7 +1,7 @@
 package com.mealkitary.reservation.application.port.input
 
 import com.mealkitary.common.model.Money
-import com.mealkitary.reservation.domain.ReservationLineItem
+import com.mealkitary.reservation.domain.reservation.ReservationLineItem
 import com.mealkitary.shop.domain.product.ProductId
 
 data class ReservedProduct(
