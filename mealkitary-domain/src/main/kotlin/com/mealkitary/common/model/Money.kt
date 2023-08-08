@@ -20,6 +20,10 @@ data class Money private constructor(
         return from(value + target.value)
     }
 
+    fun lessThanEqual(target: Money): Boolean {
+        return value <= target.value
+    }
+
     companion object {
         fun from(value: Int): Money {
             checkValue(value)
