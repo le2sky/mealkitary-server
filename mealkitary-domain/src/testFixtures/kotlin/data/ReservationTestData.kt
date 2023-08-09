@@ -14,6 +14,7 @@ import java.time.LocalTime
 class ReservationTestData {
 
     class ReservationBuilder(
+        private var id: Long? = null,
         private var reservationStatus: ReservationStatus = ReservationStatus.NONE,
         private var lineItems: List<ReservationLineItem> = listOf(
             ReservationLineItem.of(
@@ -35,6 +36,10 @@ class ReservationTestData {
             LocalTime.of(18, 0)
         )
     ) {
+        fun withId(id: Long): ReservationBuilder {
+            this.id = id
+            return this
+        }
 
         fun withReservationStatus(status: ReservationStatus): ReservationBuilder {
             this.reservationStatus = status
@@ -58,6 +63,7 @@ class ReservationTestData {
 
         fun build(): Reservation {
             return Reservation.of(
+                this.id,
                 this.lineItems,
                 this.shop,
                 this.reserveAt,

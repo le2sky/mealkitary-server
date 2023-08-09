@@ -30,6 +30,7 @@ import javax.persistence.Table
 @Entity
 @Table(name = "reservation")
 class Reservation private constructor(
+    id: Long?,
     lineItems: MutableList<ReservationLineItem>,
     shop: Shop,
     reserveAt: LocalDateTime,
@@ -39,7 +40,7 @@ class Reservation private constructor(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reservation_id")
-    var id: Long? = null
+    var id: Long? = id
         protected set
 
     @ElementCollection
@@ -152,6 +153,7 @@ class Reservation private constructor(
 
     companion object {
         fun of(
+            id: Long? = null,
             lineItems: List<ReservationLineItem>,
             shop: Shop,
             reserveAt: LocalDateTime,
@@ -160,7 +162,7 @@ class Reservation private constructor(
             checkLineItemsAtLeastOne(lineItems)
             checkBeforeTime(reserveAt)
 
-            return Reservation(lineItems.toMutableList(), shop, reserveAt, reservationStatus)
+            return Reservation(id, lineItems.toMutableList(), shop, reserveAt, reservationStatus)
         }
 
         private fun checkLineItemsAtLeastOne(lineItems: List<ReservationLineItem>) {

@@ -19,7 +19,11 @@ class ReserveProductService(
     override fun reserve(reserveProductRequest: ReserveProductRequest): Long {
         val shop = loadShopPort.loadOneShopById(reserveProductRequest.shopId)
         val reservationLineItem = reserveProductRequest.products.map { it.mapToDomainEntity() }
-        val reservation = Reservation.of(reservationLineItem, shop, reserveProductRequest.reservedAt)
+        val reservation = Reservation.of(
+            lineItems = reservationLineItem,
+            shop = shop,
+            reserveAt = reserveProductRequest.reservedAt
+        )
 
         reservation.reserve()
 
