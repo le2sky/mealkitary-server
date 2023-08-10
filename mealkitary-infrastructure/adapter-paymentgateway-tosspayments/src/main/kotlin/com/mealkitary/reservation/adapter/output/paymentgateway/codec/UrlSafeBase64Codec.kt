@@ -11,7 +11,7 @@ class UrlSafeBase64Codec : TossPaymentCodec {
         val urlSafeEncoder = Base64.getUrlEncoder()
         val urlSafeEncodedBytes = urlSafeEncoder.encode(input.toByteArray())
 
-        return String(urlSafeEncodedBytes).replace("=", "")
+        return String(urlSafeEncodedBytes)
     }
 
     override fun decode(input: String): String {
