@@ -12,6 +12,8 @@ allOpen {
 dependencies {
     val kapt by configurations
     val querydslVersion: String by properties
+    val ulidCreatorVersion: String by properties
     implementation("com.querydsl:querydsl-jpa:$querydslVersion")
+    implementation("com.github.f4b6a3:ulid-creator:$ulidCreatorVersion")
     kapt("com.querydsl:querydsl-apt:$querydslVersion:jpa")
 }
