@@ -72,7 +72,8 @@ subprojects {
                     "**/Q*",
                     "**/*Application*",
                     "**/exception/*",
-                    "**/utils/*"
+                    "**/utils/*",
+                    "**/*Config*"
                 )
             }
         )
@@ -97,7 +98,8 @@ subprojects {
                     "**.Q*",
                     "**.*Application*",
                     "**.exception.*",
-                    "**.utils.*"
+                    "**.utils.*",
+                    "**.*Config*"
                 )
             }
         }
