@@ -7,6 +7,7 @@ import com.mealkitary.reservation.domain.reservation.Reservation
 import com.mealkitary.shop.application.port.output.LoadShopPort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.UUID
 
 @Service
 @Transactional(readOnly = true)
@@ -16,7 +17,7 @@ class ReserveProductService(
 ) : ReserveProductUseCase {
 
     @Transactional
-    override fun reserve(reserveProductRequest: ReserveProductRequest): Long {
+    override fun reserve(reserveProductRequest: ReserveProductRequest): UUID {
         val shop = loadShopPort.loadOneShopById(reserveProductRequest.shopId)
         val reservationLineItem = reserveProductRequest.products.map { it.mapToDomainEntity() }
         val reservation = Reservation.of(

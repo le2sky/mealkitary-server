@@ -1,13 +1,13 @@
 package com.mealkitary.reservation.domain.payment
 
 import com.mealkitary.common.model.Money
+import com.mealkitary.common.model.UUIDBaseEntity
 import com.mealkitary.reservation.domain.reservation.Reservation
 import javax.persistence.Column
 import javax.persistence.Embedded
 import javax.persistence.Entity
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
-import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.OneToOne
 
@@ -16,9 +16,9 @@ class Payment private constructor(
     paymentKey: String,
     reservation: Reservation,
     amount: Money
-) {
-    @Id
-    @Column(name = "payment_id")
+) : UUIDBaseEntity() {
+
+    @Column(nullable = false)
     val paymentKey: String = paymentKey
 
     @OneToOne
