@@ -30,7 +30,7 @@ class TossPaymentMapperTest : AnnotationSpec() {
 
         result shouldBe TossPayment.of(
             "paymentKey",
-            codec.encode("mealkitary:toss:reservation:1234"),
+            codec.encode("mealkitary:toss:reservation:1234").replace("=", ""),
             2000
         )
     }

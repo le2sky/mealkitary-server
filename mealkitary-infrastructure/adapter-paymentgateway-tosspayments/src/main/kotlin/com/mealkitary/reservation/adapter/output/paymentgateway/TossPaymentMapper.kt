@@ -15,7 +15,7 @@ class TossPaymentMapper(
 
         return TossPayment.of(
             payment.paymentKey,
-            codec.encode(appendPrefix(payment.reservation.id!!)),
+            removePadding(codec.encode(appendPrefix(payment.reservation.id!!))),
             payment.amount.value
         )
     }
@@ -28,5 +28,9 @@ class TossPaymentMapper(
 
     private fun appendPrefix(id: Long): String {
         return "$ORDER_ID_PREFIX$id"
+    }
+
+    private fun removePadding(encoded: String): String {
+        return encoded.replace("=", "")
     }
 }
