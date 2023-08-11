@@ -11,6 +11,24 @@ class TossPayment private constructor(
     val amount: Int
 ) {
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as TossPayment
+
+        if (paymentKey != other.paymentKey) return false
+        if (orderId != other.orderId) return false
+        return amount == other.amount
+    }
+
+    override fun hashCode(): Int {
+        var result = paymentKey.hashCode()
+        result = 31 * result + orderId.hashCode()
+        result = 31 * result + amount
+        return result
+    }
+
     companion object {
         fun of(paymentKey: String, orderId: String, amount: Int): TossPayment {
             checkPaymentKeyLength(paymentKey)
