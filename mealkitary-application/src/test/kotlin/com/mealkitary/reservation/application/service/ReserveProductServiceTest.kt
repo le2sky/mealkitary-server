@@ -17,6 +17,7 @@ import io.mockk.mockk
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.util.UUID
 
 class ReserveProductServiceTest : AnnotationSpec() {
 
@@ -27,12 +28,13 @@ class ReserveProductServiceTest : AnnotationSpec() {
     @Test
     fun `service unit test - 신규 예약을 생성한다`() {
         givenShop()
-        every { saveReservationPort.saveOne(any()) } answers { 1L }
+        val id = UUID.randomUUID()
+        every { saveReservationPort.saveOne(any()) } answers { id }
         val reserveProductRequest = createReserveProductRequest()
 
         val result = reserveProductService.reserve(reserveProductRequest)
 
-        result shouldBe 1L
+        result shouldBe id
     }
 
     @Test

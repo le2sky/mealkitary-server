@@ -1,4 +1,4 @@
-package com.mealkitary.reservation.domain
+package com.mealkitary.reservation.domain.reservation
 
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.ALREADY_PROCESSED_RESERVATION
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.ALREADY_REJECTED_RESERVATION_CANNOT_ACCEPT
@@ -11,6 +11,7 @@ import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMess
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.NOTPAID_RESERVATION_CANNOT_ACCEPT
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.NOTPAID_RESERVATION_CANNOT_REJECT
 import com.mealkitary.common.model.Money
+import com.mealkitary.common.model.UUIDBaseEntity
 import com.mealkitary.shop.domain.shop.Shop
 import java.time.LocalDateTime
 import javax.persistence.CollectionTable
@@ -20,9 +21,6 @@ import javax.persistence.Entity
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
 import javax.persistence.FetchType
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.Table
@@ -34,13 +32,7 @@ class Reservation private constructor(
     shop: Shop,
     reserveAt: LocalDateTime,
     reservationStatus: ReservationStatus
-) {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "reservation_id")
-    var id: Long? = null
-        protected set
+) : UUIDBaseEntity() {
 
     @ElementCollection
     @CollectionTable(

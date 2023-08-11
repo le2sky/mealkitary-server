@@ -5,6 +5,7 @@ include(
     "mealkitary-application",
     "mealkitary-domain",
     "mealkitary-infrastructure:adapter-persistence-spring-data-jpa",
+    "mealkitary-infrastructure:adapter-paymentgateway-tosspayments"
 )
 
 pluginManagement {

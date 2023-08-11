@@ -1,4 +1,4 @@
-package com.mealkitary.reservation.domain
+package com.mealkitary.reservation.domain.reservation
 
 enum class ReservationStatus {
 

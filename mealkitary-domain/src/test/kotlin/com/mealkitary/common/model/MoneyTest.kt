@@ -69,4 +69,16 @@ class MoneyTest : AnnotationSpec() {
 
         (sut === money).shouldBeFalse()
     }
+
+    @Test
+    fun `더 작거나 같은 값인지 확인한다`() {
+        val money = Money.from(1000)
+        val target1 = Money.from(1000)
+        val target2 = Money.from(2000)
+        val target3 = Money.from(999)
+
+        money.lessThanEqual(target1).shouldBeTrue()
+        money.lessThanEqual(target2).shouldBeTrue()
+        money.lessThanEqual(target3).shouldBeFalse()
+    }
 }

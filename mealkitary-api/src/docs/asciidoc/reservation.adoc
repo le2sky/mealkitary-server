@@ -25,3 +25,27 @@ include::{snippets}/reservation-post/http-response.adoc[]
 ===== 응답 헤더
 
 include::{snippets}/reservation-post/response-headers.adoc[]
+
+==== 예약 결제
+
+미결제 상태의 예약에 대해 결제를 생성/승인합니다.
+
+[NOTE]
+====
+신규 리소스 생성 시, 반환 헤더의 Location 값은 신규 리소스의 URI입니다.
+====
+
+===== 요청
+
+include::{snippets}/reservation-post-pay/curl-request.adoc[]
+include::{snippets}/reservation-post-pay/http-request.adoc[]
+include::{snippets}/reservation-post-pay/request-fields.adoc[]
+include::{snippets}/reservation-post-pay/path-parameters.adoc[]
+
+===== 응답
+
+include::{snippets}/reservation-post-pay/http-response.adoc[]
+
+===== 응답 헤더
+
+include::{snippets}/reservation-post-pay/response-headers.adoc[]

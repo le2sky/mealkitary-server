@@ -1,7 +1,9 @@
 package com.mealkitary
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.mealkitary.reservation.adapter.input.web.PayReservationController
 import com.mealkitary.reservation.adapter.input.web.ReserveProductController
+import com.mealkitary.reservation.application.port.input.PayReservationUseCase
 import com.mealkitary.reservation.application.port.input.ReserveProductUseCase
 import com.mealkitary.shop.adapter.input.web.GetProductController
 import com.mealkitary.shop.adapter.input.web.GetReservableTimeController
@@ -19,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc
 @WebMvcTest(
     controllers = [
         ReserveProductController::class,
+        PayReservationController::class,
         GetShopController::class,
         GetReservableTimeController::class,
         GetProductController::class
@@ -36,6 +39,9 @@ abstract class WebIntegrationTestSupport : AnnotationSpec() {
 
     @MockkBean
     protected lateinit var reserveProductUseCase: ReserveProductUseCase
+
+    @MockkBean
+    protected lateinit var payReservationUseCase: PayReservationUseCase
 
     @MockkBean
     protected lateinit var getShopQuery: GetShopQuery
