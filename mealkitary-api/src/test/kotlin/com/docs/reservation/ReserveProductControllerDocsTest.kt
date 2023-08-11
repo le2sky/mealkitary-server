@@ -55,7 +55,7 @@ class ReserveProductControllerDocsTest : RestDocsSupport() {
                 .content(objectMapper.writeValueAsString(reserveProductWebRequest))
         )
             .andExpect(status().isCreated)
-            .andExpect(header().string("Location", "http://localhost:8080/reservations/$id"))
+            .andExpect(header().string("Location", "http://localhost/reservations/$id"))
             .andDo(
                 document(
                     "reservation-post",
