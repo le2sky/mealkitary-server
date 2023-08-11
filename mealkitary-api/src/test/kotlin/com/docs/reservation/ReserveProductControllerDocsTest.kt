@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.util.UUID
 
 class ReserveProductControllerDocsTest : RestDocsSupport() {
 
@@ -30,9 +31,8 @@ class ReserveProductControllerDocsTest : RestDocsSupport() {
 
     @Test
     fun `api docs test - reserveProduct`() {
-        every { reserveProductUseCase.reserve(any()) }.answers {
-            1L
-        }
+        val id = UUID.randomUUID()
+        every { reserveProductUseCase.reserve(any()) }.answers { id }
         val reserveProductWebRequest = ReserveProductWebRequest(
             1L,
             listOf(
@@ -55,7 +55,7 @@ class ReserveProductControllerDocsTest : RestDocsSupport() {
                 .content(objectMapper.writeValueAsString(reserveProductWebRequest))
         )
             .andExpect(status().isCreated)
-            .andExpect(header().string("Location", "http://localhost:8080/reservations/1"))
+            .andExpect(header().string("Location", "http://localhost/reservations/$id"))
             .andDo(
                 document(
                     "reservation-post",

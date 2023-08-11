@@ -1,3 +1,3 @@
 package com.mealkitary.common.exception
 
-class EntityNotFoundException(message: String) : Exception(message)
+class EntityNotFoundException(message: String) : RuntimeException(message)

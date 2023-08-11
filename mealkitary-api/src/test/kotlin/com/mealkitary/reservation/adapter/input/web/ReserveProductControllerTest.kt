@@ -13,13 +13,15 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.util.UUID
 
 class ReserveProductControllerTest : WebIntegrationTestSupport() {
 
     @Test
     fun `api integration test - reserveProduct`() {
+        val id = UUID.randomUUID()
         every { reserveProductUseCase.reserve(any()) }.answers {
-            1L
+            id
         }
         val reserveProductWebRequest = ReserveProductWebRequest(
             1L,
@@ -43,7 +45,7 @@ class ReserveProductControllerTest : WebIntegrationTestSupport() {
                 .content(objectMapper.writeValueAsString(reserveProductWebRequest))
         )
             .andExpect(status().isCreated)
-            .andExpect(header().string("Location", "http://localhost/reservations/1"))
+            .andExpect(header().string("Location", "http://localhost/reservations/$id"))
     }
 
     @Test

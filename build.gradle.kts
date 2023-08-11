@@ -72,7 +72,9 @@ subprojects {
                     "**/Q*",
                     "**/*Application*",
                     "**/exception/*",
-                    "**/utils/*"
+                    "**/utils/*",
+                    "**/*Config*",
+                    "**/*BaseEntity*"
                 )
             }
         )
@@ -97,7 +99,9 @@ subprojects {
                     "**.Q*",
                     "**.*Application*",
                     "**.exception.*",
-                    "**.utils.*"
+                    "**.utils.*",
+                    "**.*Config*",
+                    "**.*BaseEntity*"
                 )
             }
         }

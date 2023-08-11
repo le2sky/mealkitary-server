@@ -1,5 +1,7 @@
 package com.mealkitary
 
+import com.mealkitary.reservation.domain.payment.PaymentGatewayService
+import com.ninjasquad.springmockk.MockkBean
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.extensions.spring.SpringExtension
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,4 +21,7 @@ abstract class PersistenceIntegrationTestSupport : AnnotationSpec() {
 
     @Autowired
     protected lateinit var emf: EntityManagerFactory
+
+    @MockkBean
+    private lateinit var paymentGatewayService: PaymentGatewayService
 }
