@@ -2,6 +2,8 @@ package com.mealkitary.reservation.adapter.output.persistence
 
 import com.mealkitary.PersistenceIntegrationTestSupport
 import com.mealkitary.common.exception.EntityNotFoundException
+import com.mealkitary.common.model.Money
+import com.mealkitary.reservation.domain.payment.Payment
 import com.mealkitary.reservation.domain.reservation.Reservation
 import com.mealkitary.reservation.domain.reservation.ReservationStatus
 import com.mealkitary.shop.adapter.output.persistence.ShopRepository
@@ -28,6 +30,29 @@ class SpringDataJpaReservationPersistenceAdapterTest(
 
         val find = em.find(Reservation::class.java, saved)
         saved shouldBe find.id
+    }
+
+    @Test
+    fun `db integration test - 신규 결제를 저장한다`() {
+        val reservation = ReservationTestData.defaultReservation()
+            .withReservationStatus(ReservationStatus.NOTPAID)
+            .withShop(shopRepository.findOneWithProductsById(1L).orElseThrow())
+            .build()
+        val payment = Payment.of(
+            "paymentKey",
+            reservation,
+            Money.from(2000)
+        )
+        adapterUnderTest.saveOne(reservation)
+
+        val saved = adapterUnderTest.saveOne(payment)
+        em.flush()
+        em.clear()
+
+        val find = em.find(Payment::class.java, saved)
+        saved shouldBe find.id
+        find.amount shouldBe Money.from(2000)
+        find.paymentKey shouldBe "paymentKey"
     }
 
     @Test
