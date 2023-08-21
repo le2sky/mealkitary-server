@@ -1,4 +1,4 @@
-name: mealkitary main ci
+name: Mealkitary main CD
 
 on:
     push:
@@ -6,7 +6,7 @@ on:
             - 'main'
 
 jobs:
-    ci:
+    cd:
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v3
