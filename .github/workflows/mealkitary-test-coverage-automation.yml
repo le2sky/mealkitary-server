@@ -1,4 +1,4 @@
-name: Jacoco Code Coverage & Test Result workflow
+name: Mealkitary Test Coverage Automation
 
 permissions:
     checks: write
