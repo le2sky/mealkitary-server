@@ -1,4 +1,4 @@
-name: GPT code review workflow
+name: Mealkitary Code Review Automation
 
 permissions:
     contents: read
@@ -19,6 +19,6 @@ jobs:
                     OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
                     LANGUAGE: Korean
                     OPENAI_API_ENDPOINT: https://api.openai.com/v1
-                    MODEL:
+                    MODEL: gpt-3.5-turbo
                     top_p: 1
                     temperature: 1

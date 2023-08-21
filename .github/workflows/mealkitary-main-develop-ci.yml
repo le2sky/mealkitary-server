@@ -1,8 +1,9 @@
-name: Code Analyze - Pull Request
+name: Mealkitary main, develop CI
 
 permissions:
-    checks: write
+    contents: write
     pull-requests: write
+    checks: write
 
 on:
     pull_request:
@@ -11,7 +12,8 @@ on:
             - 'main'
 
 jobs:
-    code-analyze:
+    gradle-task-codecov:
+        if: ${{ contains(github.event.*.labels.*.name, format('run{0} ci', ':')) }}
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v3
@@ -47,6 +49,7 @@ jobs:
                         ./mealkitary-domain/build/test-results/**/*.xml
                         ./mealkitary-application/build/test-results/**/*.xml
                         ./mealkitary-infrastructure/adapter-persistence-spring-data-jpa/build/test-results/**/*.xml
+                        ./mealkitary-infrastructure/adapter-paymentgateway-tosspayments/build/test-results/**/*.xml
 
             -   name: Jacoco Coverage 리포트 전송
                 uses: codecov/codecov-action@v3
@@ -56,6 +59,20 @@ jobs:
                         ./mealkitary-api/build/reports/jacoco/test/jacocoTestReport.xml,
                         ./mealkitary-domain/build/reports/jacoco/test/jacocoTestReport.xml,
                         ./mealkitary-application/build/reports/jacoco/test/jacocoTestReport.xml,
-                        ./mealkitary-infrastructure/adapter-persistence-spring-data-jpa/build/reports/jacoco/test/jacocoTestReport.xml
+                        ./mealkitary-infrastructure/adapter-persistence-spring-data-jpa/build/reports/jacoco/test/jacocoTestReport.xml,
+                        ./mealkitary-infrastructure/adapter-paymentgateway-tosspayments/build/reports/jacoco/test/jacocoTestReport.xml
                     name: mealkitary-codecov
                     verbose: true
+
+    qodana:
+        if: ${{ contains(github.event.*.labels.*.name, format('run{0} ci', ':')) }}
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v3
+                with:
+                    ref: ${{ github.event.pull_request.head.sha }}
+                    fetch-depth: 0
+            -   name: Qodana 정적 코드 분석 수행
+                uses: JetBrains/qodana-action@v2023.2
+                env:
+                    QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
