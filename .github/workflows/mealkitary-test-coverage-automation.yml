@@ -37,6 +37,7 @@ jobs:
                         ./mealkitary-domain/build/test-results/**/*.xml
                         ./mealkitary-application/build/test-results/**/*.xml
                         ./mealkitary-infrastructure/adapter-persistence-spring-data-jpa/build/test-results/**/*.xml
+                        ./mealkitary-infrastructure/adapter-paymentgateway-tosspayments/build/test-results/**/*.xml
 
             -   name: Jacoco Coverage 리포트 전송
                 uses: codecov/codecov-action@v3
@@ -46,6 +47,7 @@ jobs:
                         ./mealkitary-api/build/reports/jacoco/test/jacocoTestReport.xml,
                         ./mealkitary-domain/build/reports/jacoco/test/jacocoTestReport.xml,
                         ./mealkitary-application/build/reports/jacoco/test/jacocoTestReport.xml,
-                        ./mealkitary-infrastructure/adapter-persistence-spring-data-jpa/build/reports/jacoco/test/jacocoTestReport.xml
+                        ./mealkitary-infrastructure/adapter-persistence-spring-data-jpa/build/reports/jacoco/test/jacocoTestReport.xml,
+                        ./mealkitary-infrastructure/adapter-paymentgateway-tosspayments/build/reports/jacoco/test/jacocoTestReport.xml
                     name: mealkitary-codecov
                     verbose: true
