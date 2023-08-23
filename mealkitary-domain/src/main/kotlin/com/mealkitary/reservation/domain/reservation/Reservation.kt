@@ -36,8 +36,7 @@ class Reservation private constructor(
 
     @ElementCollection
     @CollectionTable(
-        name = "reservation_line_item",
-        joinColumns = [JoinColumn(name = "reservation_id")]
+        name = "reservation_line_item", joinColumns = [JoinColumn(name = "reservation_id")]
     )
     private val lineItems: MutableList<ReservationLineItem> = lineItems
 
@@ -56,8 +55,7 @@ class Reservation private constructor(
     fun calculateTotalPrice(): Money {
         checkNotPaid()
 
-        return lineItems.map { it.calculateEachItemTotalPrice() }
-            .reduce { acc, v -> acc + v }
+        return lineItems.map { it.calculateEachItemTotalPrice() }.reduce { acc, v -> acc + v }
     }
 
     fun reserve() {
@@ -82,8 +80,7 @@ class Reservation private constructor(
     }
 
     private fun checkEachItem() {
-        lineItems.map { it.mapToProduct() }
-            .forEach(shop::checkItem)
+        lineItems.map { it.mapToProduct() }.forEach(shop::checkItem)
     }
 
     fun accept() {
@@ -140,6 +137,13 @@ class Reservation private constructor(
         if (!reservationStatus.isNotPaid()) {
             throw IllegalStateException(INVALID_RESERVATION_STATUS_FOR_PAYMENT.message)
         }
+    }
+
+    fun buildDescription(): String {
+        val firstItemName = lineItems.first().name
+        val size = lineItems.size - 1
+
+        return if (size == 0) firstItemName else "$firstItemName 외 ${size}건"
     }
 
     companion object {
