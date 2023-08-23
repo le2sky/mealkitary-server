@@ -37,3 +37,6 @@ out/
 
 ## Spring REST docs ##
 **/src/main/resources/static/docs/
+
+## Firebase ##
+**/firebase.json
