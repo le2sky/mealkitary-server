@@ -1,6 +1,8 @@
 package com.mealkitary.reservation.domain.reservation
 
+import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.ALREADY_ACCEPTED_RESERVATION
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.ALREADY_PROCESSED_RESERVATION
+import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.ALREADY_REJECTED_RESERVATION
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.ALREADY_REJECTED_RESERVATION_CANNOT_ACCEPT
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.ALREADY_RESERVED_RESERVATION_CANNOT_REJECT
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.AT_LEAST_ONE_ITEM_REQUIRED
@@ -36,8 +38,7 @@ class Reservation private constructor(
 
     @ElementCollection
     @CollectionTable(
-        name = "reservation_line_item",
-        joinColumns = [JoinColumn(name = "reservation_id")]
+        name = "reservation_line_item", joinColumns = [JoinColumn(name = "reservation_id")]
     )
     private val lineItems: MutableList<ReservationLineItem> = lineItems
 
@@ -56,8 +57,7 @@ class Reservation private constructor(
     fun calculateTotalPrice(): Money {
         checkNotPaid()
 
-        return lineItems.map { it.calculateEachItemTotalPrice() }
-            .reduce { acc, v -> acc + v }
+        return lineItems.map { it.calculateEachItemTotalPrice() }.reduce { acc, v -> acc + v }
     }
 
     fun reserve() {
@@ -82,14 +82,14 @@ class Reservation private constructor(
     }
 
     private fun checkEachItem() {
-        lineItems.map { it.mapToProduct() }
-            .forEach(shop::checkItem)
+        lineItems.map { it.mapToProduct() }.forEach(shop::checkItem)
     }
 
     fun accept() {
         checkNone()
         checkPaidReservation(NOTPAID_RESERVATION_CANNOT_ACCEPT.message)
         checkAlreadyRejectedForAccept()
+        checkAlreadyAccepted()
 
         changeReservationStatus(ReservationStatus.RESERVED)
     }
@@ -110,10 +110,17 @@ class Reservation private constructor(
         }
     }
 
+    private fun checkAlreadyAccepted() {
+        if (reservationStatus.isReserved()) {
+            throw IllegalStateException(ALREADY_ACCEPTED_RESERVATION.message)
+        }
+    }
+
     fun reject() {
         checkNone()
         checkPaidReservation(NOTPAID_RESERVATION_CANNOT_REJECT.message)
         checkAlreadyAcceptedForReject()
+        checkAlreadyRejected()
 
         changeReservationStatus(ReservationStatus.REJECTED)
     }
@@ -130,6 +137,12 @@ class Reservation private constructor(
         }
     }
 
+    private fun checkAlreadyRejected() {
+        if (reservationStatus.isRejected()) {
+            throw IllegalStateException(ALREADY_REJECTED_RESERVATION.message)
+        }
+    }
+
     fun pay() {
         checkNotPaid()
 
@@ -140,6 +153,13 @@ class Reservation private constructor(
         if (!reservationStatus.isNotPaid()) {
             throw IllegalStateException(INVALID_RESERVATION_STATUS_FOR_PAYMENT.message)
         }
+    }
+
+    fun buildDescription(): String {
+        val firstItemName = lineItems.first().name
+        val size = lineItems.size - 1
+
+        return if (size == 0) firstItemName else "$firstItemName 외 ${size}건"
     }
 
     companion object {

@@ -74,7 +74,9 @@ subprojects {
                     "**/exception/*",
                     "**/utils/*",
                     "**/*Config*",
-                    "**/*BaseEntity*"
+                    "**/*BaseEntity*",
+                    "**/Firebase*Initializer*",
+                    "**/Firebase*Client*",
                 )
             }
         )
@@ -101,7 +103,9 @@ subprojects {
                     "**.exception.*",
                     "**.utils.*",
                     "**.*Config*",
-                    "**.*BaseEntity*"
+                    "**.*BaseEntity*",
+                    "**.Firebase*Initializer*",
+                    "**.Firebase*Client*",
                 )
             }
         }
