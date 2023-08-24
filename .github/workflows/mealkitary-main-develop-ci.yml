@@ -19,8 +19,7 @@ jobs:
             -   uses: actions/checkout@v3
             -   name: Firebase 시크릿 생성
                 run: |
-                    echo ${{ secrets.ENCODED_FIREBASE_JSON }} | base64 -d
-                    > ./mealkitary-infrastructure/adapter-firebase-notification/src/main/resources/firebase.json
+                    echo ${{ secrets.ENCODED_FIREBASE_JSON }} | base64 -d > ./mealkitary-infrastructure/adapter-firebase-notification/src/main/resources/firebase.json
             -   name: JDK 11 구성
                 uses: actions/setup-java@v3
                 with:
