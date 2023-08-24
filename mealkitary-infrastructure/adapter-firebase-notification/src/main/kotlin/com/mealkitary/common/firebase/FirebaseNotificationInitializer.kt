@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 import javax.annotation.PostConstruct
 
 @Component
-class FirebaseCloudMessageInitializer {
+class FirebaseNotificationInitializer {
 
     @PostConstruct
     fun initialize() {
