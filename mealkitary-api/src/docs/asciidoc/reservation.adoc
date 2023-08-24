@@ -49,3 +49,17 @@ include::{snippets}/reservation-post-pay/http-response.adoc[]
 ===== 응답 헤더
 
 include::{snippets}/reservation-post-pay/response-headers.adoc[]
+
+==== 예약 승인
+
+결제된 예약에 대해서 예약 승인 처리합니다. 결제된 예약이 아닌 경우, 승인 처리할 수 없습니다.
+
+===== 요청
+
+include::{snippets}/reservation-post-accept/curl-request.adoc[]
+include::{snippets}/reservation-post-accept/http-request.adoc[]
+include::{snippets}/reservation-post-accept/path-parameters.adoc[]
+
+===== 응답
+
+include::{snippets}/reservation-post-accept/http-response.adoc[]

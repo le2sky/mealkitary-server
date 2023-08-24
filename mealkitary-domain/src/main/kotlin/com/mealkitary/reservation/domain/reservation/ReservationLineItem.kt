@@ -20,7 +20,8 @@ class ReservationLineItem private constructor(
     private val itemId: ProductId = itemId
 
     @Column(nullable = false)
-    private val name: String = name
+    var name: String = name
+        protected set
 
     @Embedded
     private val price: Money = price

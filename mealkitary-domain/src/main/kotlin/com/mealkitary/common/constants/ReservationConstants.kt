@@ -7,6 +7,8 @@ internal object ReservationConstants {
             INVALID_RESERVE_TIME("예약 대상 가게는 해당 시간에 예약을 받지 않습니다."),
             NOTPAID_RESERVATION_CANNOT_ACCEPT("미결제 상태인 예약은 승인할 수 없습니다."),
             NOTPAID_RESERVATION_CANNOT_REJECT("미결제 상태인 예약은 거부할 수 없습니다."),
+            ALREADY_ACCEPTED_RESERVATION("이미 승인된 예약입니다."),
+            ALREADY_REJECTED_RESERVATION("이미 거절된 예약입니다."),
             ALREADY_REJECTED_RESERVATION_CANNOT_ACCEPT("이미 예약 거부된 건에 대해서 승인할 수 없습니다."),
             ALREADY_RESERVED_RESERVATION_CANNOT_REJECT("이미 예약 확정된 건에 대해서 거부할 수 없습니다."),
             INVALID_RESERVATION_STATUS_FOR_PAYMENT("미결제인 상태에서만 이용 가능한 기능입니다."),
