@@ -185,6 +185,28 @@ class ReservationTest : AnnotationSpec() {
     }
 
     @Test
+    fun `이미 확정된 예약은 다시 수락될 수 없다`() {
+        val sut = ReservationTestData.defaultReservation()
+            .withReservationStatus(ReservationStatus.RESERVED)
+            .build()
+
+        shouldThrow<IllegalStateException> {
+            sut.accept()
+        } shouldHaveMessage "이미 승인된 예약입니다."
+    }
+
+    @Test
+    fun `이미 거절된 예약은 다시 거절될 수 없다`() {
+        val sut = ReservationTestData.defaultReservation()
+            .withReservationStatus(ReservationStatus.REJECTED)
+            .build()
+
+        shouldThrow<IllegalStateException> {
+            sut.reject()
+        } shouldHaveMessage "이미 거절된 예약입니다."
+    }
+
+    @Test
     fun `이미 처리하고 있는 예약은 다시 예약 요청할 수 없다`() {
         val sut = paidReservation()
 

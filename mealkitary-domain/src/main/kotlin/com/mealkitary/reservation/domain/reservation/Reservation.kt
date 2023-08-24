@@ -1,6 +1,8 @@
 package com.mealkitary.reservation.domain.reservation
 
+import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.ALREADY_ACCEPTED_RESERVATION
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.ALREADY_PROCESSED_RESERVATION
+import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.ALREADY_REJECTED_RESERVATION
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.ALREADY_REJECTED_RESERVATION_CANNOT_ACCEPT
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.ALREADY_RESERVED_RESERVATION_CANNOT_REJECT
 import com.mealkitary.common.constants.ReservationConstants.Validation.ErrorMessage.AT_LEAST_ONE_ITEM_REQUIRED
@@ -87,6 +89,7 @@ class Reservation private constructor(
         checkNone()
         checkPaidReservation(NOTPAID_RESERVATION_CANNOT_ACCEPT.message)
         checkAlreadyRejectedForAccept()
+        checkAlreadyAccepted()
 
         changeReservationStatus(ReservationStatus.RESERVED)
     }
@@ -107,10 +110,17 @@ class Reservation private constructor(
         }
     }
 
+    private fun checkAlreadyAccepted() {
+        if (reservationStatus.isReserved()) {
+            throw IllegalStateException(ALREADY_ACCEPTED_RESERVATION.message)
+        }
+    }
+
     fun reject() {
         checkNone()
         checkPaidReservation(NOTPAID_RESERVATION_CANNOT_REJECT.message)
         checkAlreadyAcceptedForReject()
+        checkAlreadyRejected()
 
         changeReservationStatus(ReservationStatus.REJECTED)
     }
@@ -124,6 +134,12 @@ class Reservation private constructor(
     private fun checkAlreadyAcceptedForReject() {
         if (reservationStatus.isReserved()) {
             throw IllegalStateException(ALREADY_RESERVED_RESERVATION_CANNOT_REJECT.message)
+        }
+    }
+
+    private fun checkAlreadyRejected() {
+        if (reservationStatus.isRejected()) {
+            throw IllegalStateException(ALREADY_REJECTED_RESERVATION.message)
         }
     }
 
