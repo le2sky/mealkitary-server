@@ -20,6 +20,7 @@ dependencies {
     implementation(project(":mealkitary-domain"))
     implementation(project(":mealkitary-infrastructure:adapter-persistence-spring-data-jpa"))
     implementation(project(":mealkitary-infrastructure:adapter-paymentgateway-tosspayments"))
+    implementation(project(":mealkitary-infrastructure:adapter-firebase-notification"))
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
     asciidoctorExt("org.springframework.restdocs:spring-restdocs-asciidoctor")
 }
