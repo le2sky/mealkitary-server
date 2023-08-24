@@ -16,6 +16,10 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v3
+            -   name: Firebase 시크릿 생성
+                run: |
+                    echo ${{ secrets.ENCODED_FIREBASE_JSON }} | base64 -d
+                    > ./mealkitary-infrastructure/adapter-firebase-notification/src/main/resources/firebase.json
             -   name: JDK 11 구성
                 uses: actions/setup-java@v3
                 with:
@@ -38,6 +42,7 @@ jobs:
                         ./mealkitary-application/build/test-results/**/*.xml
                         ./mealkitary-infrastructure/adapter-persistence-spring-data-jpa/build/test-results/**/*.xml
                         ./mealkitary-infrastructure/adapter-paymentgateway-tosspayments/build/test-results/**/*.xml
+                        ./mealkitary-infrastructure/adapter-firebase-notification/build/test-results/**/*.xml
 
             -   name: Jacoco Coverage 리포트 전송
                 uses: codecov/codecov-action@v3
@@ -48,6 +53,7 @@ jobs:
                         ./mealkitary-domain/build/reports/jacoco/test/jacocoTestReport.xml,
                         ./mealkitary-application/build/reports/jacoco/test/jacocoTestReport.xml,
                         ./mealkitary-infrastructure/adapter-persistence-spring-data-jpa/build/reports/jacoco/test/jacocoTestReport.xml,
-                        ./mealkitary-infrastructure/adapter-paymentgateway-tosspayments/build/reports/jacoco/test/jacocoTestReport.xml
+                        ./mealkitary-infrastructure/adapter-paymentgateway-tosspayments/build/reports/jacoco/test/jacocoTestReport.xml,
+                        ./mealkitary-infrastructure/adapter-firebase-notification/build/reports/jacoco/test/jacocoTestReport.xml
                     name: mealkitary-codecov
                     verbose: true
