@@ -1,6 +1,8 @@
 package com.mealkitary.reservation.adapter.output.persistence
 
 import com.mealkitary.common.exception.EntityNotFoundException
+import com.mealkitary.reservation.application.port.input.ReservationResponse
+import com.mealkitary.reservation.application.port.input.ReservedProduct
 import com.mealkitary.reservation.application.port.output.LoadReservationPort
 import com.mealkitary.reservation.application.port.output.SavePaymentPort
 import com.mealkitary.reservation.application.port.output.SaveReservationPort
@@ -32,5 +34,26 @@ class SpringDataJpaReservationPersistenceAdapter(
     override fun loadOneReservationById(reservationId: UUID): Reservation {
         return reservationRepository.findById(reservationId)
             .orElseThrow { throw EntityNotFoundException(NOT_FOUND_RESERVATION_MESSAGE) }
+    }
+
+    override fun queryOneReservationById(reservationId: UUID): ReservationResponse {
+        val reservation = reservationRepository.findOneWithShopById(reservationId)
+            .orElseThrow { throw EntityNotFoundException(NOT_FOUND_RESERVATION_MESSAGE) }
+
+        return ReservationResponse(
+            reservation.id,
+            reservation.shop.title,
+            reservation.buildDescription(),
+            reservation.reserveAt,
+            reservation.reservationStatus.name,
+            reservation.lineItems.map {
+                ReservedProduct(
+                    it.itemId.id,
+                    it.name,
+                    it.price.value,
+                    it.count
+                )
+            }
+        )
     }
 }
