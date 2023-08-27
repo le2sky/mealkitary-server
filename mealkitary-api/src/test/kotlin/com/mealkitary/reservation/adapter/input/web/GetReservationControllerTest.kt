@@ -10,7 +10,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.UUID
 
 class GetReservationControllerTest : WebIntegrationTestSupport() {
@@ -18,7 +21,9 @@ class GetReservationControllerTest : WebIntegrationTestSupport() {
     @Test
     fun `api integration test - getOneReservation`() {
         val reservationId = UUID.randomUUID()
-        val reserveAt = LocalDateTime.now()
+        val reserveAt = LocalDateTime.of(
+            LocalDate.of(2023, 6, 23), LocalTime.of(6, 30)
+        )
         every { getReservationQuery.loadOneReservationById(reservationId) } answers {
             ReservationResponse(
                 reservationId,
@@ -48,7 +53,7 @@ class GetReservationControllerTest : WebIntegrationTestSupport() {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.reservationId").value(reservationId.toString()))
             .andExpect(jsonPath("$.shopName").value("집밥뚝딱 안양점"))
-            .andExpect(jsonPath("$.reserveAt").value(reserveAt.toString()))
+            .andExpect(jsonPath("$.reserveAt").value(reserveAt.format(DateTimeFormatter.ISO_DATE_TIME)))
             .andExpect(jsonPath("$.status").value("PAID"))
             .andExpect(jsonPath("$.reservedProduct[0].productId").value(1L))
             .andExpect(jsonPath("$.reservedProduct[0].name").value("부대찌개"))

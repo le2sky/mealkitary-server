@@ -11,20 +11,22 @@ class HttpResponseUtils {
 
         fun createResourceUri(resourceId: UUID): URI {
             val uriComponents = ServletUriComponentsBuilder.fromCurrentRequest().build()
-            val scheme = uriComponents.scheme
-            val host = uriComponents.host
-            val path = uriComponents.path
+            val scheme = removeSlash(uriComponents.scheme)
+            val host = removeSlash(uriComponents.host)
+            val path = removeSlash(uriComponents.path)
 
-            return URI.create("$scheme://$host$path/$resourceId")
+            return URI.create("$scheme://$host/$path/$resourceId")
         }
 
         fun createResourceUri(path: String, resourceId: UUID): URI {
             val uriComponents = ServletUriComponentsBuilder.fromCurrentRequest().build()
-            val scheme = uriComponents.scheme
-            val host = uriComponents.host
+            val scheme = removeSlash(uriComponents.scheme)
+            val host = removeSlash(uriComponents.host)
 
             return URI.create("$scheme://$host/$path/$resourceId")
         }
+
+        private fun removeSlash(str: String?) = str?.replace("/", "")
 
         fun <T> mapToResponseEntity(emptiableList: List<T>): ResponseEntity<List<T>> {
             if (emptiableList.isEmpty()) {
