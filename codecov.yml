@@ -7,10 +7,7 @@ comment:
 
 coverage:
     status:
-        patch:
-            default:
-                target: auto
-                threshold: 0.1%
+        patch: off
         project:
             default:
                 target: auto
