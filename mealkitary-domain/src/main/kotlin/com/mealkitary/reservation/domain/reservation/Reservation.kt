@@ -40,14 +40,17 @@ class Reservation private constructor(
     @CollectionTable(
         name = "reservation_line_item", joinColumns = [JoinColumn(name = "reservation_id")]
     )
-    private val lineItems: MutableList<ReservationLineItem> = lineItems
+    var lineItems: MutableList<ReservationLineItem> = lineItems
+        protected set
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id", nullable = false)
-    private val shop: Shop = shop
+    var shop: Shop = shop
+        protected set
 
     @Column(nullable = false)
-    private val reserveAt: LocalDateTime = reserveAt
+    var reserveAt: LocalDateTime = reserveAt
+        protected set
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
