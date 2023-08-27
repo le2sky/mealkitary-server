@@ -72,9 +72,35 @@ class SpringDataJpaReservationPersistenceAdapterTest(
     }
 
     @Test
+    fun `db integration test - 예약의 상세 정보를 조회한다`() {
+        val reservation = ReservationTestData.defaultReservation()
+            .withReservationStatus(ReservationStatus.NOTPAID)
+            .withShop(shopRepository.findOneWithProductsById(1L).orElseThrow())
+            .build()
+        val saved = adapterUnderTest.saveOne(reservation)
+        em.flush()
+        em.clear()
+
+        val result = adapterUnderTest.queryOneReservationById(saved)
+
+        result.reservationId shouldBe saved
+        result.status shouldBe "NOTPAID"
+        result.shopName shouldBe "집밥뚝딱 철산점"
+        result.reservedProduct.size shouldBe 2
+        result.description shouldBe "부대찌개 외 1건"
+    }
+
+    @Test
     fun `db integration test - 예약 ID에 해당하는 예약을 조회할 때, 해당 예약이 존재하지 않으면 예외를 발생한다`() {
         shouldThrow<EntityNotFoundException> {
             adapterUnderTest.loadOneReservationById(UUID.randomUUID())
+        } shouldHaveMessage "존재하지 않는 예약입니다."
+    }
+
+    @Test
+    fun `db integration test - 예약 ID를 이용해 예약의 상세 정보를 조회할 때, 해당 예약이 존재하지 않으면 예외를 발생한다`() {
+        shouldThrow<EntityNotFoundException> {
+            adapterUnderTest.queryOneReservationById(UUID.randomUUID())
         } shouldHaveMessage "존재하지 않는 예약입니다."
     }
 }

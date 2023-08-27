@@ -26,6 +26,20 @@ include::{snippets}/reservation-post/http-response.adoc[]
 
 include::{snippets}/reservation-post/response-headers.adoc[]
 
+==== 예약 상세 조회
+
+예약에 대한 상세 정보를 조회합니다.
+
+===== 요청
+
+include::{snippets}/reservation-get/curl-request.adoc[]
+include::{snippets}/reservation-get/http-request.adoc[]
+include::{snippets}/reservation-get/path-parameters.adoc[]
+
+===== 응답
+
+include::{snippets}/reservation-get/http-response.adoc[]
+
 ==== 예약 결제
 
 미결제 상태의 예약에 대해 결제를 생성/승인합니다.
@@ -52,7 +66,8 @@ include::{snippets}/reservation-post-pay/response-headers.adoc[]
 
 ==== 예약 승인
 
-결제된 예약에 대해서 예약 승인 처리합니다. 결제된 예약이 아닌 경우, 승인 처리할 수 없습니다.
+결제된 예약에 대해서 예약 승인 처리합니다.
+결제된 예약이 아닌 경우, 승인 처리할 수 없습니다.
 
 ===== 요청
 
