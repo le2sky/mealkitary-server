@@ -3,6 +3,7 @@ package com.mealkitary.reservation.adapter.output.persistence
 import com.mealkitary.common.exception.EntityNotFoundException
 import com.mealkitary.reservation.application.port.input.ReservationResponse
 import com.mealkitary.reservation.application.port.input.ReservedProduct
+import com.mealkitary.reservation.application.port.output.LoadPaymentPort
 import com.mealkitary.reservation.application.port.output.LoadReservationPort
 import com.mealkitary.reservation.application.port.output.SavePaymentPort
 import com.mealkitary.reservation.application.port.output.SaveReservationPort
@@ -12,12 +13,13 @@ import org.springframework.stereotype.Repository
 import java.util.UUID
 
 private const val NOT_FOUND_RESERVATION_MESSAGE = "존재하지 않는 예약입니다."
+private const val NOT_FOUND_PAYMENT_MESSAGE = "존재하지 않는 결제입니다."
 
 @Repository
 class SpringDataJpaReservationPersistenceAdapter(
     private val reservationRepository: ReservationRepository,
     private val paymentRepository: PaymentRepository
-) : SaveReservationPort, SavePaymentPort, LoadReservationPort {
+) : SaveReservationPort, SavePaymentPort, LoadReservationPort, LoadPaymentPort {
 
     override fun saveOne(reservation: Reservation): UUID {
         reservationRepository.save(reservation)
@@ -34,6 +36,11 @@ class SpringDataJpaReservationPersistenceAdapter(
     override fun loadOneReservationById(reservationId: UUID): Reservation {
         return reservationRepository.findById(reservationId)
             .orElseThrow { throw EntityNotFoundException(NOT_FOUND_RESERVATION_MESSAGE) }
+    }
+
+    override fun loadOnePaymentByReservationId(reservationId: UUID): Payment {
+        return paymentRepository.findByReservationId(reservationId)
+            .orElseThrow { throw EntityNotFoundException(NOT_FOUND_PAYMENT_MESSAGE) }
     }
 
     override fun queryOneReservationById(reservationId: UUID): ReservationResponse {
