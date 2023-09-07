@@ -14,7 +14,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.client.WebClient
 
-class TossPaymentWebClientTest : AnnotationSpec() {
+class TossPaymentWebClientCancelTest : AnnotationSpec() {
 
     private lateinit var mockWebServer: MockWebServer
     private lateinit var webClient: WebClient
@@ -45,18 +45,19 @@ class TossPaymentWebClientTest : AnnotationSpec() {
 
     @Test
     fun `멱등키는 orderId이다`() {
-        val expectedPath = "/v1/payments/confirm"
+        val expectedPath = "/v1/payments/paymentKey/cancel"
         mockWebServer.enqueue(
             MockResponse()
                 .setResponseCode(200)
         )
 
-        tossPaymentWebClient.requestConfirm(
+        tossPaymentWebClient.requestCancel(
             TossPayment.of(
                 "paymentKey",
                 "reservation-01",
                 20000
             ),
+            TossPaymentCancelPayload("단순 변심"),
             mockWebServer.url("").toString()
         )
 
@@ -68,24 +69,26 @@ class TossPaymentWebClientTest : AnnotationSpec() {
 
     @Test
     fun `200 OK를 받으면 아무 예외도 발생하지 않는다`() {
-        val expectedPath = "/v1/payments/confirm"
+        val expectedPath = "/v1/payments/paymentKey/cancel"
         mockWebServer.enqueue(
             MockResponse()
                 .setResponseCode(200)
         )
 
-        tossPaymentWebClient.requestConfirm(
+        tossPaymentWebClient.requestCancel(
             TossPayment.of(
                 "paymentKey",
                 "reservation-01",
                 20000
             ),
+            TossPaymentCancelPayload("단순 변심"),
             mockWebServer.url("").toString()
         )
 
         val recordedRequest = mockWebServer.takeRequest()
         recordedRequest.method shouldBe "POST"
         recordedRequest.path shouldBe expectedPath
+        recordedRequest.body.toString().contains("단순 변심")
         recordedRequest.getHeader("Authorization").shouldNotBeBlank()
         recordedRequest.getHeader("Idempotency-Key").shouldNotBeBlank()
     }
@@ -102,12 +105,13 @@ class TossPaymentWebClientTest : AnnotationSpec() {
         )
 
         shouldThrow<IllegalArgumentException> {
-            tossPaymentWebClient.requestConfirm(
+            tossPaymentWebClient.requestCancel(
                 TossPayment.of(
                     "paymentKey",
                     "reservation-01",
                     20000
                 ),
+                TossPaymentCancelPayload("단순 변심"),
                 mockWebServer.url("").toString()
             )
         } shouldHaveMessage expectedMessage
@@ -125,12 +129,13 @@ class TossPaymentWebClientTest : AnnotationSpec() {
         )
 
         shouldThrow<EntityNotFoundException> {
-            tossPaymentWebClient.requestConfirm(
+            tossPaymentWebClient.requestCancel(
                 TossPayment.of(
                     "paymentKey",
                     "reservation-01",
                     20000
                 ),
+                TossPaymentCancelPayload("단순 변심"),
                 mockWebServer.url("").toString()
             )
         } shouldHaveMessage expectedMessage
@@ -148,12 +153,13 @@ class TossPaymentWebClientTest : AnnotationSpec() {
         )
 
         shouldThrow<RuntimeException> {
-            tossPaymentWebClient.requestConfirm(
+            tossPaymentWebClient.requestCancel(
                 TossPayment.of(
                     "paymentKey",
                     "reservation-01",
                     20000
                 ),
+                TossPaymentCancelPayload("단순 변심"),
                 mockWebServer.url("").toString()
             )
         }
@@ -170,12 +176,13 @@ class TossPaymentWebClientTest : AnnotationSpec() {
         )
 
         shouldThrow<RuntimeException> {
-            tossPaymentWebClient.requestConfirm(
+            tossPaymentWebClient.requestCancel(
                 TossPayment.of(
                     "paymentKey",
                     "reservation-01",
                     20000
                 ),
+                TossPaymentCancelPayload("단순 변심"),
                 mockWebServer.url("").toString()
             )
         }
@@ -192,12 +199,13 @@ class TossPaymentWebClientTest : AnnotationSpec() {
         )
 
         shouldThrow<RuntimeException> {
-            tossPaymentWebClient.requestConfirm(
+            tossPaymentWebClient.requestCancel(
                 TossPayment.of(
                     "paymentKey",
                     "reservation-01",
                     20000
                 ),
+                TossPaymentCancelPayload("단순 변심"),
                 mockWebServer.url("").toString()
             )
         }

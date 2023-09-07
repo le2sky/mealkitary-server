@@ -2,6 +2,7 @@ package com.mealkitary.reservation.adapter.output.paymentgateway
 
 import com.mealkitary.common.exception.EntityNotFoundException
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
@@ -21,15 +22,29 @@ class TossPaymentWebClient(
     fun requestConfirm(payment: TossPayment, baseUrl: String) {
         webClient.post()
             .uri("$baseUrl/v1/payments/confirm")
-            .headers {
-                it.acceptCharset = listOf(StandardCharsets.UTF_8)
-                it.contentType = MediaType.APPLICATION_JSON
-                it.setBasicAuth(codec.encode("$secretKey:"))
-                it.set("Idempotency-Key", payment.orderId)
-            }
+            .headers { setHeader(it, payment) }
             .body(Mono.just(payment), TossPayment::class.java)
             .exchangeToMono { exceptionHandler(it) }
             .block()
+    }
+
+    fun requestCancel(payment: TossPayment, payload: TossPaymentCancelPayload, baseUrl: String) {
+        webClient.post()
+            .uri("$baseUrl/v1/payments/${payment.paymentKey}/cancel")
+            .headers { setHeader(it, payment) }
+            .body(Mono.just(payload), TossPaymentCancelPayload::class.java)
+            .exchangeToMono { exceptionHandler(it) }
+            .block()
+    }
+
+    private fun setHeader(
+        headers: HttpHeaders,
+        payment: TossPayment
+    ) {
+        headers.acceptCharset = listOf(StandardCharsets.UTF_8)
+        headers.contentType = MediaType.APPLICATION_JSON
+        headers.setBasicAuth(codec.encode("$secretKey:"))
+        headers.set("Idempotency-Key", payment.orderId)
     }
 
     private fun exceptionHandler(response: ClientResponse): Mono<Throwable> {
