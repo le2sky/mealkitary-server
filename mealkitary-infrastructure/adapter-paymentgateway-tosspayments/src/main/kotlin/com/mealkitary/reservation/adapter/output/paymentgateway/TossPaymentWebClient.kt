@@ -9,7 +9,6 @@ import org.springframework.web.reactive.function.client.ClientResponse
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
 import java.nio.charset.StandardCharsets
-import java.util.UUID
 
 @Component
 class TossPaymentWebClient(
@@ -26,7 +25,7 @@ class TossPaymentWebClient(
                 it.acceptCharset = listOf(StandardCharsets.UTF_8)
                 it.contentType = MediaType.APPLICATION_JSON
                 it.setBasicAuth(codec.encode("$secretKey:"))
-                it.set("Idempotency-Key", UUID.randomUUID().toString())
+                it.set("Idempotency-Key", payment.orderId)
             }
             .body(Mono.just(payment), TossPayment::class.java)
             .exchangeToMono { exceptionHandler(it) }
