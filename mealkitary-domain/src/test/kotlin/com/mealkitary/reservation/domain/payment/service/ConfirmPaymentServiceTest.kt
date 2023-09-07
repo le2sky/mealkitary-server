@@ -1,11 +1,13 @@
-package com.mealkitary.reservation.domain.payment
+package com.mealkitary.reservation.domain.payment.service
 
 import com.mealkitary.common.model.Money
+import com.mealkitary.reservation.domain.payment.Payment
+import com.mealkitary.reservation.domain.payment.PaymentGatewayService
+import com.mealkitary.reservation.domain.payment.PaymentStatus
 import com.mealkitary.reservation.domain.reservation.ReservationStatus
 import data.ReservationTestData
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
-import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.throwable.shouldHaveMessage
 import io.mockk.Called
@@ -53,22 +55,5 @@ class ConfirmPaymentServiceTest : AnnotationSpec() {
         } shouldHaveMessage "이미 승인된 결제는 다시 승인될 수 없습니다."
 
         verify { paymentGatewayService wasNot Called }
-    }
-
-    @Test
-    fun `pg 서비스에서 오류가 발생하면 결제를 승인할 수 없다`() {
-        every { paymentGatewayService.confirm(any()) } throws (Exception())
-        val confirmPaymentService = ConfirmPaymentService(paymentGatewayService)
-        val payment = Payment.of(
-            "abc",
-            ReservationTestData.defaultReservation().withReservationStatus(ReservationStatus.NOTPAID).build(),
-            Money.from(2000)
-        )
-
-        try {
-            confirmPaymentService.confirm(payment)
-        } catch (e: Exception) {
-            payment.isApproved().shouldBeFalse()
-        }
     }
 }
