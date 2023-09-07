@@ -41,13 +41,14 @@ class Payment private constructor(
     }
 
     private fun checkAlreadyApproved() {
-        if (isApproved()) {
+        if (paymentStatus.isApproved()) {
             throw IllegalStateException("이미 승인된 결제는 다시 승인될 수 없습니다.")
         }
     }
 
-    fun isApproved(): Boolean {
-        return paymentStatus.isApproved()
+    fun cancel() {
+        reservation.reject()
+        paymentStatus = PaymentStatus.CANCELED
     }
 
     companion object {

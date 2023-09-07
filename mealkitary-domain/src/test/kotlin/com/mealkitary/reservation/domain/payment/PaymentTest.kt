@@ -5,8 +5,6 @@ import com.mealkitary.reservation.domain.reservation.ReservationStatus
 import data.ReservationTestData
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
-import io.kotest.matchers.booleans.shouldBeFalse
-import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.throwable.shouldHaveMessage
 
@@ -39,20 +37,6 @@ class PaymentTest : AnnotationSpec() {
     }
 
     @Test
-    fun `결제가 승인되면, 예약의 상태는 paid로 변경된다`() {
-        val reservation = ReservationTestData.defaultReservation()
-            .withReservationStatus(ReservationStatus.NOTPAID)
-            .build()
-        val amount = Money.from(2000)
-        val paymentKey = "abc123"
-        val payment = Payment.of(paymentKey, reservation, amount)
-
-        payment.approve()
-
-        reservation.reservationStatus shouldBe ReservationStatus.PAID
-    }
-
-    @Test
     fun `결제가 승인되면, 결제의 상태는 approved로 변경된다`() {
         val reservation = ReservationTestData.defaultReservation()
             .withReservationStatus(ReservationStatus.NOTPAID)
@@ -64,6 +48,20 @@ class PaymentTest : AnnotationSpec() {
         payment.approve()
 
         payment.paymentStatus shouldBe PaymentStatus.APPROVED
+    }
+
+    @Test
+    fun `결제가 승인되면, 예약의 상태는 paid로 변경된다`() {
+        val reservation = ReservationTestData.defaultReservation()
+            .withReservationStatus(ReservationStatus.NOTPAID)
+            .build()
+        val amount = Money.from(2000)
+        val paymentKey = "abc123"
+        val payment = Payment.of(paymentKey, reservation, amount)
+
+        payment.approve()
+
+        reservation.reservationStatus shouldBe ReservationStatus.PAID
     }
 
     @Test
@@ -82,16 +80,30 @@ class PaymentTest : AnnotationSpec() {
     }
 
     @Test
-    fun `결제가 이미 승인되어 있는지 조회한다`() {
+    fun `승인된 결제가 취소되면, 결제의 상태는 canceled로 변경된다`() {
         val reservation = ReservationTestData.defaultReservation()
             .withReservationStatus(ReservationStatus.NOTPAID)
             .build()
         val amount = Money.from(2000)
         val paymentKey = "abc123"
         val payment = Payment.of(paymentKey, reservation, amount)
-
-        payment.isApproved().shouldBeFalse()
         payment.approve()
-        payment.isApproved().shouldBeTrue()
+
+        payment.cancel()
+
+        payment.paymentStatus shouldBe PaymentStatus.CANCELED
+    }
+
+    @Test
+    fun `정상적으로 생성되지 않은 예약으로 결제를 생성할 수 없다`() {
+        val reservation = ReservationTestData.defaultReservation()
+            .withReservationStatus(ReservationStatus.NONE)
+            .build()
+        val amount = Money.from(2000)
+        val paymentKey = "abc123"
+
+        shouldThrow<IllegalStateException> {
+            Payment.of(paymentKey, reservation, amount)
+        } shouldHaveMessage "미결제인 상태에서만 이용 가능한 기능입니다."
     }
 }
