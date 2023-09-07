@@ -2,8 +2,8 @@ package com.mealkitary.common.firebase
 
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.Message
-import com.mealkitary.common.firebase.message.ReservationAcceptedMessage
 import com.mealkitary.common.firebase.message.ReservationCreatedMessage
+import com.mealkitary.common.firebase.message.ReservationStatusChangedMessage
 import org.springframework.stereotype.Component
 
 @Component
@@ -20,10 +20,10 @@ class FirebaseNotificationClient {
         sendToFcm(message)
     }
 
-    fun send(reservationAcceptedMessage: ReservationAcceptedMessage) {
+    fun send(reservationStatusChangedMessage: ReservationStatusChangedMessage) {
         val message = Message.builder()
-            .putData("title", reservationAcceptedMessage.title)
-            .setToken(reservationAcceptedMessage.token)
+            .putData("title", reservationStatusChangedMessage.title)
+            .setToken(reservationStatusChangedMessage.token)
             .build()
 
         sendToFcm(message)
