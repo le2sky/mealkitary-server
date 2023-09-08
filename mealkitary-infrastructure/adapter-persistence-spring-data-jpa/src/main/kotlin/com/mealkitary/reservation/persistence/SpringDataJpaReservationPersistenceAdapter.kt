@@ -1,4 +1,4 @@
-package com.mealkitary.reservation.adapter.output.persistence
+package com.mealkitary.reservation.persistence
 
 import com.mealkitary.common.exception.EntityNotFoundException
 import com.mealkitary.reservation.application.port.input.ReservationResponse

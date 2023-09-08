@@ -1,4 +1,4 @@
-package com.mealkitary.shop.adapter.output.persistence
+package com.mealkitary.shop.persistence
 
 import com.mealkitary.shop.domain.shop.Shop
 import org.springframework.data.jpa.repository.EntityGraph

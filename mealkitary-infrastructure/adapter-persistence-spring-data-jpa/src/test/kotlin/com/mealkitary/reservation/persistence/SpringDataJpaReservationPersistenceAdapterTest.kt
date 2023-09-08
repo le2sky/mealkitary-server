@@ -1,4 +1,4 @@
-package com.mealkitary.reservation.adapter.output.persistence
+package com.mealkitary.reservation.persistence
 
 import com.mealkitary.PersistenceIntegrationTestSupport
 import com.mealkitary.common.exception.EntityNotFoundException
@@ -6,7 +6,7 @@ import com.mealkitary.common.model.Money
 import com.mealkitary.reservation.domain.payment.Payment
 import com.mealkitary.reservation.domain.reservation.Reservation
 import com.mealkitary.reservation.domain.reservation.ReservationStatus
-import com.mealkitary.shop.adapter.output.persistence.ShopRepository
+import com.mealkitary.shop.persistence.ShopRepository
 import data.ReservationTestData
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.booleans.shouldBeTrue

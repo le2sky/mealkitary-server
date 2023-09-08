@@ -1,4 +1,4 @@
-package com.mealkitary.shop.adapter.output.persistence
+package com.mealkitary.shop.persistence
 
 import com.mealkitary.common.exception.EntityNotFoundException
 import com.mealkitary.shop.application.port.output.LoadProductPort

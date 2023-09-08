@@ -1,4 +1,4 @@
-package com.mealkitary.reservation.adapter.output.persistence
+package com.mealkitary.reservation.persistence
 
 import com.mealkitary.reservation.domain.reservation.Reservation
 import org.springframework.data.jpa.repository.EntityGraph
