@@ -1,4 +1,4 @@
-package com.mealkitary.reservation.adapter.output.paymentgateway
+package com.mealkitary.paymentgateway
 
 interface TossPaymentCodec {
 

@@ -1,6 +1,6 @@
-package com.mealkitary.reservation.adapter.output.paymentgateway.codec
+package com.mealkitary.paymentgateway.codec
 
-import com.mealkitary.reservation.adapter.output.paymentgateway.TossPaymentCodec
+import com.mealkitary.paymentgateway.TossPaymentCodec
 import org.springframework.stereotype.Component
 import java.util.Base64
 

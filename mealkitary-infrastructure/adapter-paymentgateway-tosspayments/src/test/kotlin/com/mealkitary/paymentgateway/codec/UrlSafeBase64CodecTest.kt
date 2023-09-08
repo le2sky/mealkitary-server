@@ -1,4 +1,4 @@
-package com.mealkitary.reservation.adapter.output.paymentgateway.codec
+package com.mealkitary.paymentgateway.codec
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe

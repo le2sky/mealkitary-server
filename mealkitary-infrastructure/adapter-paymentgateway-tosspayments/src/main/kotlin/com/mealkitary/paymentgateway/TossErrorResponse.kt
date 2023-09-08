@@ -1,3 +1,3 @@
-package com.mealkitary.reservation.adapter.output.paymentgateway
+package com.mealkitary.paymentgateway
 
 data class TossErrorResponse(val code: String, val message: String)

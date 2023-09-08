@@ -1,4 +1,4 @@
-package com.mealkitary.reservation.adapter.output.paymentgateway
+package com.mealkitary.paymentgateway
 
 import com.mealkitary.common.model.Money
 import com.mealkitary.reservation.domain.payment.Payment
