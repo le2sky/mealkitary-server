@@ -2,6 +2,7 @@ package com.mealkitary
 
 import com.mealkitary.reservation.application.service.AcceptReservationService
 import com.mealkitary.reservation.application.service.PayReservationService
+import com.mealkitary.reservation.application.service.RejectReservationService
 import com.ninjasquad.springmockk.MockkBean
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.extensions.spring.SpringExtension
@@ -28,4 +29,7 @@ abstract class PersistenceIntegrationTestSupport : AnnotationSpec() {
 
     @MockkBean
     private lateinit var acceptReservationService: AcceptReservationService
+
+    @MockkBean
+    private lateinit var rejectReservationService: RejectReservationService
 }

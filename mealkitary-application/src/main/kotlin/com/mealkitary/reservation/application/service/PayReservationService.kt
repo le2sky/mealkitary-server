@@ -6,9 +6,9 @@ import com.mealkitary.reservation.application.port.input.PayReservationUseCase
 import com.mealkitary.reservation.application.port.output.LoadReservationPort
 import com.mealkitary.reservation.application.port.output.SavePaymentPort
 import com.mealkitary.reservation.application.port.output.SendNewReservationMessagePort
-import com.mealkitary.reservation.domain.payment.ConfirmPaymentService
 import com.mealkitary.reservation.domain.payment.Payment
 import com.mealkitary.reservation.domain.payment.PaymentGatewayService
+import com.mealkitary.reservation.domain.payment.service.ConfirmPaymentService
 import com.mealkitary.reservation.domain.reservation.Reservation
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -21,7 +21,6 @@ class PayReservationService(
     private val savePaymentPort: SavePaymentPort,
     private val sendNewReservationMessagePort: SendNewReservationMessagePort,
     paymentGatewayService: PaymentGatewayService
-
 ) : PayReservationUseCase {
 
     private val confirmPaymentService = ConfirmPaymentService(paymentGatewayService)
@@ -30,18 +29,16 @@ class PayReservationService(
     override fun pay(payReservationRequest: PayReservationRequest): UUID {
         val reservation = loadReservationPort.loadOneReservationById(payReservationRequest.reservationId)
         val payment = createPayment(payReservationRequest, reservation)
+        val savedId = savePaymentPort.saveOne(payment)
 
         confirmPaymentService.confirm(payment)
 
-        sendNewReservationMessage(reservation)
+        sendNewReservationMessagePort
+            .sendNewReservationMessage(reservation.id, reservation.buildDescription())
 
-        return savePaymentPort.saveOne(payment)
+        return savedId
     }
 
     private fun createPayment(payReservationRequest: PayReservationRequest, reservation: Reservation) =
         Payment.of(payReservationRequest.paymentKey, reservation, Money.from(payReservationRequest.amount))
-
-    private fun sendNewReservationMessage(reservation: Reservation) {
-        sendNewReservationMessagePort.sendNewReservationMessage(reservation.id, reservation.buildDescription())
-    }
 }

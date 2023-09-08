@@ -1,9 +1,9 @@
 package com.docs.shop
 
 import com.docs.RestDocsSupport
-import com.mealkitary.shop.adapter.input.web.GetShopController
 import com.mealkitary.shop.application.port.input.GetShopQuery
 import com.mealkitary.shop.application.port.input.ShopResponse
+import com.mealkitary.shop.web.GetShopController
 import io.mockk.every
 import io.mockk.mockk
 import org.springframework.http.MediaType
