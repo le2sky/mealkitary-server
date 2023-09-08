@@ -1,8 +1,8 @@
 package com.docs.shop
 
 import com.docs.RestDocsSupport
-import com.mealkitary.shop.adapter.input.web.GetReservableTimeController
 import com.mealkitary.shop.application.port.input.GetReservableTimeQuery
+import com.mealkitary.shop.web.GetReservableTimeController
 import io.mockk.every
 import io.mockk.mockk
 import org.springframework.http.MediaType
