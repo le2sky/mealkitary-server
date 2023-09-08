@@ -1,4 +1,4 @@
-package com.mealkitary.paymentgateway
+package com.mealkitary.paymentgateway.payload
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec

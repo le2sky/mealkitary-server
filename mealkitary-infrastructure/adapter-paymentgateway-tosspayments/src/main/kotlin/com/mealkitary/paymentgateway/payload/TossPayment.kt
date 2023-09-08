@@ -1,4 +1,4 @@
-package com.mealkitary.paymentgateway
+package com.mealkitary.paymentgateway.payload
 
 private const val MAX_PAYMENT_KEY_LENGTH = 200
 private const val MIN_ORDER_ID_LENGTH = 6

@@ -1,6 +1,8 @@
 package com.mealkitary.paymentgateway
 
 import com.mealkitary.common.model.Money
+import com.mealkitary.paymentgateway.payload.TossPayment
+import com.mealkitary.paymentgateway.payload.TossPaymentCancelPayload
 import com.mealkitary.reservation.domain.payment.Payment
 import com.mealkitary.reservation.domain.reservation.ReservationStatus
 import data.ReservationTestData

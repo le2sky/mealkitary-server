@@ -1,4 +1,4 @@
-package com.mealkitary.paymentgateway
+package com.mealkitary.paymentgateway.payload
 
 private const val CANCEL_REASON_LIMIT_LENGTH = 200
 
