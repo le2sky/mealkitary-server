@@ -1,9 +1,9 @@
-package com.mealkitary.reservation.adapter.input.web
+package com.mealkitary.reservation.web
 
 import com.mealkitary.common.utils.HttpResponseUtils
 import com.mealkitary.common.utils.UUIDUtils
-import com.mealkitary.reservation.adapter.input.web.request.PayReservationWebRequest
 import com.mealkitary.reservation.application.port.input.PayReservationUseCase
+import com.mealkitary.reservation.web.request.PayReservationWebRequest
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping

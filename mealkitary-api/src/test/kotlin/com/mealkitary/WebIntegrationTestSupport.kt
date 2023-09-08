@@ -1,16 +1,16 @@
 package com.mealkitary
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.mealkitary.reservation.adapter.input.web.AcceptReservationController
-import com.mealkitary.reservation.adapter.input.web.GetReservationController
-import com.mealkitary.reservation.adapter.input.web.PayReservationController
-import com.mealkitary.reservation.adapter.input.web.RejectReservationController
-import com.mealkitary.reservation.adapter.input.web.ReserveProductController
 import com.mealkitary.reservation.application.port.input.AcceptReservationUseCase
 import com.mealkitary.reservation.application.port.input.GetReservationQuery
 import com.mealkitary.reservation.application.port.input.PayReservationUseCase
 import com.mealkitary.reservation.application.port.input.RejectReservationUseCase
 import com.mealkitary.reservation.application.port.input.ReserveProductUseCase
+import com.mealkitary.reservation.web.AcceptReservationController
+import com.mealkitary.reservation.web.GetReservationController
+import com.mealkitary.reservation.web.PayReservationController
+import com.mealkitary.reservation.web.RejectReservationController
+import com.mealkitary.reservation.web.ReserveProductController
 import com.mealkitary.shop.application.port.input.GetProductQuery
 import com.mealkitary.shop.application.port.input.GetReservableTimeQuery
 import com.mealkitary.shop.application.port.input.GetShopQuery

@@ -1,4 +1,4 @@
-package com.mealkitary.reservation.adapter.input.web
+package com.mealkitary.reservation.web
 
 import com.mealkitary.common.utils.UUIDUtils
 import com.mealkitary.reservation.application.port.input.AcceptReservationUseCase

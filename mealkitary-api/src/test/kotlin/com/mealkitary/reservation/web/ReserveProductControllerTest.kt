@@ -1,9 +1,9 @@
-package com.mealkitary.reservation.adapter.input.web
+package com.mealkitary.reservation.web
 
 import com.mealkitary.WebIntegrationTestSupport
 import com.mealkitary.common.exception.EntityNotFoundException
-import com.mealkitary.reservation.adapter.input.web.request.ReserveProductWebRequest
-import com.mealkitary.reservation.adapter.input.web.request.ReservedWebProduct
+import com.mealkitary.reservation.web.request.ReserveProductWebRequest
+import com.mealkitary.reservation.web.request.ReservedWebProduct
 import io.mockk.every
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post

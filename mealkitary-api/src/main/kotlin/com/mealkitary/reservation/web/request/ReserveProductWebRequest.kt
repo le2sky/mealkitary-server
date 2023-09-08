@@ -1,4 +1,4 @@
-package com.mealkitary.reservation.adapter.input.web.request
+package com.mealkitary.reservation.web.request
 
 import com.mealkitary.common.validation.DateValid
 import com.mealkitary.reservation.application.port.input.ReserveProductRequest
