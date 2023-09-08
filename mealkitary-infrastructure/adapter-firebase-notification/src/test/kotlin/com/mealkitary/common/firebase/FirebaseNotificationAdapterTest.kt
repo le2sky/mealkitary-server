@@ -1,7 +1,7 @@
 package com.mealkitary.common.firebase
 
-import com.mealkitary.common.firebase.message.ReservationAcceptedMessage
 import com.mealkitary.common.firebase.message.ReservationCreatedMessage
+import com.mealkitary.common.firebase.message.ReservationStatusChangedMessage
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every
@@ -31,7 +31,7 @@ class FirebaseNotificationAdapterTest : AnnotationSpec() {
 
     @Test
     fun `notification adapter unit test - sendAcceptedReservationMessage`() {
-        val slot = slot<ReservationAcceptedMessage>()
+        val slot = slot<ReservationStatusChangedMessage>()
         every { client.send(capture(slot)) } answers {}
 
         adapterUnderTest.sendAcceptedReservationMessage()
@@ -39,5 +39,17 @@ class FirebaseNotificationAdapterTest : AnnotationSpec() {
         val actual = slot.captured
         actual.token shouldBe "test-client-token"
         actual.title shouldBe "예약이 승인됐어요!"
+    }
+
+    @Test
+    fun `notification adapter unit test - sendRejectedReservationMessage`() {
+        val slot = slot<ReservationStatusChangedMessage>()
+        every { client.send(capture(slot)) } answers {}
+
+        adapterUnderTest.sendRejectedReservationMessage()
+
+        val actual = slot.captured
+        actual.token shouldBe "test-client-token"
+        actual.title shouldBe "죄송합니다. 예약하신 가게의 사정으로 인해 예약이 거절됐어요."
     }
 }
