@@ -1,8 +1,8 @@
 package com.docs.reservation
 
 import com.docs.RestDocsSupport
-import com.mealkitary.reservation.adapter.input.web.RejectReservationController
 import com.mealkitary.reservation.application.port.input.RejectReservationUseCase
+import com.mealkitary.reservation.web.RejectReservationController
 import io.mockk.every
 import io.mockk.mockk
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document

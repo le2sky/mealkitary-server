@@ -1,4 +1,4 @@
-package com.mealkitary.reservation.adapter.input.web
+package com.mealkitary.reservation.web
 
 import com.mealkitary.WebIntegrationTestSupport
 import com.mealkitary.common.exception.EntityNotFoundException
@@ -7,15 +7,15 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import java.util.UUID
 
-class RejectReservationControllerTest : WebIntegrationTestSupport() {
+class AcceptReservationControllerTest : WebIntegrationTestSupport() {
 
     @Test
-    fun `api integration test - rejectReservation`() {
+    fun `api integration test - acceptReservation`() {
         val id = UUID.randomUUID()
-        every { rejectReservationUseCase.reject(any()) } answers {}
+        every { acceptReservationUseCase.accept(any()) } answers {}
 
         mvc.perform(
-            MockMvcRequestBuilders.post("/reservations/{reservationId}/reject", id.toString())
+            MockMvcRequestBuilders.post("/reservations/{reservationId}/accept", id.toString())
         )
             .andExpect(MockMvcResultMatchers.status().isNoContent)
     }
@@ -23,7 +23,7 @@ class RejectReservationControllerTest : WebIntegrationTestSupport() {
     @Test
     fun `api integration test - 예약 식별자가 UUID 형태가 아니라면 400 에러를 발생한다`() {
         mvc.perform(
-            MockMvcRequestBuilders.post("/reservations/{reservationId}/reject", "invalid-uuid-test")
+            MockMvcRequestBuilders.post("/reservations/{reservationId}/accept", "invalid-uuid-test")
         )
             .andExpect(MockMvcResultMatchers.status().isBadRequest)
             .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("400"))
@@ -33,10 +33,10 @@ class RejectReservationControllerTest : WebIntegrationTestSupport() {
     @Test
     fun `api integration test - 내부에서 EntityNotFound 에러가 발생하면 404 에러를 발생한다`() {
         val id = UUID.randomUUID()
-        every { rejectReservationUseCase.reject(any()) }.throws(EntityNotFoundException("존재하지 않는 예약입니다."))
+        every { acceptReservationUseCase.accept(any()) }.throws(EntityNotFoundException("존재하지 않는 예약입니다."))
 
         mvc.perform(
-            MockMvcRequestBuilders.post("/reservations/{reservationId}/reject", id.toString())
+            MockMvcRequestBuilders.post("/reservations/{reservationId}/accept", id.toString())
         )
             .andExpect(MockMvcResultMatchers.status().isNotFound)
             .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("404"))

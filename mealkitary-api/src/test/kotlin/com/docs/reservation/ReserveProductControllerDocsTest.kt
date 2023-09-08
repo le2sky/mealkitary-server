@@ -1,10 +1,10 @@
 package com.docs.reservation
 
 import com.docs.RestDocsSupport
-import com.mealkitary.reservation.adapter.input.web.ReserveProductController
-import com.mealkitary.reservation.adapter.input.web.request.ReserveProductWebRequest
-import com.mealkitary.reservation.adapter.input.web.request.ReservedWebProduct
 import com.mealkitary.reservation.application.port.input.ReserveProductUseCase
+import com.mealkitary.reservation.web.ReserveProductController
+import com.mealkitary.reservation.web.request.ReserveProductWebRequest
+import com.mealkitary.reservation.web.request.ReservedWebProduct
 import io.mockk.every
 import io.mockk.mockk
 import org.springframework.http.MediaType

@@ -1,4 +1,4 @@
-package com.mealkitary.shop.adapter.input.web
+package com.mealkitary.shop.web
 
 import com.mealkitary.common.utils.HttpResponseUtils
 import com.mealkitary.shop.application.port.input.GetReservableTimeQuery

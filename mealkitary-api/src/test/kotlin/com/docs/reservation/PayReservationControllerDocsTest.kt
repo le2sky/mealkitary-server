@@ -1,9 +1,9 @@
 package com.docs.reservation
 
 import com.docs.RestDocsSupport
-import com.mealkitary.reservation.adapter.input.web.PayReservationController
-import com.mealkitary.reservation.adapter.input.web.request.PayReservationWebRequest
 import com.mealkitary.reservation.application.port.input.PayReservationUseCase
+import com.mealkitary.reservation.web.PayReservationController
+import com.mealkitary.reservation.web.request.PayReservationWebRequest
 import io.mockk.every
 import io.mockk.mockk
 import org.springframework.http.MediaType
