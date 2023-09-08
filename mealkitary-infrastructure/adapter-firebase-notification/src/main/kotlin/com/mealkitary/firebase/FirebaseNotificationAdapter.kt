@@ -1,7 +1,7 @@
-package com.mealkitary.common.firebase
+package com.mealkitary.firebase
 
-import com.mealkitary.common.firebase.message.ReservationCreatedMessage
-import com.mealkitary.common.firebase.message.ReservationStatusChangedMessage
+import com.mealkitary.firebase.message.ReservationCreatedMessage
+import com.mealkitary.firebase.message.ReservationStatusChangedMessage
 import com.mealkitary.reservation.application.port.output.SendAcceptedReservationMessagePort
 import com.mealkitary.reservation.application.port.output.SendNewReservationMessagePort
 import com.mealkitary.reservation.application.port.output.SendRejectedReservationMessagePort

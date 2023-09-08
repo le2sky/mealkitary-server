@@ -1,4 +1,4 @@
-package com.mealkitary.common.firebase.message
+package com.mealkitary.firebase.message
 
 import java.util.UUID
 

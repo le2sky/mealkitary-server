@@ -1,7 +1,7 @@
-package com.mealkitary.common.firebase
+package com.mealkitary.firebase
 
-import com.mealkitary.common.firebase.message.ReservationCreatedMessage
-import com.mealkitary.common.firebase.message.ReservationStatusChangedMessage
+import com.mealkitary.firebase.message.ReservationCreatedMessage
+import com.mealkitary.firebase.message.ReservationStatusChangedMessage
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every

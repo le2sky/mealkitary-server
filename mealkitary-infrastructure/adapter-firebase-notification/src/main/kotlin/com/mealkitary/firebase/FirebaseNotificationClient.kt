@@ -1,9 +1,9 @@
-package com.mealkitary.common.firebase
+package com.mealkitary.firebase
 
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.Message
-import com.mealkitary.common.firebase.message.ReservationCreatedMessage
-import com.mealkitary.common.firebase.message.ReservationStatusChangedMessage
+import com.mealkitary.firebase.message.ReservationCreatedMessage
+import com.mealkitary.firebase.message.ReservationStatusChangedMessage
 import org.springframework.stereotype.Component
 
 @Component
