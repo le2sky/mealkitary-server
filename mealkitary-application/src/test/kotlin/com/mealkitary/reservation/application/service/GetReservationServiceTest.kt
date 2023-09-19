@@ -36,4 +36,37 @@ class GetReservationServiceTest : AnnotationSpec() {
         result.status shouldBe "PAID"
         result.reservedProduct.isEmpty().shouldBeTrue()
     }
+
+    @Test
+    fun `service unit test - 가게 식별자로 예약의 상세 정보 목록을 조회한다`() {
+        val reservationId = UUID.randomUUID()
+        every { loadReservationPort.queryAllReservationByShopId(any()) } answers {
+            listOf(
+                ReservationResponse(
+                    reservationId,
+                    "집밥뚝딱 안양점",
+                    "부대찌개 외 1건",
+                    LocalDateTime.now(),
+                    "PAID",
+                    emptyList()
+                ), ReservationResponse(
+                    reservationId,
+                    "집밥뚝딱 안양점",
+                    "부대찌개 외 1건",
+                    LocalDateTime.now(),
+                    "PAID",
+                    emptyList()
+                )
+            )
+        }
+
+        val result = getReservationService.loadAllReservationByShopId(1L)
+
+        val resultReservation = result.get(0)
+        result.size shouldBe 2
+        resultReservation.reservationId shouldBe reservationId
+        resultReservation.shopName shouldBe "집밥뚝딱 안양점"
+        resultReservation.status shouldBe "PAID"
+        resultReservation.reservedProduct.isEmpty().shouldBeTrue()
+    }
 }

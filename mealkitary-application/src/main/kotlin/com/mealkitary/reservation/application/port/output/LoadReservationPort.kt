@@ -9,4 +9,6 @@ interface LoadReservationPort {
     fun loadOneReservationById(reservationId: UUID): Reservation
 
     fun queryOneReservationById(reservationId: UUID): ReservationResponse
+
+    fun queryAllReservationByShopId(shopId: Long): List<ReservationResponse>
 }
