@@ -10,4 +10,6 @@ interface ReservationRepository : JpaRepository<Reservation, UUID> {
 
     @EntityGraph(attributePaths = ["shop"])
     fun findOneWithShopById(reservationId: UUID): Optional<Reservation>
+
+    fun findAllByShopId(shopId: Long): List<Reservation>
 }
