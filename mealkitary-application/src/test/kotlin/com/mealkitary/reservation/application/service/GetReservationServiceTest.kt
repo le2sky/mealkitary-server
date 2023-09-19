@@ -49,7 +49,8 @@ class GetReservationServiceTest : AnnotationSpec() {
                     LocalDateTime.now(),
                     "PAID",
                     emptyList()
-                ), ReservationResponse(
+                ),
+                ReservationResponse(
                     reservationId,
                     "집밥뚝딱 안양점",
                     "부대찌개 외 1건",
