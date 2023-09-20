@@ -23,7 +23,7 @@ class GetReservationController(
 
     @GetMapping
     fun getAllReservation(@RequestParam("shopId") shopIdParam: Long?): ResponseEntity<List<ReservationResponse>> {
-        val shopId = shopIdParam ?: throw IllegalArgumentException("가게 식별자는 필수입니다.")
+        val shopId = requireNotNull(shopIdParam) { "가게 식별자는 필수입니다." }
 
         return HttpResponseUtils
             .mapToResponseEntity(emptiableList = getReservationQuery.loadAllReservationByShopId(shopId))
