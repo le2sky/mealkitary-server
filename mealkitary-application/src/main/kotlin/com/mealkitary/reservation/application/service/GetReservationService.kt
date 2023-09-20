@@ -1,6 +1,7 @@
 package com.mealkitary.reservation.application.service
 
 import com.mealkitary.reservation.application.port.input.GetReservationQuery
+import com.mealkitary.reservation.application.port.input.ReservationResponse
 import com.mealkitary.reservation.application.port.output.LoadReservationPort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -14,4 +15,7 @@ class GetReservationService(
 
     override fun loadOneReservationById(reservationId: UUID) =
         loadReservationPort.queryOneReservationById(reservationId)
+
+    override fun loadAllReservationByShopId(shopId: Long): List<ReservationResponse> =
+        loadReservationPort.queryAllReservationByShopId(shopId)
 }

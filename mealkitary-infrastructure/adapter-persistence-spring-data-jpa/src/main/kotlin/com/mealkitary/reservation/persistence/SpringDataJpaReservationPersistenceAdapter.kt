@@ -47,7 +47,17 @@ class SpringDataJpaReservationPersistenceAdapter(
         val reservation = reservationRepository.findOneWithShopById(reservationId)
             .orElseThrow { throw EntityNotFoundException(NOT_FOUND_RESERVATION_MESSAGE) }
 
-        return ReservationResponse(
+        return mapToReservationResponse(reservation)
+    }
+
+    override fun queryAllReservationByShopId(shopId: Long): List<ReservationResponse> {
+        val reservations = reservationRepository.findAllByShopId(shopId)
+
+        return reservations.map { mapToReservationResponse(it) }
+    }
+
+    private fun mapToReservationResponse(reservation: Reservation) =
+        ReservationResponse(
             reservation.id,
             reservation.shop.title,
             reservation.buildDescription(),
@@ -62,5 +72,4 @@ class SpringDataJpaReservationPersistenceAdapter(
                 )
             }
         )
-    }
 }

@@ -5,4 +5,6 @@ import java.util.UUID
 interface GetReservationQuery {
 
     fun loadOneReservationById(reservationId: UUID): ReservationResponse
+
+    fun loadAllReservationByShopId(shopId: Long): List<ReservationResponse>
 }
