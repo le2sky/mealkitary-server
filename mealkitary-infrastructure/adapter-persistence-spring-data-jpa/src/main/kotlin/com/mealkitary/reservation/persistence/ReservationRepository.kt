@@ -12,4 +12,6 @@ interface ReservationRepository : JpaRepository<Reservation, UUID> {
     fun findOneWithShopById(reservationId: UUID): Optional<Reservation>
 
     fun existsReservationByShopId(shopId: Long): Boolean
+  
+    fun findAllByShopId(shopId: Long): List<Reservation>
 }

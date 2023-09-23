@@ -9,6 +9,7 @@ import com.mealkitary.reservation.domain.reservation.ReservationStatus
 import com.mealkitary.shop.persistence.ShopRepository
 import data.ReservationTestData
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.inspectors.forAll
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.throwable.shouldHaveMessage
@@ -89,6 +90,40 @@ class SpringDataJpaReservationPersistenceAdapterTest(
         result.shopName shouldBe "집밥뚝딱 철산점"
         result.reservedProduct.size shouldBe 2
         result.description shouldBe "부대찌개 외 1건"
+    }
+
+    @Test
+    fun `db integration test - 가게 식별자로 예약의 상세 정보 목록을 조회한다`() {
+        val reservation = ReservationTestData.defaultReservation()
+            .withReservationStatus(ReservationStatus.NOTPAID)
+            .withShop(shopRepository.findOneWithProductsById(1L).orElseThrow())
+            .build()
+        val saved = adapterUnderTest.saveOne(reservation)
+        em.flush()
+        em.clear()
+
+        val result = adapterUnderTest.queryAllReservationByShopId(1L)
+
+        val resultReservation = result.get(0)
+        result.size shouldBe 1
+        resultReservation.reservationId shouldBe saved
+        resultReservation.status shouldBe "NOTPAID"
+        resultReservation.shopName shouldBe "집밥뚝딱 철산점"
+        resultReservation.reservedProduct.size shouldBe 2
+        resultReservation.description shouldBe "부대찌개 외 1건"
+    }
+
+    @Test
+    fun `db integration test - 가게 식별자로 예약의 상세 목록을 조회할 때, 관련 데이터가 없으면 빈 리스트를 반환한다`() {
+        val unknownShopId = 12345L
+        val noReservationShopId = 1L
+        val source = listOf(unknownShopId, noReservationShopId)
+
+        source.forAll {
+            val result = adapterUnderTest.queryAllReservationByShopId(it)
+
+            result.isEmpty().shouldBeTrue()
+        }
     }
 
     @Test
