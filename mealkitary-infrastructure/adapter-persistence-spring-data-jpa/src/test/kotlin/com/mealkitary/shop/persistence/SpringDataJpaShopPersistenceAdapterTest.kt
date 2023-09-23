@@ -15,6 +15,13 @@ class SpringDataJpaShopPersistenceAdapterTest(
 ) : PersistenceIntegrationTestSupport() {
 
     @Test
+    fun `db integration test - 가게에 예약이 존재하는지 확인한다`() {
+        val existsReservation = adapterUnderTest.hasReservations(1L)
+
+        existsReservation.shouldBeTrue()
+    }
+
+    @Test
     fun `db integration test - 모든 가게를 조회한다`() {
         val shops = adapterUnderTest.loadAllShop()
 
