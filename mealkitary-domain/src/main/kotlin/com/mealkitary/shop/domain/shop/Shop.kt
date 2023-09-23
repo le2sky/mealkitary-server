@@ -82,4 +82,12 @@ class Shop(
         val match = reservableTimes.filter { it == reserveAt.toLocalTime() }
         return match.isNotEmpty()
     }
+
+    fun changeStatusValid() {
+        status = ShopStatus.VALID
+    }
+
+    fun changeStatusInvalid() {
+        status = ShopStatus.INVALID
+    }
 }
