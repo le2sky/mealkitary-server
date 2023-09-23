@@ -45,3 +45,6 @@ insert into reservable_time
 values (3, '20:00');
 insert into reservable_time
 values (3, '23:30');
+
+insert into reservation
+values ('c1e170e4-57e4-4d7d-8c10-6f4a8c658020', 1, '2023-09-22T12:30:00', 'NOTPAID');
