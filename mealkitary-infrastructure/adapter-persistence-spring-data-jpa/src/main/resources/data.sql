@@ -46,5 +46,12 @@ values (3, '20:00');
 insert into reservable_time
 values (3, '23:30');
 
-insert into reservation
-values ('c1e170e4-57e4-4d7d-8c10-6f4a8c658020', 1, '2023-09-22T12:30:00', 'NOTPAID');
+
+insert into shop
+values (4, 'VALID', '집밥뚝딱 다산점');
+insert into product
+values (10, '김치찌개', 15800, 4);
+insert into reservable_time
+values (4, '16:30');
+insert into reservation (id, shop_id, reserve_at, reservation_status)
+values ('c1e170e4-57e4-4d7d-8c10-6f4a8c658020', 4, '2023-09-22T16:30:00', 'NOTPAID');
