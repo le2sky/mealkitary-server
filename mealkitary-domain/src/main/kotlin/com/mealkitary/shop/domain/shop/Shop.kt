@@ -56,8 +56,7 @@ class Shop(
     var products: MutableList<Product> = products
         protected set
 
-    var businessNumber: ShopBusinessNumber = businessNumber
-        protected set
+    val businessNumber: ShopBusinessNumber = businessNumber
 
     fun checkReservableShop() {
         if (status.isInvalidStatus()) {
