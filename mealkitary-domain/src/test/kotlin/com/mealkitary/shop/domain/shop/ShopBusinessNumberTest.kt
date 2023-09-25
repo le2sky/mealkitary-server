@@ -13,7 +13,7 @@ class ShopBusinessNumberTest : AnnotationSpec() {
         listOf(" ", "  ", "").forAll {
             shouldThrow<IllegalArgumentException> {
                 ShopBusinessNumber.from(it)
-            } shouldHaveMessage  "올바른 사업자번호 형식이 아닙니다."
+            } shouldHaveMessage "올바른 사업자번호 형식이 아닙니다."
         }
     }
 
@@ -22,7 +22,7 @@ class ShopBusinessNumberTest : AnnotationSpec() {
         listOf("010-1234-5678 ", "inv-al-lidbn", " 123-23-12345 ").forAll {
             shouldThrow<IllegalArgumentException> {
                 ShopBusinessNumber.from(it)
-            } shouldHaveMessage  "올바른 사업자번호 형식이 아닙니다."
+            } shouldHaveMessage "올바른 사업자번호 형식이 아닙니다."
         }
     }
 

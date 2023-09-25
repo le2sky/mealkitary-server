@@ -12,6 +12,7 @@ class ShopBusinessNumber private constructor(
     @Column(name = "brn", nullable = false)
     val value: String
 ) {
+
     companion object {
         fun from(brn: String): ShopBusinessNumber {
             checkIsBrnBlank(brn)
