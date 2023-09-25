@@ -4,6 +4,7 @@ import com.mealkitary.shop.domain.product.Product
 import com.mealkitary.shop.domain.shop.Shop
 import com.mealkitary.shop.domain.shop.ShopBusinessNumber
 import com.mealkitary.shop.domain.shop.ShopStatus
+import com.mealkitary.shop.domain.shop.ShopTitle
 import data.ProductTestData.Companion.defaultProduct
 import java.time.LocalTime
 
@@ -51,7 +52,7 @@ class ShopTestData {
 
         fun build(): Shop {
             return Shop(
-                this.title,
+                ShopTitle.from(this.title),
                 this.shopStatus,
                 this.shopBusinessNumber,
                 this.reservableTimes.toMutableList(),
