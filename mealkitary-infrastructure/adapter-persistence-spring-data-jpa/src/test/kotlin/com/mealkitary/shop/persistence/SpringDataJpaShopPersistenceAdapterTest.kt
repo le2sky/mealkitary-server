@@ -3,6 +3,8 @@ package com.mealkitary.shop.persistence
 import com.mealkitary.PersistenceIntegrationTestSupport
 import com.mealkitary.common.exception.EntityNotFoundException
 import com.mealkitary.common.model.Money
+import com.mealkitary.shop.domain.shop.Shop
+import data.ShopTestData
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldBeEmpty
@@ -13,6 +15,25 @@ import java.time.LocalTime
 class SpringDataJpaShopPersistenceAdapterTest(
     private val adapterUnderTest: SpringDataJpaShopPersistenceAdapter,
 ) : PersistenceIntegrationTestSupport() {
+
+    @Test
+    fun `db integration test - 신규 가게를 등록한다`() {
+        em.createQuery("delete from Product p")
+            .executeUpdate()
+        em.createNativeQuery("delete from reservable_time")
+            .executeUpdate()
+        em.createQuery("delete from Shop s")
+            .executeUpdate()
+
+        val shop = ShopTestData.defaultShop().build()
+        val saved = adapterUnderTest.saveOne(shop)
+        em.flush()
+        em.clear()
+
+        val find = em.find(Shop::class.java, saved)
+
+        saved shouldBe find.id
+    }
 
     @Test
     fun `db integration test - 모든 가게를 조회한다`() {
