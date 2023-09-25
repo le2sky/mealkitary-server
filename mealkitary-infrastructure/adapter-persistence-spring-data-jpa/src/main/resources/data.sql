@@ -1,5 +1,5 @@
 insert into shop
-values (1, 'VALID', '집밥뚝딱 철산점');
+values (1, '123-12-12345', 'VALID', '집밥뚝딱 철산점');
 insert into product
 values (1, '부대찌개', 15800, 1);
 insert into product
@@ -17,7 +17,7 @@ values (1, '18:30');
 
 
 insert into shop
-values (2, 'VALID', '집밥뚝딱 안양점');
+values (2, '123-12-12345', 'VALID', '집밥뚝딱 안양점');
 insert into product
 values (4, '비비고 만두', 3200, 2);
 insert into product
@@ -30,7 +30,7 @@ insert into reservable_time
 values (2, '19:30');
 
 insert into shop
-values (3, 'VALID', '집밥뚝딱 숭실대입구점');
+values (3, '123-12-12345', 'VALID', '집밥뚝딱 숭실대입구점');
 insert into product
 values (7, '왕만두', 4900, 3);
 insert into product

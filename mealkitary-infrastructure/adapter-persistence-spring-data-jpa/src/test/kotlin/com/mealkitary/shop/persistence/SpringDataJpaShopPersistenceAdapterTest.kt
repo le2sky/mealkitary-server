@@ -40,7 +40,7 @@ class SpringDataJpaShopPersistenceAdapterTest(
         val shops = adapterUnderTest.loadAllShop()
 
         shops.size shouldBe 3
-        shops.get(0).title shouldBe "집밥뚝딱 철산점"
+        shops.get(0).title.value shouldBe "집밥뚝딱 철산점"
     }
 
     @Test
@@ -64,7 +64,7 @@ class SpringDataJpaShopPersistenceAdapterTest(
         val shop = adapterUnderTest.loadOneShopById(1L)
 
         emf.persistenceUnitUtil.isLoaded(shop.products).shouldBeTrue()
-        shop.title shouldBe "집밥뚝딱 철산점"
+        shop.title.value shouldBe "집밥뚝딱 철산점"
         shop.products.size shouldBe 3
         shop.reservableTimes.size shouldBe 4
     }
