@@ -22,6 +22,7 @@ import javax.persistence.Table
 class Shop(
     title: String,
     status: ShopStatus,
+    businessNumber: ShopBusinessNumber,
     reservableTimes: MutableList<LocalTime>,
     products: MutableList<Product>
 ) {
@@ -57,6 +58,9 @@ class Shop(
     @OneToMany(cascade = [CascadeType.ALL])
     @JoinColumn(name = "shop_id", nullable = false)
     var products: MutableList<Product> = products
+        protected set
+
+    var businessNumber: ShopBusinessNumber = businessNumber
         protected set
 
     private fun checkShopName(title: String) {

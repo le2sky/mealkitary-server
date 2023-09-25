@@ -2,6 +2,7 @@ package data
 
 import com.mealkitary.shop.domain.product.Product
 import com.mealkitary.shop.domain.shop.Shop
+import com.mealkitary.shop.domain.shop.ShopBusinessNumber
 import com.mealkitary.shop.domain.shop.ShopStatus
 import data.ProductTestData.Companion.defaultProduct
 import java.time.LocalTime
@@ -19,7 +20,8 @@ class ShopTestData {
         private var products: List<Product> = listOf(
             defaultProduct().withId(1L).withName("부대찌개").build(),
             defaultProduct().withId(2L).withName("닭볶음탕").build()
-        )
+        ),
+        private var shopBusinessNumber: ShopBusinessNumber = ShopBusinessNumber.from("123-45-67890")
     ) {
 
         fun withTitle(title: String): ShopBuilder {
@@ -42,10 +44,16 @@ class ShopTestData {
             return this
         }
 
+        fun withBusinessNumber(shopBusinessNumber: ShopBusinessNumber): ShopBuilder {
+            this.shopBusinessNumber = shopBusinessNumber
+            return this
+        }
+
         fun build(): Shop {
             return Shop(
                 this.title,
                 this.shopStatus,
+                this.shopBusinessNumber,
                 this.reservableTimes.toMutableList(),
                 this.products.toMutableList()
             )
