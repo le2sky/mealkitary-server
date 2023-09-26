@@ -15,7 +15,7 @@ class UpdateShopStatusService(
 ) : UpdateShopStatusUseCase {
 
     override fun update(shopId: Long) {
-        val shop = findShopById(shopId)
+        val shop = loadShopPort.loadOneShopById(shopId)
 
         if (shop.status.isValidStatus()) {
             checkReservationByShopId(shopId)
@@ -23,8 +23,10 @@ class UpdateShopStatusService(
         updateStatus(shop)
     }
 
-    private fun findShopById(shopId: Long): Shop {
-        return loadShopPort.loadOneShopById(shopId)
+    private fun checkReservationByShopId(shopId: Long) {
+        if (checkExistenceShopPort.hasReservations(shopId)) {
+            throw IllegalStateException("예약이 존재할 경우 가게 상태를 INVALID로 변경할 수 없습니다.")
+        }
     }
 
     private fun updateStatus(shop: Shop) {
@@ -32,12 +34,6 @@ class UpdateShopStatusService(
             shop.changeStatusInvalid()
         } else {
             shop.changeStatusValid()
-        }
-    }
-
-    private fun checkReservationByShopId(shopId: Long) {
-        if (checkExistenceShopPort.hasReservations(shopId)) {
-            throw IllegalStateException("예약이 존재할 경우 가게 상태를 INVALID로 변경할 수 없습니다.")
         }
     }
 }
