@@ -1,6 +1,7 @@
 package com.mealkitary.shop.application.service
 
-import com.mealkitary.shop.application.port.output.ShopPersistencePort
+import com.mealkitary.shop.application.port.output.CheckExistenceShopPort
+import com.mealkitary.shop.application.port.output.LoadShopPort
 import com.mealkitary.shop.domain.shop.Shop
 import com.mealkitary.shop.domain.shop.ShopStatus
 import io.kotest.assertions.throwables.shouldThrow
@@ -11,8 +12,9 @@ import io.mockk.mockk
 
 class UpdateShopStatusServiceTest : AnnotationSpec() {
 
-    private val shopPersistencePort = mockk<ShopPersistencePort>()
-    private val updateShopStatusService = UpdateShopStatusService(shopPersistencePort)
+    private val checkExistenceShopPort = mockk<CheckExistenceShopPort>()
+    private val loadShopPort = mockk<LoadShopPort>()
+    private val updateShopStatusService = UpdateShopStatusService(checkExistenceShopPort, loadShopPort)
 
     @Test
     fun `service unit test - 가게의 상태를 INVALID로 변경한다`() {
@@ -24,8 +26,8 @@ class UpdateShopStatusServiceTest : AnnotationSpec() {
             mutableListOf()
         )
 
-        every { shopPersistencePort.loadOneShopById(shopId) } returns validShop
-        every { shopPersistencePort.hasReservations(shopId) } returns false
+        every { loadShopPort.loadOneShopById(shopId) } returns validShop
+        every { checkExistenceShopPort.hasReservations(shopId) } returns false
 
         updateShopStatusService.update(shopId)
 
@@ -42,8 +44,8 @@ class UpdateShopStatusServiceTest : AnnotationSpec() {
             mutableListOf()
         )
 
-        every { shopPersistencePort.loadOneShopById(shopId) } returns validShop
-        every { shopPersistencePort.hasReservations(shopId) } returns false
+        every { loadShopPort.loadOneShopById(shopId) } returns validShop
+        every { checkExistenceShopPort.hasReservations(shopId) } returns false
 
         updateShopStatusService.update(shopId)
 
@@ -60,8 +62,8 @@ class UpdateShopStatusServiceTest : AnnotationSpec() {
             mutableListOf()
         )
 
-        every { shopPersistencePort.loadOneShopById(shopId) } returns validShop
-        every { shopPersistencePort.hasReservations(shopId) } returns true
+        every { loadShopPort.loadOneShopById(shopId) } returns validShop
+        every { checkExistenceShopPort.hasReservations(shopId) } returns true
 
         shouldThrow<IllegalStateException> {
             updateShopStatusService.update(shopId)
