@@ -1,6 +1,8 @@
 package com.mealkitary.shop.persistence
 
 import com.mealkitary.common.exception.EntityNotFoundException
+import com.mealkitary.reservation.persistence.ReservationRepository
+import com.mealkitary.shop.application.port.output.CheckExistenceShopPort
 import com.mealkitary.shop.application.port.output.LoadProductPort
 import com.mealkitary.shop.application.port.output.LoadReservableTimePort
 import com.mealkitary.shop.application.port.output.LoadShopPort
@@ -15,7 +17,8 @@ private const val NOT_FOUND_SHOP_MESSAGE = "존재하지 않는 가게입니다.
 @Repository
 class SpringDataJpaShopPersistenceAdapter(
     private val shopRepository: ShopRepository,
-) : SaveShopPort, LoadShopPort, LoadProductPort, LoadReservableTimePort {
+    private val reservationRepository: ReservationRepository
+) : SaveShopPort, LoadShopPort, LoadProductPort, LoadReservableTimePort, CheckExistenceShopPort {
 
     override fun saveOne(shop: Shop): Long {
         shopRepository.save(shop)
@@ -32,6 +35,10 @@ class SpringDataJpaShopPersistenceAdapter(
 
     override fun loadAllReservableTimeByShopId(shopId: Long) =
         getShopOrThrow(shopRepository::findOneWithReservableTimesById, shopId).reservableTimes
+
+    override fun hasReservations(shopId: Long): Boolean {
+        return reservationRepository.existsReservationByShopId(shopId)
+    }
 
     private fun getShopOrThrow(queryMethod: Function<Long, Optional<Shop>>, shopId: Long): Shop {
         return (queryMethod.apply(shopId).orElseThrow { throw EntityNotFoundException(NOT_FOUND_SHOP_MESSAGE) })

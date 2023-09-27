@@ -8,4 +8,8 @@ enum class ShopStatus {
     fun isInvalidStatus(): Boolean {
         return this == INVALID
     }
+
+    fun isValidStatus(): Boolean {
+        return this == VALID
+    }
 }
