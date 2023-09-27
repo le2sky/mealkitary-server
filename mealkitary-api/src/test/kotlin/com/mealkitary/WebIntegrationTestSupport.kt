@@ -14,10 +14,12 @@ import com.mealkitary.reservation.web.ReserveProductController
 import com.mealkitary.shop.application.port.input.GetProductQuery
 import com.mealkitary.shop.application.port.input.GetReservableTimeQuery
 import com.mealkitary.shop.application.port.input.GetShopQuery
+import com.mealkitary.shop.application.port.input.RegisterShopUseCase
 import com.mealkitary.shop.application.port.input.UpdateShopStatusUseCase
 import com.mealkitary.shop.web.GetProductController
 import com.mealkitary.shop.web.GetReservableTimeController
 import com.mealkitary.shop.web.GetShopController
+import com.mealkitary.shop.web.RegisterShopController
 import com.mealkitary.shop.web.UpdateShopStatusController
 import com.ninjasquad.springmockk.MockkBean
 import io.kotest.core.spec.style.AnnotationSpec
@@ -32,6 +34,7 @@ import org.springframework.test.web.servlet.MockMvc
         PayReservationController::class,
         AcceptReservationController::class,
         RejectReservationController::class,
+        RegisterShopController::class,
         GetReservationController::class,
         GetShopController::class,
         GetReservableTimeController::class,
@@ -60,6 +63,9 @@ abstract class WebIntegrationTestSupport : AnnotationSpec() {
 
     @MockkBean
     protected lateinit var rejectReservationUseCase: RejectReservationUseCase
+
+    @MockkBean
+    protected lateinit var registerShopUseCase: RegisterShopUseCase
 
     @MockkBean
     protected lateinit var getReservationQuery: GetReservationQuery

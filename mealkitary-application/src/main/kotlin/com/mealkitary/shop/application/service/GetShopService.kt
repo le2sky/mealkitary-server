@@ -12,5 +12,5 @@ class GetShopService(
     private val loadShopPort: LoadShopPort
 ) : GetShopQuery {
 
-    override fun loadAllShop() = loadShopPort.loadAllShop().map { ShopResponse(it.id, it.title) }
+    override fun loadAllShop() = loadShopPort.loadAllShop().map { ShopResponse(it.id, it.title.value) }
 }

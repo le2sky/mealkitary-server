@@ -20,15 +20,12 @@ import javax.persistence.Table
 @Entity
 @Table(name = "shop")
 class Shop(
-    title: String,
+    title: ShopTitle,
     status: ShopStatus,
+    businessNumber: ShopBusinessNumber,
     reservableTimes: MutableList<LocalTime>,
     products: MutableList<Product>
 ) {
-
-    init {
-        checkShopName(title)
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +34,7 @@ class Shop(
         protected set
 
     @Column(nullable = false)
-    var title: String = title
+    var title: ShopTitle = title
         protected set
 
     @Enumerated(EnumType.STRING)
@@ -59,11 +56,7 @@ class Shop(
     var products: MutableList<Product> = products
         protected set
 
-    private fun checkShopName(title: String) {
-        if (title.isBlank()) {
-            throw IllegalArgumentException("가게 이름을 입력해주세요.")
-        }
-    }
+    val businessNumber: ShopBusinessNumber = businessNumber
 
     fun checkReservableShop() {
         if (status.isInvalidStatus()) {

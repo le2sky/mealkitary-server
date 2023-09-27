@@ -88,7 +88,7 @@ class GetReservationControllerDocsTest : RestDocsSupport() {
     }
 
     @Test
-    fun `api integration test - getAllReservation`() {
+    fun `api docs test - getAllReservation`() {
         val reservationId = UUID.randomUUID()
         val reserveAt = LocalDateTime.of(
             LocalDate.of(2023, 6, 23), LocalTime.of(6, 30)

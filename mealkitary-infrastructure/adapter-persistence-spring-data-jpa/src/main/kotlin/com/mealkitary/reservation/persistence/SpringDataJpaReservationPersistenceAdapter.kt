@@ -59,7 +59,7 @@ class SpringDataJpaReservationPersistenceAdapter(
     private fun mapToReservationResponse(reservation: Reservation) =
         ReservationResponse(
             reservation.id,
-            reservation.shop.title,
+            reservation.shop.title.value,
             reservation.buildDescription(),
             reservation.reserveAt,
             reservation.reservationStatus.name,

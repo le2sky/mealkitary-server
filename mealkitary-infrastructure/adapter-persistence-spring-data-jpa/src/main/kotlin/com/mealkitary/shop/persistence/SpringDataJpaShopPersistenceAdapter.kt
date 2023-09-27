@@ -6,6 +6,7 @@ import com.mealkitary.shop.application.port.output.CheckExistenceShopPort
 import com.mealkitary.shop.application.port.output.LoadProductPort
 import com.mealkitary.shop.application.port.output.LoadReservableTimePort
 import com.mealkitary.shop.application.port.output.LoadShopPort
+import com.mealkitary.shop.application.port.output.SaveShopPort
 import com.mealkitary.shop.domain.shop.Shop
 import org.springframework.stereotype.Repository
 import java.util.Optional
@@ -17,7 +18,13 @@ private const val NOT_FOUND_SHOP_MESSAGE = "존재하지 않는 가게입니다.
 class SpringDataJpaShopPersistenceAdapter(
     private val shopRepository: ShopRepository,
     private val reservationRepository: ReservationRepository
-) : LoadShopPort, LoadProductPort, LoadReservableTimePort, CheckExistenceShopPort {
+) : SaveShopPort, LoadShopPort, LoadProductPort, LoadReservableTimePort, CheckExistenceShopPort {
+
+    override fun saveOne(shop: Shop): Long {
+        shopRepository.save(shop)
+
+        return shop.id!!
+    }
 
     override fun loadAllShop(): List<Shop> = shopRepository.findAll()
 

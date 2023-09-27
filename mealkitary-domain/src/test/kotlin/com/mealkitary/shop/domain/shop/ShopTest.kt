@@ -4,7 +4,6 @@ import data.ProductTestData.Companion.defaultProduct
 import data.ShopTestData.Companion.defaultShop
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
-import io.kotest.inspectors.forAll
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.throwable.shouldHaveMessage
 
@@ -80,24 +79,6 @@ class ShopTest : AnnotationSpec() {
             .build()
 
         sut.checkItem(product)
-    }
-
-    @Test
-    fun `가게 이름이 빈 문자열일 경우 예외를 발생한다`() {
-        shouldThrow<IllegalArgumentException> {
-            defaultShop().withTitle("").build()
-        } shouldHaveMessage "가게 이름을 입력해주세요."
-    }
-
-    @Test
-    fun `가게 이름이 공백으로만 이루어져 있을 경우, 예외를 발생한다`() {
-        val params = listOf(" ", "  ", "   ", "\n", "\t")
-
-        params.forAll {
-            shouldThrow<IllegalArgumentException> {
-                defaultShop().withTitle(it).build()
-            } shouldHaveMessage "가게 이름을 입력해주세요."
-        }
     }
 
     private fun productWithIdAndName(id: Long, name: String) = defaultProduct()

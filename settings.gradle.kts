@@ -6,7 +6,9 @@ include(
     "mealkitary-domain",
     "mealkitary-infrastructure:adapter-persistence-spring-data-jpa",
     "mealkitary-infrastructure:adapter-paymentgateway-tosspayments",
-    "mealkitary-infrastructure:adapter-firebase-notification"
+    "mealkitary-infrastructure:adapter-firebase-notification",
+    "mealkitary-infrastructure:business-registration-number-validator:adapter-open-api-brn-validator",
+    "mealkitary-infrastructure:business-registration-number-validator:adapter-simple-brn-validator"
 )
 
 pluginManagement {
@@ -26,6 +28,7 @@ pluginManagement {
                 "org.jetbrains.kotlin.plugin.spring",
                 "org.jetbrains.kotlin.kapt",
                 "org.jetbrains.kotlin.plugin.jpa" -> useVersion(kotlinVersion)
+
                 "org.jlleitschuh.gradle.ktlint" -> useVersion(ktlintVersion)
                 "org.asciidoctor.jvm.convert" -> useVersion(asciidoctorVersion)
                 "com.google.cloud.tools.jib" -> useVersion(jibVersion)
