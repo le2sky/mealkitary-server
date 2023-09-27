@@ -2,6 +2,29 @@
 
 가게의 상태를 변경하거나, 가게의 속한 요소(상품, 예약 가능 시간)들을 조회할 수 있습니다.
 
+==== 신규 가게 등록
+
+신규 가게를 등록합니다.
+
+[NOTE]
+====
+신규 리소스 생성 시, 반환 헤더의 Location 값은 신규 리소스의 URI입니다.
+====
+
+===== 요청
+
+include::{snippets}/shop-post/curl-request.adoc[]
+include::{snippets}/shop-post/http-request.adoc[]
+include::{snippets}/shop-post/request-fields.adoc[]
+
+===== 응답
+
+include::{snippets}/shop-post/http-response.adoc[]
+
+===== 응답 헤더
+
+include::{snippets}/shop-post/response-headers.adoc[]
+
 ==== 가게 조회
 
 가게 목록을 조회합니다.
@@ -61,3 +84,18 @@ include::{snippets}/shop-get-reservable-time/path-parameters.adoc[]
 
 include::{snippets}/shop-get-reservable-time/http-response.adoc[]
 include::{snippets}/shop-get-reservable-time/response-fields.adoc[]
+
+
+==== 가게 상태 변경
+
+가게의 상태(VALID, INVALID)를 변경합니다. 이미 가게의 상태가 VALID인 경우에는 INVALID로, INVALID인 경우에는 VALID로 변경됩니다.
+
+===== 요청
+
+include::{snippets}/shop-post-update/curl-request.adoc[]
+include::{snippets}/shop-post-update/http-request.adoc[]
+include::{snippets}/shop-post-update/path-parameters.adoc[]
+
+===== 응답
+
+include::{snippets}/shop-post-update/http-response.adoc[]

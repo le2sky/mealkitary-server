@@ -21,6 +21,16 @@ dependencies {
     implementation(project(":mealkitary-infrastructure:adapter-persistence-spring-data-jpa"))
     implementation(project(":mealkitary-infrastructure:adapter-paymentgateway-tosspayments"))
     implementation(project(":mealkitary-infrastructure:adapter-firebase-notification"))
+    implementation(
+        project(
+            ":mealkitary-infrastructure:business-registration-number-validator:adapter-open-api-brn-validator",
+        )
+    )
+    implementation(
+        project(
+            ":mealkitary-infrastructure:business-registration-number-validator:adapter-simple-brn-validator",
+        )
+    )
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
     asciidoctorExt("org.springframework.restdocs:spring-restdocs-asciidoctor")
 }

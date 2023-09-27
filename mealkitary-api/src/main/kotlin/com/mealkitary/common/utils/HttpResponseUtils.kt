@@ -9,13 +9,17 @@ class HttpResponseUtils {
 
     companion object {
 
-        fun createResourceUri(resourceId: UUID): URI {
+        fun createResourceUri(resourceId: UUID): URI = URI.create("${createBaseUri()}/$resourceId")
+
+        fun createResourceUri(resourceId: Long): URI = URI.create("${createBaseUri()}/$resourceId")
+
+        private fun createBaseUri(): String {
             val uriComponents = ServletUriComponentsBuilder.fromCurrentRequest().build()
             val scheme = removeSlash(uriComponents.scheme)
             val host = removeSlash(uriComponents.host)
             val path = removeSlash(uriComponents.path)
 
-            return URI.create("$scheme://$host/$path/$resourceId")
+            return "$scheme://$host/$path"
         }
 
         fun createResourceUri(path: String, resourceId: UUID): URI {
