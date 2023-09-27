@@ -15,10 +15,17 @@ class SpringDataJpaShopPersistenceAdapterTest(
 ) : PersistenceIntegrationTestSupport() {
 
     @Test
+    fun `db integration test - 가게에 예약이 존재하는지 확인한다`() {
+        val existsReservation = adapterUnderTest.hasReservations(4L)
+
+        existsReservation.shouldBeTrue()
+    }
+
+    @Test
     fun `db integration test - 모든 가게를 조회한다`() {
         val shops = adapterUnderTest.loadAllShop()
 
-        shops.size shouldBe 3
+        shops.size shouldBe 4
         shops.get(0).title shouldBe "집밥뚝딱 철산점"
     }
 
@@ -94,6 +101,8 @@ class SpringDataJpaShopPersistenceAdapterTest(
 
     @Test
     fun `db integration test - 가게가 하나도 존재하지 않는 경우 빈 배열을 반환한다 `() {
+        em.createQuery("delete from Reservation r")
+            .executeUpdate()
         em.createQuery("delete from Product p")
             .executeUpdate()
         em.createNativeQuery("delete from reservable_time")

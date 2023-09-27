@@ -5,9 +5,30 @@ import data.ShopTestData.Companion.defaultShop
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.inspectors.forAll
+import io.kotest.matchers.shouldBe
 import io.kotest.matchers.throwable.shouldHaveMessage
 
 class ShopTest : AnnotationSpec() {
+
+    @Test
+    fun `가게 상태를 VALID로 변경한다`() {
+        val sut = defaultShop().withStatus(ShopStatus.INVALID)
+            .build()
+
+        sut.changeStatusValid()
+
+        sut.status shouldBe ShopStatus.VALID
+    }
+
+    @Test
+    fun `가게 상태를 INVALID로 변경한다`() {
+        val sut = defaultShop().withStatus(ShopStatus.VALID)
+            .build()
+
+        sut.changeStatusInvalid()
+
+        sut.status shouldBe ShopStatus.INVALID
+    }
 
     @Test
     fun `유효하지 않은 가게라면 예외를 발생한다`() {
