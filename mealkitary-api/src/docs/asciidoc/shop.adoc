@@ -84,3 +84,18 @@ include::{snippets}/shop-get-reservable-time/path-parameters.adoc[]
 
 include::{snippets}/shop-get-reservable-time/http-response.adoc[]
 include::{snippets}/shop-get-reservable-time/response-fields.adoc[]
+
+
+==== 가게 상태 변경
+
+가게의 상태(VALID, INVALID)를 변경합니다. 이미 가게의 상태가 VALID인 경우에는 INVALID로, INVALID인 경우에는 VALID로 변경됩니다.
+
+===== 요청
+
+include::{snippets}/shop-post-update/curl-request.adoc[]
+include::{snippets}/shop-post-update/http-request.adoc[]
+include::{snippets}/shop-post-update/path-parameters.adoc[]
+
+===== 응답
+
+include::{snippets}/shop-post-update/http-response.adoc[]
