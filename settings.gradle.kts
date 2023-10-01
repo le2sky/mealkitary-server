@@ -7,6 +7,7 @@ include(
     "mealkitary-infrastructure:adapter-persistence-spring-data-jpa",
     "mealkitary-infrastructure:adapter-paymentgateway-tosspayments",
     "mealkitary-infrastructure:adapter-firebase-notification",
+    "mealkitary-infrastructure:adapter-configuration",
     "mealkitary-infrastructure:business-registration-number-validator:adapter-open-api-brn-validator",
     "mealkitary-infrastructure:business-registration-number-validator:adapter-simple-brn-validator"
 )

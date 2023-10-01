@@ -1,4 +1,4 @@
-package com.mealkitary.paymentgateway
+package com.mealkitary.config
 
 import io.netty.channel.ChannelOption
 import io.netty.handler.timeout.ReadTimeoutHandler
