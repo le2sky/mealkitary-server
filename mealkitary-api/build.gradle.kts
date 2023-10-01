@@ -24,12 +24,12 @@ dependencies {
     implementation(project(":mealkitary-infrastructure:adapter-configuration"))
     implementation(
         project(
-            ":mealkitary-infrastructure:business-registration-number-validator:adapter-open-api-brn-validator",
+            ":mealkitary-infrastructure:adapter-business-registration-number-validator:open-api-brn-validator",
         )
     )
     implementation(
         project(
-            ":mealkitary-infrastructure:business-registration-number-validator:adapter-simple-brn-validator",
+            ":mealkitary-infrastructure:adapter-business-registration-number-validator:simple-brn-validator",
         )
     )
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")

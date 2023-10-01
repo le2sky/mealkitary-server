@@ -8,8 +8,8 @@ include(
     "mealkitary-infrastructure:adapter-paymentgateway-tosspayments",
     "mealkitary-infrastructure:adapter-firebase-notification",
     "mealkitary-infrastructure:adapter-configuration",
-    "mealkitary-infrastructure:business-registration-number-validator:adapter-open-api-brn-validator",
-    "mealkitary-infrastructure:business-registration-number-validator:adapter-simple-brn-validator"
+    "mealkitary-infrastructure:adapter-business-registration-number-validator:open-api-brn-validator",
+    "mealkitary-infrastructure:adapter-business-registration-number-validator:simple-brn-validator"
 )
 
 pluginManagement {
