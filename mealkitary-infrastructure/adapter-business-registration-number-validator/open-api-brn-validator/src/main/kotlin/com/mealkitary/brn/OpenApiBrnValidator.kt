@@ -4,8 +4,10 @@ import com.mealkitary.brn.payload.OpenApiBrnStatusPayload
 import com.mealkitary.brn.payload.OpenApiBrnStatusResponse
 import com.mealkitary.shop.domain.shop.ShopBusinessNumber
 import com.mealkitary.shop.domain.shop.factory.ShopBusinessNumberValidator
+import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Component
 
+@Primary
 @Component
 class OpenApiBrnValidator(
     private val openApiWebClient: OpenApiWebClient
