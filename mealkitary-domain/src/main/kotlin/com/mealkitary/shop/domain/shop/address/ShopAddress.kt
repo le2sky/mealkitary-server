@@ -4,6 +4,8 @@ import javax.persistence.Column
 import javax.persistence.Embeddable
 import javax.persistence.Embedded
 
+private const val CITY_CODE_LENGTH = 10
+
 @Embeddable
 class ShopAddress private constructor(
     @Column(name = "city_code", nullable = false)
@@ -22,7 +24,7 @@ class ShopAddress private constructor(
         }
 
         private fun checkIsCityCodeLength(cityCode: String) {
-            if (cityCode.length != 10) {
+            if (cityCode.length != CITY_CODE_LENGTH) {
                 throw IllegalArgumentException("올바른 지역 코드가 아닙니다. (행정동 지역 코드는 10자리)")
             }
         }
