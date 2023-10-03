@@ -34,8 +34,8 @@ class OpenApiBrnValidator(
     }
 
     private fun checkBrnStatus(openApiBrnStatusResponse: OpenApiBrnStatusResponse) {
-        val result = openApiBrnStatusResponse.data[0]
-        if (result.b_stt != "계속사업자") {
+        val openApiBrnStatus = openApiBrnStatusResponse.data[0]
+        if (openApiBrnStatus.b_stt != "계속사업자") {
             throw IllegalArgumentException("유효하지 않은 사업자 번호입니다.")
         }
     }
