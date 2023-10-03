@@ -6,6 +6,7 @@ val snippetsDir by extra { file("build/generated-snippets") }
 val asciidoctorExt: Configuration by configurations.creating
 
 bootJar.enabled = true
+bootJar.duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 jar.enabled = false
 
 plugins {
