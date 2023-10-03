@@ -6,6 +6,9 @@ import com.mealkitary.shop.domain.shop.Shop
 import com.mealkitary.shop.domain.shop.ShopBusinessNumber
 import com.mealkitary.shop.domain.shop.ShopStatus
 import com.mealkitary.shop.domain.shop.ShopTitle
+import com.mealkitary.shop.domain.shop.address.Address
+import com.mealkitary.shop.domain.shop.address.Coordinates
+import com.mealkitary.shop.domain.shop.address.ShopAddress
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
@@ -25,6 +28,19 @@ class UpdateShopStatusServiceTest : AnnotationSpec() {
             ShopTitle.from("제목"),
             ShopStatus.VALID,
             ShopBusinessNumber.from("123-12-12345"),
+            ShopAddress.of(
+                "1234567890",
+                Coordinates.of(
+                    126.99599512792346,
+                    35.976749396987046
+                ),
+                Address.of(
+                    "region1DepthName",
+                    "region2DepthName",
+                    "region3DepthName",
+                    "region4DepthName"
+                )
+            ),
             mutableListOf(),
             mutableListOf()
         )
@@ -44,6 +60,19 @@ class UpdateShopStatusServiceTest : AnnotationSpec() {
             ShopTitle.from("제목"),
             ShopStatus.INVALID,
             ShopBusinessNumber.from("123-12-12345"),
+            ShopAddress.of(
+                "1234567890",
+                Coordinates.of(
+                    126.99599512792346,
+                    35.976749396987046
+                ),
+                Address.of(
+                    "region1DepthName",
+                    "region2DepthName",
+                    "region3DepthName",
+                    "region4DepthName"
+                )
+            ),
             mutableListOf(),
             mutableListOf()
         )
@@ -63,6 +92,19 @@ class UpdateShopStatusServiceTest : AnnotationSpec() {
             ShopTitle.from("제목"),
             ShopStatus.VALID,
             ShopBusinessNumber.from("123-12-12345"),
+            ShopAddress.of(
+                "1234567890",
+                Coordinates.of(
+                    126.99599512792346,
+                    35.976749396987046
+                ),
+                Address.of(
+                    "region1DepthName",
+                    "region2DepthName",
+                    "region3DepthName",
+                    "region4DepthName"
+                )
+            ),
             mutableListOf(),
             mutableListOf()
         )
