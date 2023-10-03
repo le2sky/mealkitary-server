@@ -11,8 +11,8 @@ class Address(
     val region2DepthName: String,
     @Column(name = "region_3depth_name")
     val region3DepthName: String,
-    @Column(name = "region_4depth_name")
-    val region4DepthName: String
+    @Column(name = "road_name")
+    val roadName: String
 ) {
 
     companion object {
@@ -20,14 +20,14 @@ class Address(
             region1DepthName: String,
             region2DepthName: String,
             region3DepthName: String,
-            region4DepthName: String
+            roadName: String
         ): Address {
 
             return Address(
                 region1DepthName,
                 region2DepthName,
                 region3DepthName,
-                region4DepthName
+                roadName
             )
         }
     }

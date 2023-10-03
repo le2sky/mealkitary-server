@@ -21,7 +21,7 @@ class ShopAddressTest : AnnotationSpec() {
             "region1DepthName",
             "region2DepthName",
             "region3DepthName",
-            "region4DepthName"
+            "roadName"
         )
 
         val shopAddress = ShopAddress.of(
@@ -46,7 +46,7 @@ class ShopAddressTest : AnnotationSpec() {
             "region1DepthName",
             "region2DepthName",
             "region3DepthName",
-            "region4DepthName"
+            "roadName"
         )
 
         shouldThrow<IllegalArgumentException> {

@@ -21,7 +21,7 @@ class SimpleAddressResolver : AddressResolver {
         val region1DepthName = value[0]
         val region2DepthName = value[1]
         val region3DepthName = value.getOrNull(2) ?: ""
-        val region4DepthName = value.getOrNull(3) ?: ""
+        val roadName = value.getOrNull(3) ?: ""
 
         // TODO: 좌표 및 지역 코드를 카카오 API에서 받아올 예정
         return ShopAddress.of(
@@ -34,7 +34,7 @@ class SimpleAddressResolver : AddressResolver {
                 region1DepthName,
                 region2DepthName,
                 region3DepthName,
-                region4DepthName
+                roadName
             )
         )
     }

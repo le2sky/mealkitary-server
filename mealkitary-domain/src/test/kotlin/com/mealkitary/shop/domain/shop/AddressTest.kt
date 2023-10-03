@@ -11,18 +11,18 @@ class AddressTest : AnnotationSpec() {
         val region1DepthName = "서울"
         val region2DepthName = "강남구"
         val region3DepthName = "논현동"
-        val region4DepthName = "논현로"
+        val roadName = "논현로"
 
         val address = Address.of(
             region1DepthName,
             region2DepthName,
             region3DepthName,
-            region4DepthName
+            roadName
         )
 
         address.region1DepthName shouldBe region1DepthName
         address.region2DepthName shouldBe region2DepthName
         address.region3DepthName shouldBe region3DepthName
-        address.region4DepthName shouldBe region4DepthName
+        address.roadName shouldBe roadName
     }
 }

@@ -38,7 +38,7 @@ class UpdateShopStatusServiceTest : AnnotationSpec() {
                     "region1DepthName",
                     "region2DepthName",
                     "region3DepthName",
-                    "region4DepthName"
+                    "roadName"
                 )
             ),
             mutableListOf(),
@@ -70,7 +70,7 @@ class UpdateShopStatusServiceTest : AnnotationSpec() {
                     "region1DepthName",
                     "region2DepthName",
                     "region3DepthName",
-                    "region4DepthName"
+                    "roadName"
                 )
             ),
             mutableListOf(),
@@ -102,7 +102,7 @@ class UpdateShopStatusServiceTest : AnnotationSpec() {
                     "region1DepthName",
                     "region2DepthName",
                     "region3DepthName",
-                    "region4DepthName"
+                    "roadName"
                 )
             ),
             mutableListOf(),

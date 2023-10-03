@@ -22,7 +22,7 @@ class SimpleAddressResolverTest : AnnotationSpec() {
         shopAddress.address.region1DepthName shouldBe "서울특별시"
         shopAddress.address.region2DepthName shouldBe "강남구"
         shopAddress.address.region3DepthName shouldBe "역삼동"
-        shopAddress.address.region4DepthName shouldBe "논현로"
+        shopAddress.address.roadName shouldBe "논현로"
     }
 
     @Test
@@ -38,7 +38,7 @@ class SimpleAddressResolverTest : AnnotationSpec() {
         shopAddress.address.region1DepthName shouldBe "경기도"
         shopAddress.address.region2DepthName shouldBe "남양주시"
         shopAddress.address.region3DepthName shouldBe "다산동"
-        shopAddress.address.region4DepthName shouldBe ""
+        shopAddress.address.roadName shouldBe ""
     }
 
     @Test
@@ -54,7 +54,7 @@ class SimpleAddressResolverTest : AnnotationSpec() {
         shopAddress.address.region1DepthName shouldBe "제주특별자치도"
         shopAddress.address.region2DepthName shouldBe "한림읍"
         shopAddress.address.region3DepthName shouldBe ""
-        shopAddress.address.region4DepthName shouldBe ""
+        shopAddress.address.roadName shouldBe ""
     }
 
     @Test
