@@ -13,12 +13,12 @@ class Coordinates(
 
     companion object {
         fun of(longitude: Double, latitude: Double): Coordinates {
-            checkIsCoordinate(longitude, latitude)
+            checkIsCoordinateRange(longitude, latitude)
 
             return Coordinates(longitude, latitude)
         }
 
-        private fun checkIsCoordinate(longitude: Double, latitude: Double) {
+        private fun checkIsCoordinateRange(longitude: Double, latitude: Double) {
             if (longitude !in -180.0..180.0 || latitude !in -90.0..90.0) {
                 throw IllegalArgumentException("유효하지 않은 좌표 범위입니다.")
             }
