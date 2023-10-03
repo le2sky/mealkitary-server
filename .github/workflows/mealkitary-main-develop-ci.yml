@@ -69,7 +69,7 @@ jobs:
                         ./mealkitary-infrastructure/adapter-paymentgateway-tosspayments/build/reports/jacoco/test/jacocoTestReport.xml,
                         ./mealkitary-infrastructure/adapter-firebase-notification/build/reports/jacoco/test/jacocoTestReport.xml,
                         ./mealkitary-infrastructure/business-registration-number-validator/adapter-simple-brn-validator/build/reports/jacoco/test/jacocoTestReport.xml,
-                        ./mealkitary-infrastructure/adapter-address-resolver/build/reports/jacoco/test/jacocoTestReport.xml,
+                        ./mealkitary-infrastructure/adapter-address-resolver/build/reports/jacoco/test/jacocoTestReport.xml
                     name: mealkitary-codecov
                     verbose: true
 
