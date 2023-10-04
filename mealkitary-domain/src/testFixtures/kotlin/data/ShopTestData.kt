@@ -1,10 +1,13 @@
 package data
 
+import com.mealkitary.common.model.Address
+import com.mealkitary.common.model.Coordinates
 import com.mealkitary.shop.domain.product.Product
 import com.mealkitary.shop.domain.shop.Shop
 import com.mealkitary.shop.domain.shop.ShopBusinessNumber
 import com.mealkitary.shop.domain.shop.ShopStatus
 import com.mealkitary.shop.domain.shop.ShopTitle
+import com.mealkitary.shop.domain.shop.address.ShopAddress
 import data.ProductTestData.Companion.defaultProduct
 import java.time.LocalTime
 
@@ -22,7 +25,20 @@ class ShopTestData {
             defaultProduct().withId(1L).withName("부대찌개").build(),
             defaultProduct().withId(2L).withName("닭볶음탕").build()
         ),
-        private var shopBusinessNumber: ShopBusinessNumber = ShopBusinessNumber.from("123-45-67890")
+        private var shopBusinessNumber: ShopBusinessNumber = ShopBusinessNumber.from("123-45-67890"),
+        private var shopAddress: ShopAddress = ShopAddress.of(
+            "1234567890",
+            Coordinates.of(
+                126.99599512792346,
+                35.976749396987046
+            ),
+            Address.of(
+                "region1DepthName",
+                "region2DepthName",
+                "region3DepthName",
+                "roadName"
+            )
+        )
     ) {
 
         fun withTitle(title: String): ShopBuilder {
@@ -50,11 +66,17 @@ class ShopTestData {
             return this
         }
 
+        fun withAddress(shopAddress: ShopAddress): ShopBuilder {
+            this.shopAddress = shopAddress
+            return this
+        }
+
         fun build(): Shop {
             return Shop(
                 ShopTitle.from(this.title),
                 this.shopStatus,
                 this.shopBusinessNumber,
+                this.shopAddress,
                 this.reservableTimes.toMutableList(),
                 this.products.toMutableList()
             )

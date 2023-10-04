@@ -1,6 +1,7 @@
 package com.mealkitary.shop.domain.shop
 
 import com.mealkitary.shop.domain.product.Product
+import com.mealkitary.shop.domain.shop.address.ShopAddress
 import java.time.LocalDateTime
 import java.time.LocalTime
 import javax.persistence.CascadeType
@@ -23,6 +24,7 @@ class Shop(
     title: ShopTitle,
     status: ShopStatus,
     businessNumber: ShopBusinessNumber,
+    address: ShopAddress,
     reservableTimes: MutableList<LocalTime>,
     products: MutableList<Product>
 ) {
@@ -57,6 +59,8 @@ class Shop(
         protected set
 
     val businessNumber: ShopBusinessNumber = businessNumber
+
+    val address: ShopAddress = address
 
     fun checkReservableShop() {
         if (status.isInvalidStatus()) {

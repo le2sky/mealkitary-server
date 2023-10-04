@@ -9,7 +9,8 @@ include(
     "mealkitary-infrastructure:adapter-firebase-notification",
     "mealkitary-infrastructure:adapter-configuration",
     "mealkitary-infrastructure:adapter-business-registration-number-validator:open-api-brn-validator",
-    "mealkitary-infrastructure:adapter-business-registration-number-validator:simple-brn-validator"
+    "mealkitary-infrastructure:adapter-business-registration-number-validator:simple-brn-validator",
+    "mealkitary-infrastructure:adapter-address-resolver"
 )
 
 pluginManagement {

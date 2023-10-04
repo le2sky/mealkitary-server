@@ -28,7 +28,7 @@ class RegisterShopControllerDocsTest : RestDocsSupport() {
     fun `api docs test - registerShop`() {
         every { registerShopUseCase.register(any()) } answers { 1L }
 
-        val registerShopWebRequest = RegisterShopWebRequest("집밥뚝딱 안양점", "123-23-12345")
+        val registerShopWebRequest = RegisterShopWebRequest("집밥뚝딱 안양점", "123-23-12345", "경기도 안양시 동안구 벌말로")
 
         mvc.perform(
             RestDocumentationRequestBuilders.post("/shops")
@@ -45,6 +45,7 @@ class RegisterShopControllerDocsTest : RestDocsSupport() {
                     requestFields(
                         fieldWithPath("title").type(JsonFieldType.STRING).description("등록 대상 가게 이름"),
                         fieldWithPath("brn").type(JsonFieldType.STRING).description("사업자 번호"),
+                        fieldWithPath("address").type(JsonFieldType.STRING).description("가게 도로명 주소"),
                     ),
                     responseHeaders(headerWithName("Location").description("생성된 가게 리소스 URI")),
                 )
