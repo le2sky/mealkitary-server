@@ -1,5 +1,7 @@
 package com.mealkitary.shop.domain.shop.address
 
+import com.mealkitary.common.model.Address
+import com.mealkitary.common.model.Coordinates
 import javax.persistence.Column
 import javax.persistence.Embeddable
 import javax.persistence.Embedded

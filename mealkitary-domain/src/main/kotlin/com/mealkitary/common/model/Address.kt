@@ -1,10 +1,10 @@
-package com.mealkitary.shop.domain.shop.address
+package com.mealkitary.common.model
 
 import javax.persistence.Column
 import javax.persistence.Embeddable
 
 @Embeddable
-class Address(
+class Address private constructor(
     @Column(name = "region_1depth_name", nullable = false)
     val region1DepthName: String,
     @Column(name = "region_2depth_name", nullable = false)

@@ -1,6 +1,6 @@
 package com.mealkitary.shop.domain.shop
 
-import com.mealkitary.shop.domain.shop.address.Address
+import com.mealkitary.common.model.Address
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 

@@ -1,12 +1,12 @@
 package data
 
+import com.mealkitary.common.model.Address
+import com.mealkitary.common.model.Coordinates
 import com.mealkitary.shop.domain.product.Product
 import com.mealkitary.shop.domain.shop.Shop
 import com.mealkitary.shop.domain.shop.ShopBusinessNumber
 import com.mealkitary.shop.domain.shop.ShopStatus
 import com.mealkitary.shop.domain.shop.ShopTitle
-import com.mealkitary.shop.domain.shop.address.Address
-import com.mealkitary.shop.domain.shop.address.Coordinates
 import com.mealkitary.shop.domain.shop.address.ShopAddress
 import data.ProductTestData.Companion.defaultProduct
 import java.time.LocalTime

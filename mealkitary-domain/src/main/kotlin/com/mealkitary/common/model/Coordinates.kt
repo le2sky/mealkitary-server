@@ -1,4 +1,4 @@
-package com.mealkitary.shop.domain.shop.address
+package com.mealkitary.common.model
 
 import javax.persistence.Column
 import javax.persistence.Embeddable
