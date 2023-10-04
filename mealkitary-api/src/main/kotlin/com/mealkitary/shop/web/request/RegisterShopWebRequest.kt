@@ -8,8 +8,11 @@ data class RegisterShopWebRequest(
     val title: String? = null,
 
     @field:NotBlank(message = "사업자 번호는 필수입니다.")
-    val brn: String? = null
+    val brn: String? = null,
+
+    @field:NotBlank(message = "주소는 필수입니다.")
+    val address: String? = null
 ) {
 
-    fun mapToServiceRequest() = RegisterShopRequest(title!!, brn!!)
+    fun mapToServiceRequest() = RegisterShopRequest(title!!, brn!!, address!!)
 }

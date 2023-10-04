@@ -5,14 +5,20 @@ import com.mealkitary.shop.domain.shop.Shop
 import com.mealkitary.shop.domain.shop.ShopBusinessNumber
 import com.mealkitary.shop.domain.shop.ShopStatus
 import com.mealkitary.shop.domain.shop.ShopTitle
+import com.mealkitary.shop.domain.shop.address.ShopAddress
+import org.springframework.stereotype.Component
 import java.time.LocalTime
 
+@Component
 class ShopFactory(
-    private val shopBusinessNumberValidator: ShopBusinessNumberValidator
+    private val shopBusinessNumberValidator: ShopBusinessNumberValidator,
+    private val addressResolver: AddressResolver
 ) {
 
-    fun createOne(title: String, brn: String): Shop {
+    fun createOne(title: String, brn: String, address: String): Shop {
         val shopBusinessNumber = ShopBusinessNumber.from(brn)
+
+        val shopAddress: ShopAddress = addressResolver.resolveAddress(address)
 
         shopBusinessNumberValidator.validate(shopBusinessNumber)
 
@@ -20,6 +26,7 @@ class ShopFactory(
             ShopTitle.from(title),
             ShopStatus.VALID,
             shopBusinessNumber,
+            shopAddress,
             emptyList<LocalTime>().toMutableList(),
             emptyList<Product>().toMutableList(),
         )

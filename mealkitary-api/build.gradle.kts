@@ -6,6 +6,7 @@ val snippetsDir by extra { file("build/generated-snippets") }
 val asciidoctorExt: Configuration by configurations.creating
 
 bootJar.enabled = true
+bootJar.duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 jar.enabled = false
 
 plugins {
@@ -21,6 +22,7 @@ dependencies {
     implementation(project(":mealkitary-infrastructure:adapter-persistence-spring-data-jpa"))
     implementation(project(":mealkitary-infrastructure:adapter-paymentgateway-tosspayments"))
     implementation(project(":mealkitary-infrastructure:adapter-firebase-notification"))
+    implementation(project(":mealkitary-infrastructure:adapter-address-resolver"))
     implementation(
         project(
             ":mealkitary-infrastructure:business-registration-number-validator:adapter-open-api-brn-validator",

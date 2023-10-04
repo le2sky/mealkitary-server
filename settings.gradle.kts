@@ -8,7 +8,8 @@ include(
     "mealkitary-infrastructure:adapter-paymentgateway-tosspayments",
     "mealkitary-infrastructure:adapter-firebase-notification",
     "mealkitary-infrastructure:business-registration-number-validator:adapter-open-api-brn-validator",
-    "mealkitary-infrastructure:business-registration-number-validator:adapter-simple-brn-validator"
+    "mealkitary-infrastructure:business-registration-number-validator:adapter-simple-brn-validator",
+    "mealkitary-infrastructure:adapter-address-resolver"
 )
 
 pluginManagement {
@@ -36,3 +37,5 @@ pluginManagement {
         }
     }
 }
+include("mealkitary-infrastructure:adapter-address-resolver")
+findProject(":mealkitary-infrastructure:adapter-address-resolver")?.name = "adapter-address-resolver"
