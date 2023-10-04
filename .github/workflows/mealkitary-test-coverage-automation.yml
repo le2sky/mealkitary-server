@@ -42,7 +42,8 @@ jobs:
                         ./mealkitary-infrastructure/adapter-persistence-spring-data-jpa/build/test-results/**/*.xml
                         ./mealkitary-infrastructure/adapter-paymentgateway-tosspayments/build/test-results/**/*.xml
                         ./mealkitary-infrastructure/adapter-firebase-notification/build/test-results/**/*.xml
-                        ./mealkitary-infrastructure/business-registration-number-validator/adapter-simple-brn-validator/build/test-results/**/*.xml
+                        ./mealkitary-infrastructure/adapter-business-registration-number-validator/simple-brn-validator/build/test-results/**/*.xml
+                        ./mealkitary-infrastructure/adapter-business-registration-number-validator/open-api-brn-validator/build/test-results/**/*.xml
                         ./mealkitary-infrastructure/adapter-address-resolver/build/test-results/**/*.xml
 
             -   name: Jacoco Coverage 리포트 전송
@@ -56,8 +57,8 @@ jobs:
                         ./mealkitary-infrastructure/adapter-persistence-spring-data-jpa/build/reports/jacoco/test/jacocoTestReport.xml,
                         ./mealkitary-infrastructure/adapter-paymentgateway-tosspayments/build/reports/jacoco/test/jacocoTestReport.xml,
                         ./mealkitary-infrastructure/adapter-firebase-notification/build/reports/jacoco/test/jacocoTestReport.xml,
-                        ./mealkitary-infrastructure/business-registration-number-validator/adapter-simple-brn-validator/build/reports/jacoco/test/jacocoTestReport.xml,
+                        ./mealkitary-infrastructure/adapter-business-registration-number-validator/simple-brn-validator/build/reports/jacoco/test/jacocoTestReport.xml,
+                        ./mealkitary-infrastructure/adapter-business-registration-number-validator/open-api-brn-validator/build/reports/jacoco/test/jacocoTestReport.xml,
                         ./mealkitary-infrastructure/adapter-address-resolver/build/reports/jacoco/test/jacocoTestReport.xml
-
                     name: mealkitary-codecov
                     verbose: true
