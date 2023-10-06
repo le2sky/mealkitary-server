@@ -1,4 +1,4 @@
-package com.mealkitary.address
+package com.mealkitary
 
 import com.mealkitary.common.model.Address
 import com.mealkitary.common.model.Coordinates
@@ -11,8 +11,8 @@ private const val ADDRESS_MIN_LENGTH = 2
 @Component
 class SimpleAddressResolver : AddressResolver {
 
-    override fun resolveAddress(address: String): ShopAddress {
-        val value = address.split(" ")
+    override fun resolve(fullAddress: String): ShopAddress {
+        val value = fullAddress.split(" ")
 
         if (value.size < ADDRESS_MIN_LENGTH) {
             throw IllegalArgumentException("주소 형식이 올바르지 않습니다.")

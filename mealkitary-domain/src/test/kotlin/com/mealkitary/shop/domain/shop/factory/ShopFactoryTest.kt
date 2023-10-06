@@ -29,7 +29,7 @@ class ShopFactoryTest : AnnotationSpec() {
             ShopAddress.of("1234567890", Coordinates.of("0.0", " 0.0"), Address.of("경기도", "안양시 동안구", "벌말로", "40"))
 
         every { shopBusinessNumberValidator.validate(any()) } answers { }
-        every { addressResolver.resolveAddress("경기도 안양시 동안구 벌말로 40") } returns expectedShopAddress
+        every { addressResolver.resolve("경기도 안양시 동안구 벌말로 40") } returns expectedShopAddress
 
         val shop = shopFactory.createOne("집밥뚝딱 안양점", "321-23-12345", "경기도 안양시 동안구 벌말로 40")
 
@@ -44,7 +44,7 @@ class ShopFactoryTest : AnnotationSpec() {
             ShopAddress.of("1234567890", Coordinates.of("0.0", "0.0"), Address.of("경기도", "안양시 동안구", "벌말로", "40"))
 
         every { shopBusinessNumberValidator.validate(any()) } answers { }
-        every { addressResolver.resolveAddress("경기도 안양시 동안구 벌말로 40") } returns expectedShopAddress
+        every { addressResolver.resolve("경기도 안양시 동안구 벌말로 40") } returns expectedShopAddress
 
         shouldThrow<IllegalArgumentException> {
             shopFactory.createOne("집밥뚝딱 ! 안양점", "321-23-12345", "경기도 안양시 동안구 벌말로 40")
@@ -69,7 +69,7 @@ class ShopFactoryTest : AnnotationSpec() {
         )
 
         every { shopBusinessNumberValidator.validate(any()) } answers { }
-        every { addressResolver.resolveAddress(address) } answers { shopAddress }
+        every { addressResolver.resolve(address) } answers { shopAddress }
 
         shouldThrow<IllegalArgumentException> {
             shopFactory.createOne("집밥뚝딱 ! 안양점", "321-23-12345", "경기도 안양시 동안구 벌말로 40")
