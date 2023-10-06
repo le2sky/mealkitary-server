@@ -17,8 +17,8 @@ class SimpleAddressResolverTest : AnnotationSpec() {
         val shopAddress = resolver.resolveAddress(address)
 
         shopAddress.cityCode shouldBe "1234567890"
-        shopAddress.coordinates.longitude shouldBe 127.0
-        shopAddress.coordinates.latitude shouldBe 40.0
+        shopAddress.coordinates.longitude shouldBe "127.0"
+        shopAddress.coordinates.latitude shouldBe "40.0"
         shopAddress.address.region1DepthName shouldBe "서울특별시"
         shopAddress.address.region2DepthName shouldBe "강남구"
         shopAddress.address.region3DepthName shouldBe "역삼동"
@@ -33,8 +33,8 @@ class SimpleAddressResolverTest : AnnotationSpec() {
         val shopAddress = resolver.resolveAddress(address)
 
         shopAddress.cityCode shouldBe "1234567890"
-        shopAddress.coordinates.longitude shouldBe 127.0
-        shopAddress.coordinates.latitude shouldBe 40.0
+        shopAddress.coordinates.longitude shouldBe "127.0"
+        shopAddress.coordinates.latitude shouldBe "40.0"
         shopAddress.address.region1DepthName shouldBe "경기도"
         shopAddress.address.region2DepthName shouldBe "남양주시"
         shopAddress.address.region3DepthName shouldBe "다산동"
@@ -49,8 +49,8 @@ class SimpleAddressResolverTest : AnnotationSpec() {
         val shopAddress = resolver.resolveAddress(address)
 
         shopAddress.cityCode shouldBe "1234567890"
-        shopAddress.coordinates.longitude shouldBe 127.0
-        shopAddress.coordinates.latitude shouldBe 40.0
+        shopAddress.coordinates.longitude shouldBe "127.0"
+        shopAddress.coordinates.latitude shouldBe "40.0"
         shopAddress.address.region1DepthName shouldBe "제주특별자치도"
         shopAddress.address.region2DepthName shouldBe "한림읍"
         shopAddress.address.region3DepthName shouldBe ""

@@ -26,7 +26,7 @@ class ShopFactoryTest : AnnotationSpec() {
     @Test
     fun `실제로 유효한 사업자번호와 가게이름, 주소라면 가게를 생성한다`() {
         val expectedShopAddress =
-            ShopAddress.of("1234567890", Coordinates.of(0.0, 0.0), Address.of("경기도", "안양시 동안구", "벌말로", "40"))
+            ShopAddress.of("1234567890", Coordinates.of("0.0", " 0.0"), Address.of("경기도", "안양시 동안구", "벌말로", "40"))
 
         every { shopBusinessNumberValidator.validate(any()) } answers { }
         every { addressResolver.resolveAddress("경기도 안양시 동안구 벌말로 40") } returns expectedShopAddress
@@ -41,7 +41,7 @@ class ShopFactoryTest : AnnotationSpec() {
     @Test
     fun `가게 이름이 유효하지 않으면 예외를 발생한다`() {
         val expectedShopAddress =
-            ShopAddress.of("1234567890", Coordinates.of(0.0, 0.0), Address.of("경기도", "안양시 동안구", "벌말로", "40"))
+            ShopAddress.of("1234567890", Coordinates.of("0.0", "0.0"), Address.of("경기도", "안양시 동안구", "벌말로", "40"))
 
         every { shopBusinessNumberValidator.validate(any()) } answers { }
         every { addressResolver.resolveAddress("경기도 안양시 동안구 벌말로 40") } returns expectedShopAddress
@@ -57,8 +57,8 @@ class ShopFactoryTest : AnnotationSpec() {
         val shopAddress = ShopAddress.of(
             "1234567890",
             Coordinates.of(
-                127.0,
-                40.0
+                "127.0",
+                "40.0"
             ),
             Address.of(
                 "경기도",

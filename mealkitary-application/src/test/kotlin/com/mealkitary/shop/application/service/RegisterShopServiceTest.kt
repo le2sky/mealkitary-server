@@ -67,7 +67,7 @@ class RegisterShopServiceTest : AnnotationSpec() {
     fun `service unit test - 가게 이름 형식에 맞지 않으면 예외를 발생한다`() {
         val request = RegisterShopRequest("invalid!#@", "123-23-12345", "경기도 안양시 동안구 벌말로 40")
         val expectedShopAddress =
-            ShopAddress.of("1234567890", Coordinates.of(0.0, 0.0), Address.of("경기도", "안양시 동안구", "벌말로", "40"))
+            ShopAddress.of("1234567890", Coordinates.of("0.0", "0.0"), Address.of("경기도", "안양시 동안구", "벌말로", "40"))
 
         every {
             shopFactory.createOne(any(), any(), any())
