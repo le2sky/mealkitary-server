@@ -36,7 +36,7 @@ class RegisterShopServiceTest : AnnotationSpec() {
         val shopSlot = slot<Shop>()
         val request = RegisterShopRequest("집밥뚝딱 안양점", "123-23-12345", "경기도 안양시 동안구 벌말로 40")
         val expectedShopAddress =
-            ShopAddress.of("1234567890", Coordinates.of(0.0, 0.0), Address.of("경기도", "안양시 동안구", "벌말로", "40"))
+            ShopAddress.of("1234567890", Coordinates.of("0.0", "0.0"), Address.of("경기도", "안양시 동안구", "벌말로", "40"))
 
         val mockedShop = Shop(
             ShopTitle.from(request.title),
