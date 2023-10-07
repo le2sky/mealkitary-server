@@ -1,12 +1,11 @@
 package com.mealkitary.address
 
+import com.mealkitary.SimpleAddressResolver
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.throwable.shouldHaveMessage
-import org.springframework.stereotype.Component
 
-@Component
 class SimpleAddressResolverTest : AnnotationSpec() {
 
     @Test
