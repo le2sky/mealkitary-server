@@ -6,5 +6,5 @@ interface GetReservationQuery {
 
     fun loadOneReservationById(reservationId: UUID): ReservationResponse
 
-    fun loadAllReservationByShopId(shopId: Long): List<ReservationResponse>
+    fun loadAllReservationByShopId(shopId: UUID): List<ReservationResponse>
 }

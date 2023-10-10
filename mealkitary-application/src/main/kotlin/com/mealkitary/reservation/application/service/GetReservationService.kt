@@ -16,6 +16,6 @@ class GetReservationService(
     override fun loadOneReservationById(reservationId: UUID) =
         loadReservationPort.queryOneReservationById(reservationId)
 
-    override fun loadAllReservationByShopId(shopId: Long): List<ReservationResponse> =
+    override fun loadAllReservationByShopId(shopId: UUID): List<ReservationResponse> =
         loadReservationPort.queryAllReservationByShopId(shopId)
 }
