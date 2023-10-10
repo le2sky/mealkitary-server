@@ -5,10 +5,10 @@ import com.mealkitary.common.model.Coordinates
 import com.mealkitary.shop.application.port.output.CheckExistenceShopPort
 import com.mealkitary.shop.application.port.output.LoadShopPort
 import com.mealkitary.shop.domain.shop.Shop
+import com.mealkitary.shop.domain.shop.ShopAddress
 import com.mealkitary.shop.domain.shop.ShopBusinessNumber
 import com.mealkitary.shop.domain.shop.ShopStatus
 import com.mealkitary.shop.domain.shop.ShopTitle
-import com.mealkitary.shop.domain.shop.address.ShopAddress
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe

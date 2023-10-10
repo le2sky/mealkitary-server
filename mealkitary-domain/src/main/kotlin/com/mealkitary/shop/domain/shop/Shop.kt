@@ -1,7 +1,6 @@
 package com.mealkitary.shop.domain.shop
 
 import com.mealkitary.shop.domain.product.Product
-import com.mealkitary.shop.domain.shop.address.ShopAddress
 import java.time.LocalDateTime
 import java.time.LocalTime
 import javax.persistence.CascadeType
