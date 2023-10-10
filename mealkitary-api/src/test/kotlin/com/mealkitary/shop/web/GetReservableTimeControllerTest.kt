@@ -50,4 +50,14 @@ class GetReservableTimeControllerTest : WebIntegrationTestSupport() {
         mvc.perform(MockMvcRequestBuilders.get("/shops/{shopId}/reservable-time", shopId))
             .andExpect(status().isNoContent())
     }
+
+    @Test
+    fun `api integration test - 가게 식별자가 UUID 형태가 아니라면 400 에러를 발생한다`() {
+        mvc.perform(
+            MockMvcRequestBuilders.get("/shops/{shopId}/reservable-time", "invalid-uuid-test")
+        )
+            .andExpect(status().isBadRequest)
+            .andExpect(jsonPath("$.status").value("400"))
+            .andExpect(jsonPath("$.message").value("잘못된 UUID 형식입니다."))
+    }
 }

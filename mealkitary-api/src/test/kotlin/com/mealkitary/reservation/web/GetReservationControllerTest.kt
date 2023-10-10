@@ -149,6 +149,16 @@ class GetReservationControllerTest : WebIntegrationTestSupport() {
     }
 
     @Test
+    fun `api integration test - 가게 식별자가 UUID 형태가 아니라면 400 에러를 발생한다`() {
+        mvc.perform(
+            get("/reservations?shopId=invalid-uuid-test")
+        )
+            .andExpect(status().isBadRequest)
+            .andExpect(jsonPath("$.status").value("400"))
+            .andExpect(jsonPath("$.message").value("잘못된 UUID 형식입니다."))
+    }
+
+    @Test
     fun `api integration test - getOneReservation - 내부에서 EntityNotFound 에러가 발생하면 404 에러를 발생한다`() {
         every { getReservationQuery.loadOneReservationById(any()) }
             .throws(EntityNotFoundException("존재하지 않는 예약입니다."))

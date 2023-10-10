@@ -144,6 +144,34 @@ class ReserveProductControllerTest : WebIntegrationTestSupport() {
     }
 
     @Test
+    fun `api integration test - 가게 식별자가 UUID 형태가 아니라면 400 에러를 발생한다`() {
+        val reserveProductWebRequest = ReserveProductWebRequest(
+            shopId = "invalid-uuid-test",
+            products = listOf(
+                ReservedWebProduct(
+                    2L,
+                    "부대찌개",
+                    3000,
+                    3
+                )
+            ),
+            reservedAt = LocalDateTime.of(
+                LocalDate.now().plusDays(1),
+                LocalTime.of(16, 0)
+            ).toString()
+        )
+
+        mvc.perform(
+            post("/reservations")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(reserveProductWebRequest))
+        )
+            .andExpect(status().isBadRequest)
+            .andExpect(jsonPath("$.status").value("400"))
+            .andExpect(jsonPath("$.message").value("잘못된 UUID 형식입니다."))
+    }
+
+    @Test
     fun `api integration test - 예약 대상 가게가 존재하지 않는 경우 404 에러를 발생한다`() {
         every { reserveProductUseCase.reserve(any()) }
             .throws(EntityNotFoundException("존재하지 않는 가게입니다."))
