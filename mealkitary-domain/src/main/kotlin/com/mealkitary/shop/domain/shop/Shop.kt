@@ -1,5 +1,6 @@
 package com.mealkitary.shop.domain.shop
 
+import com.mealkitary.common.model.UUIDBaseEntity
 import com.mealkitary.shop.domain.product.Product
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -10,9 +11,6 @@ import javax.persistence.ElementCollection
 import javax.persistence.Entity
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.OneToMany
 import javax.persistence.Table
@@ -26,13 +24,7 @@ class Shop(
     address: ShopAddress,
     reservableTimes: MutableList<LocalTime>,
     products: MutableList<Product>
-) {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "shop_id")
-    var id: Long? = null
-        protected set
+) : UUIDBaseEntity() {
 
     @Column(nullable = false)
     var title: ShopTitle = title
