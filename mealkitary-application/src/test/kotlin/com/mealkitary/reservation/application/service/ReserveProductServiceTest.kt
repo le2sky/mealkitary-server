@@ -107,7 +107,7 @@ class ReserveProductServiceTest : AnnotationSpec() {
     }
 
     private fun givenInvalidShop() {
-        every { loadShopPort.loadOneShopById(1L) } answers {
+        every { loadShopPort.loadOneShopById(any()) } answers {
             ShopTestData.defaultShop()
                 .withStatus(ShopStatus.INVALID)
                 .build()
@@ -115,7 +115,7 @@ class ReserveProductServiceTest : AnnotationSpec() {
     }
 
     private fun givenShop() {
-        every { loadShopPort.loadOneShopById(1L) } answers {
+        every { loadShopPort.loadOneShopById(any()) } answers {
             ShopTestData.defaultShop()
                 .withReservableTimes(
                     LocalTime.of(16, 0)
@@ -132,7 +132,6 @@ class ReserveProductServiceTest : AnnotationSpec() {
     }
 
     private fun createReserveProductRequest(
-        shopId: Long = 1L,
         reservedProducts: List<ReservedProduct> = listOf(
             ReservedProduct(
                 2L,
@@ -146,7 +145,7 @@ class ReserveProductServiceTest : AnnotationSpec() {
             LocalTime.of(16, 0)
         )
     ) = ReserveProductRequest(
-        shopId,
+        UUID.randomUUID(),
         reservedProducts,
         reservedAt
     )
