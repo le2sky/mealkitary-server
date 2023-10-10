@@ -14,6 +14,7 @@ import org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPri
 import org.springframework.restdocs.request.RequestDocumentation.parameterWithName
 import org.springframework.restdocs.request.RequestDocumentation.pathParameters
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import java.util.UUID
 
 class UpdateShopStatusControllerDocsTest : RestDocsSupport() {
 
@@ -21,7 +22,7 @@ class UpdateShopStatusControllerDocsTest : RestDocsSupport() {
 
     @Test
     fun `api docs test - updateShopStatus`() {
-        val shopId = 1L
+        val shopId = UUID.randomUUID()
         every { updateShopStatsUseCase.update(shopId) }.answers { }
 
         mvc.perform(

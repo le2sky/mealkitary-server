@@ -20,11 +20,12 @@ class ReserveProductControllerTest : WebIntegrationTestSupport() {
     @Test
     fun `api integration test - reserveProduct`() {
         val id = UUID.randomUUID()
+        val shopId = UUID.randomUUID()
         every { reserveProductUseCase.reserve(any()) }.answers {
             id
         }
         val reserveProductWebRequest = ReserveProductWebRequest(
-            1L,
+            shopId.toString(),
             listOf(
                 ReservedWebProduct(
                     2L,
@@ -80,7 +81,7 @@ class ReserveProductControllerTest : WebIntegrationTestSupport() {
     @Test
     fun `api integration test - 예약 시간이 누락된 경우 400 에러를 발생한다`() {
         val reserveProductWebRequest = ReserveProductWebRequest(
-            shopId = 2,
+            shopId = UUID.randomUUID().toString(),
             products = listOf(
                 ReservedWebProduct(
                     2L,
@@ -111,7 +112,7 @@ class ReserveProductControllerTest : WebIntegrationTestSupport() {
     @Test
     fun `api integration test - 예약 상품 목록이 누락된 경우 400 에러를 발생한다`() {
         val reserveProductWebRequest = ReserveProductWebRequest(
-            shopId = 2,
+            shopId = UUID.randomUUID().toString(),
             reservedAt = LocalDateTime.of(
                 LocalDate.now().plusDays(1),
                 LocalTime.of(16, 0)
@@ -147,7 +148,7 @@ class ReserveProductControllerTest : WebIntegrationTestSupport() {
         every { reserveProductUseCase.reserve(any()) }
             .throws(EntityNotFoundException("존재하지 않는 가게입니다."))
         val reserveProductWebRequest = ReserveProductWebRequest(
-            1L,
+            UUID.randomUUID().toString(),
             listOf(
                 ReservedWebProduct(
                     2L,

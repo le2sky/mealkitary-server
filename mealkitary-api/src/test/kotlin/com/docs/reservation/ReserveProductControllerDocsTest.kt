@@ -32,9 +32,10 @@ class ReserveProductControllerDocsTest : RestDocsSupport() {
     @Test
     fun `api docs test - reserveProduct`() {
         val id = UUID.randomUUID()
+        val shopId = UUID.randomUUID()
         every { reserveProductUseCase.reserve(any()) }.answers { id }
         val reserveProductWebRequest = ReserveProductWebRequest(
-            1L,
+            shopId.toString(),
             listOf(
                 ReservedWebProduct(
                     2L,
@@ -62,7 +63,7 @@ class ReserveProductControllerDocsTest : RestDocsSupport() {
                     preprocessRequest(prettyPrint()),
                     preprocessResponse(prettyPrint()),
                     requestFields(
-                        fieldWithPath("shopId").type(JsonFieldType.NUMBER).description("예약 대상 가게 식별자"),
+                        fieldWithPath("shopId").type(JsonFieldType.STRING).description("예약 대상 가게 식별자"),
                         fieldWithPath("products.[].productId").type(JsonFieldType.NUMBER).description("예약 대상 상품 식별자"),
                         fieldWithPath("products.[].name").type(JsonFieldType.STRING).description("예약 대상 상품명"),
                         fieldWithPath("products.[].price").type(JsonFieldType.NUMBER).description("예약 대상 상품 가격"),

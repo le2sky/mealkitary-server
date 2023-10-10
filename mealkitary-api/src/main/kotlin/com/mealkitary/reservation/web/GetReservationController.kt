@@ -5,6 +5,7 @@ import com.mealkitary.common.utils.UUIDUtils
 import com.mealkitary.reservation.application.port.input.GetReservationQuery
 import com.mealkitary.reservation.application.port.input.ReservationResponse
 import org.springframework.http.ResponseEntity
+import org.springframework.util.StringUtils
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -22,10 +23,18 @@ class GetReservationController(
         getReservationQuery.loadOneReservationById(UUIDUtils.fromString(reservationId))
 
     @GetMapping
-    fun getAllReservation(@RequestParam("shopId") shopIdParam: Long?): ResponseEntity<List<ReservationResponse>> {
-        val shopId = requireNotNull(shopIdParam) { "가게 식별자는 필수입니다." }
+    fun getAllReservation(@RequestParam("shopId") shopId: String?): ResponseEntity<List<ReservationResponse>> {
+        if (!StringUtils.hasLength(shopId)) {
+            throw IllegalArgumentException("가게 식별자는 필수입니다.")
+        }
 
         return HttpResponseUtils
-            .mapToResponseEntity(emptiableList = getReservationQuery.loadAllReservationByShopId(shopId))
+            .mapToResponseEntity(
+                emptiableList = getReservationQuery.loadAllReservationByShopId(
+                    UUIDUtils.fromString(
+                        shopId!!
+                    )
+                )
+            )
     }
 }

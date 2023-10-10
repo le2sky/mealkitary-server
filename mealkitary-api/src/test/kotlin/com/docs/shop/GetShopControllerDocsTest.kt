@@ -17,6 +17,7 @@ import org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath
 import org.springframework.restdocs.payload.PayloadDocumentation.responseFields
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import java.util.UUID
 
 class GetShopControllerDocsTest : RestDocsSupport() {
 
@@ -24,8 +25,9 @@ class GetShopControllerDocsTest : RestDocsSupport() {
 
     @Test
     fun `api docs test - getAllShopTest`() {
+        val shopId = UUID.randomUUID()
         every { getShopQuery.loadAllShop() }.answers {
-            listOf(ShopResponse(1L, "집밥뚝딱"))
+            listOf(ShopResponse(shopId, "집밥뚝딱"))
         }
 
         mvc.perform(RestDocumentationRequestBuilders.get("/shops/"))
@@ -38,7 +40,7 @@ class GetShopControllerDocsTest : RestDocsSupport() {
                     preprocessResponse(prettyPrint()),
                     responseFields(
                         fieldWithPath("[]").type(JsonFieldType.ARRAY).description("가게 목록 배열"),
-                        fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("가게 식별자"),
+                        fieldWithPath("[].id").type(JsonFieldType.STRING).description("가게 식별자"),
                         fieldWithPath("[].title").type(JsonFieldType.STRING).description("가게명")
                     )
                 )
