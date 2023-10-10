@@ -11,7 +11,7 @@ interface ReservationRepository : JpaRepository<Reservation, UUID> {
     @EntityGraph(attributePaths = ["shop"])
     fun findOneWithShopById(reservationId: UUID): Optional<Reservation>
 
-    fun findAllByShopId(shopId: Long): List<Reservation>
+    fun findAllByShopId(shopId: UUID): List<Reservation>
 
-    fun existsReservationByShopId(shopId: Long): Boolean
+    fun existsReservationByShopId(shopId: UUID): Boolean
 }

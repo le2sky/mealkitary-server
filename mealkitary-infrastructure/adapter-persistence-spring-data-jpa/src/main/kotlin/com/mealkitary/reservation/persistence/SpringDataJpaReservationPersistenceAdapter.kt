@@ -50,7 +50,7 @@ class SpringDataJpaReservationPersistenceAdapter(
         return mapToReservationResponse(reservation)
     }
 
-    override fun queryAllReservationByShopId(shopId: Long): List<ReservationResponse> {
+    override fun queryAllReservationByShopId(shopId: UUID): List<ReservationResponse> {
         val reservations = reservationRepository.findAllByShopId(shopId)
 
         return reservations.map { mapToReservationResponse(it) }
