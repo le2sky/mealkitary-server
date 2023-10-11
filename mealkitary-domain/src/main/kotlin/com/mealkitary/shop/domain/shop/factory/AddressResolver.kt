@@ -4,5 +4,5 @@ import com.mealkitary.shop.domain.shop.address.ShopAddress
 
 interface AddressResolver {
 
-    fun resolveAddress(address: String): ShopAddress
+    fun resolve(fullAddress: String): ShopAddress
 }

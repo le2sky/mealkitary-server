@@ -23,7 +23,16 @@ dependencies {
     implementation(project(":mealkitary-infrastructure:adapter-paymentgateway-tosspayments"))
     implementation(project(":mealkitary-infrastructure:adapter-firebase-notification"))
     implementation(project(":mealkitary-infrastructure:adapter-configuration"))
-    implementation(project(":mealkitary-infrastructure:adapter-address-resolver"))
+    implementation(
+        project(
+            ":mealkitary-infrastructure:adapter-address-resolver:kakao-api-address-resolver",
+        )
+    )
+    implementation(
+        project(
+            ":mealkitary-infrastructure:adapter-address-resolver:simple-address-resolver",
+        )
+    )
     implementation(
         project(
             ":mealkitary-infrastructure:adapter-business-registration-number-validator:open-api-brn-validator",

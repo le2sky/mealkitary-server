@@ -15,10 +15,10 @@ class ShopFactory(
     private val addressResolver: AddressResolver
 ) {
 
-    fun createOne(title: String, brn: String, address: String): Shop {
+    fun createOne(title: String, brn: String, fullAddress: String): Shop {
         val shopBusinessNumber = ShopBusinessNumber.from(brn)
 
-        val shopAddress: ShopAddress = addressResolver.resolveAddress(address)
+        val shopAddress: ShopAddress = addressResolver.resolve(fullAddress)
 
         shopBusinessNumberValidator.validate(shopBusinessNumber)
 
