@@ -24,7 +24,7 @@ class GetReservationController(
 
     @GetMapping
     fun getAllReservation(@RequestParam("shopId") shopId: String?): ResponseEntity<List<ReservationResponse>> {
-        if (!StringUtils.hasLength(shopId)) {
+        if (!StringUtils.hasText(shopId)) {
             throw IllegalArgumentException("가게 식별자는 필수입니다.")
         }
 
