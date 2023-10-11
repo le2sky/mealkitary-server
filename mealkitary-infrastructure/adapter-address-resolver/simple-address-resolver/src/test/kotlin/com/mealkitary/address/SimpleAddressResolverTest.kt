@@ -1,12 +1,11 @@
 package com.mealkitary.address
 
+import com.mealkitary.SimpleAddressResolver
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.throwable.shouldHaveMessage
-import org.springframework.stereotype.Component
 
-@Component
 class SimpleAddressResolverTest : AnnotationSpec() {
 
     @Test
@@ -14,7 +13,7 @@ class SimpleAddressResolverTest : AnnotationSpec() {
         val address = "서울특별시 강남구 역삼동 논현로"
         val resolver = SimpleAddressResolver()
 
-        val shopAddress = resolver.resolveAddress(address)
+        val shopAddress = resolver.resolve(address)
 
         shopAddress.cityCode shouldBe "1234567890"
         shopAddress.coordinates.longitude shouldBe 127.0
@@ -30,7 +29,7 @@ class SimpleAddressResolverTest : AnnotationSpec() {
         val address = "경기도 남양주시 다산동"
         val resolver = SimpleAddressResolver()
 
-        val shopAddress = resolver.resolveAddress(address)
+        val shopAddress = resolver.resolve(address)
 
         shopAddress.cityCode shouldBe "1234567890"
         shopAddress.coordinates.longitude shouldBe 127.0
@@ -46,7 +45,7 @@ class SimpleAddressResolverTest : AnnotationSpec() {
         val address = "제주특별자치도 한림읍"
         val resolver = SimpleAddressResolver()
 
-        val shopAddress = resolver.resolveAddress(address)
+        val shopAddress = resolver.resolve(address)
 
         shopAddress.cityCode shouldBe "1234567890"
         shopAddress.coordinates.longitude shouldBe 127.0
@@ -63,7 +62,7 @@ class SimpleAddressResolverTest : AnnotationSpec() {
         val resolver = SimpleAddressResolver()
 
         shouldThrow<IllegalArgumentException> {
-            resolver.resolveAddress(address)
+            resolver.resolve(address)
         } shouldHaveMessage "주소 형식이 올바르지 않습니다."
     }
 }

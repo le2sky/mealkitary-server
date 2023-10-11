@@ -76,7 +76,7 @@ class RegisterShopServiceTest : AnnotationSpec() {
         } throws IllegalArgumentException("올바른 가게 이름 형식이 아닙니다.(한글, 영문, 공백, 숫자만 포함 가능)")
         every { saveShopPort.saveOne(any()) } answers { UUID.randomUUID() }
         every { shopBusinessNumberValidator.validate(any()) } answers {}
-        every { addressResolver.resolveAddress("경기도 안양시 동안구 벌말로 40") } returns expectedShopAddress
+        every { addressResolver.resolve("경기도 안양시 동안구 벌말로 40") } returns expectedShopAddress
 
         shouldThrow<IllegalArgumentException> {
             registerShopService.register(request)

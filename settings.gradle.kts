@@ -10,7 +10,8 @@ include(
     "mealkitary-infrastructure:adapter-configuration",
     "mealkitary-infrastructure:adapter-business-registration-number-validator:open-api-brn-validator",
     "mealkitary-infrastructure:adapter-business-registration-number-validator:simple-brn-validator",
-    "mealkitary-infrastructure:adapter-address-resolver"
+    "mealkitary-infrastructure:adapter-address-resolver:kakao-api-address-resolver",
+    "mealkitary-infrastructure:adapter-address-resolver:simple-address-resolver"
 )
 
 pluginManagement {
