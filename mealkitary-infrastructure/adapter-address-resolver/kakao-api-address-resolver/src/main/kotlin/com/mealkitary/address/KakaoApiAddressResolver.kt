@@ -16,10 +16,7 @@ class KakaoApiAddressResolver(
     override fun resolve(fullAddress: String): ShopAddress {
         val kakaoApiAddressResponse = kakaoApiWebClient.requestAddress(fullAddress)
 
-        val x = kakaoApiAddressResponse.document.x
-        val y = kakaoApiAddressResponse.document.y
-        val roadAddress = kakaoApiAddressResponse.document.road_address
-        val address = kakaoApiAddressResponse.document.address
+        val (x, y, address, roadAddress) = kakaoApiAddressResponse.document
 
         return ShopAddress.of(
             roadAddress.h_code,
