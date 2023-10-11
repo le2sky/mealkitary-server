@@ -18,11 +18,15 @@ class KakaoApiAddressResolver(
 
         val (x, y, address, roadAddress) = kakaoApiAddressResponse.document
 
+        val (longitude, latitude) = listOf(x, y).map {
+            it.toDoubleOrNull() ?: throw IllegalArgumentException("유효하지 않은 좌표 범위입니다.")
+        }
+
         return ShopAddress.of(
             roadAddress.h_code,
             Coordinates.of(
-                x,
-                y
+                longitude,
+                latitude
             ),
             Address.of(
                 address.region_1depth_name,
