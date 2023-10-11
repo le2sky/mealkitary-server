@@ -8,12 +8,14 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.header
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import java.util.UUID
 
 class RegisterShopControllerTest : WebIntegrationTestSupport() {
 
     @Test
     fun `api integration test - registerShop`() {
-        every { registerShopUseCase.register(any()) } answers { 1L }
+        val shopId = UUID.randomUUID()
+        every { registerShopUseCase.register(any()) } answers { shopId }
 
         val registerShopWebRequest = RegisterShopWebRequest("집밥뚝딱 안양점", "123-23-12345", "경기도 안양시 동안구 벌말로 40")
 
@@ -23,7 +25,7 @@ class RegisterShopControllerTest : WebIntegrationTestSupport() {
                 .content(objectMapper.writeValueAsString(registerShopWebRequest))
         )
             .andExpect(status().isCreated)
-            .andExpect(header().string("Location", "http://localhost/shops/1"))
+            .andExpect(header().string("Location", "http://localhost/shops/$shopId"))
     }
 
     @Test

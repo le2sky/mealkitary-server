@@ -1,5 +1,6 @@
 package com.mealkitary.shop.web
 
+import com.mealkitary.common.utils.UUIDUtils
 import com.mealkitary.shop.application.port.input.UpdateShopStatusUseCase
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
@@ -14,8 +15,8 @@ class UpdateShopStatusController(
 ) {
 
     @PostMapping("/{shopId}/status")
-    fun updateShopStatus(@PathVariable("shopId") shopId: Long): ResponseEntity<Unit> {
-        updateShopStatusUseCase.update(shopId)
+    fun updateShopStatus(@PathVariable("shopId") shopId: String): ResponseEntity<Unit> {
+        updateShopStatusUseCase.update(UUIDUtils.fromString(shopId))
 
         return ResponseEntity.noContent().build()
     }

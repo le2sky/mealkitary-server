@@ -2,7 +2,7 @@ package com.mealkitary
 
 import com.mealkitary.common.model.Address
 import com.mealkitary.common.model.Coordinates
-import com.mealkitary.shop.domain.shop.address.ShopAddress
+import com.mealkitary.shop.domain.shop.ShopAddress
 import com.mealkitary.shop.domain.shop.factory.AddressResolver
 import org.springframework.stereotype.Component
 

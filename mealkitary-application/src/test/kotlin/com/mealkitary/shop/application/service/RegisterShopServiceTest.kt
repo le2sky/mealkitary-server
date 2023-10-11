@@ -6,10 +6,10 @@ import com.mealkitary.shop.application.port.input.RegisterShopRequest
 import com.mealkitary.shop.application.port.output.SaveShopPort
 import com.mealkitary.shop.domain.product.Product
 import com.mealkitary.shop.domain.shop.Shop
+import com.mealkitary.shop.domain.shop.ShopAddress
 import com.mealkitary.shop.domain.shop.ShopBusinessNumber
 import com.mealkitary.shop.domain.shop.ShopStatus
 import com.mealkitary.shop.domain.shop.ShopTitle
-import com.mealkitary.shop.domain.shop.address.ShopAddress
 import com.mealkitary.shop.domain.shop.factory.AddressResolver
 import com.mealkitary.shop.domain.shop.factory.ShopBusinessNumberValidator
 import com.mealkitary.shop.domain.shop.factory.ShopFactory
@@ -22,6 +22,7 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
 import java.time.LocalTime
+import java.util.UUID
 
 class RegisterShopServiceTest : AnnotationSpec() {
 
@@ -50,12 +51,13 @@ class RegisterShopServiceTest : AnnotationSpec() {
         every {
             shopFactory.createOne(request.title, request.brn, request.address)
         } returns mockedShop
-        every { saveShopPort.saveOne(capture(shopSlot)) } answers { 1L }
+        val expectedId = UUID.randomUUID()
+        every { saveShopPort.saveOne(capture(shopSlot)) } answers { expectedId }
 
         val result = registerShopService.register(request)
 
         val capturedShop = shopSlot.captured
-        result shouldBe 1L
+        result shouldBe expectedId
         capturedShop.businessNumber.value shouldBe "123-23-12345"
         capturedShop.title.value shouldBe "집밥뚝딱 안양점"
         capturedShop.address shouldBe expectedShopAddress
@@ -72,7 +74,7 @@ class RegisterShopServiceTest : AnnotationSpec() {
         every {
             shopFactory.createOne(any(), any(), any())
         } throws IllegalArgumentException("올바른 가게 이름 형식이 아닙니다.(한글, 영문, 공백, 숫자만 포함 가능)")
-        every { saveShopPort.saveOne(any()) } answers { 1L }
+        every { saveShopPort.saveOne(any()) } answers { UUID.randomUUID() }
         every { shopBusinessNumberValidator.validate(any()) } answers {}
         every { addressResolver.resolve("경기도 안양시 동안구 벌말로 40") } returns expectedShopAddress
 
@@ -88,7 +90,7 @@ class RegisterShopServiceTest : AnnotationSpec() {
         every {
             shopFactory.createOne(any(), any(), any())
         } throws IllegalArgumentException("올바른 사업자번호 형식이 아닙니다.")
-        every { saveShopPort.saveOne(any()) } answers { 1L }
+        every { saveShopPort.saveOne(any()) } answers { UUID.randomUUID() }
         every { shopBusinessNumberValidator.validate(any()) } answers {}
 
         shouldThrow<IllegalArgumentException> {
