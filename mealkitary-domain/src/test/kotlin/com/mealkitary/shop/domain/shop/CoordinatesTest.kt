@@ -10,8 +10,8 @@ class CoordinatesTest : AnnotationSpec() {
 
     @Test
     fun `범위를 벗어나는 좌표일 경우 예외를 발생한다`() {
-        val longitude = "-188.023"
-        val latitude = "999.7412"
+        val longitude = -188.023
+        val latitude = 999.7412
 
         shouldThrow<IllegalArgumentException> {
             Coordinates.of(longitude, latitude)
@@ -20,8 +20,8 @@ class CoordinatesTest : AnnotationSpec() {
 
     @Test
     fun `올바른 좌표를 입력했을 경우 객체를 생성한다`() {
-        val longitude = "-150.653"
-        val latitude = "46.492"
+        val longitude = -150.653
+        val latitude = 46.492
 
         val coordinates = Coordinates.of(longitude, latitude)
 

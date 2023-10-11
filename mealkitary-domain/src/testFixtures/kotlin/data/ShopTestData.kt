@@ -29,8 +29,8 @@ class ShopTestData {
         private var shopAddress: ShopAddress = ShopAddress.of(
             "1234567890",
             Coordinates.of(
-                "126.99599512792346",
-                "35.976749396987046"
+                126.99599512792346,
+                35.976749396987046
             ),
             Address.of(
                 "region1DepthName",

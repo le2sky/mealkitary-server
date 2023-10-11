@@ -14,8 +14,8 @@ class ShopAddressTest : AnnotationSpec() {
     fun `올바른 값들을 입력했을 경우 객체를 생성할 수 있다`() {
         val cityCode = "1234567890"
         val coordinates = Coordinates.of(
-            "-150.653",
-            "46.492"
+            -150.653,
+            46.492
         )
         val address = Address.of(
             "region1DepthName",
@@ -39,8 +39,8 @@ class ShopAddressTest : AnnotationSpec() {
     fun `지역 코드가 올바르지 않을 경우 예외를 발생한다`() {
         val cityCode = "25231491723109"
         val coordinates = Coordinates.of(
-            "-150.653",
-            "46.492"
+            -150.653,
+            46.492
         )
         val address = Address.of(
             "region1DepthName",

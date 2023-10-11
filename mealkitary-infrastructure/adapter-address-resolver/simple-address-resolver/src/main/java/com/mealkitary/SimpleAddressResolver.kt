@@ -27,8 +27,8 @@ class SimpleAddressResolver : AddressResolver {
         return ShopAddress.of(
             "1234567890",
             Coordinates.of(
-                "127.0",
-                "40.0"
+                127.0,
+                40.0
             ),
             Address.of(
                 region1DepthName,

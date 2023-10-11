@@ -41,7 +41,7 @@ class KakaoApiAddressResolverTest : AnnotationSpec() {
         shopAddress.address.region3DepthName shouldBe "다산동"
         shopAddress.address.roadName shouldBe "다산중앙로82번안길"
         shopAddress.cityCode shouldBe "4136011200"
-        shopAddress.coordinates.longitude shouldBe "127.166069448936"
-        shopAddress.coordinates.latitude shouldBe "37.6120947950094"
+        shopAddress.coordinates.longitude shouldBe 127.166069448936
+        shopAddress.coordinates.latitude shouldBe 37.6120947950094
     }
 }
