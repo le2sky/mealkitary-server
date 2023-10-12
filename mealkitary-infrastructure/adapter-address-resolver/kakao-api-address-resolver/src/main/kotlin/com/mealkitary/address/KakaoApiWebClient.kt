@@ -4,9 +4,7 @@ import com.mealkitary.address.payload.KakaoApiAddressResponse
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
-
-private const val KAKAO_API_BASE_URL = "/v2/local/search/address"
-private const val FORMAT = "json"
+import org.springframework.web.util.DefaultUriBuilderFactory
 
 @Component
 class KakaoApiWebClient(
@@ -15,13 +13,13 @@ class KakaoApiWebClient(
     private val serviceKey: String,
 ) {
 
-    fun requestAddress(query: String): KakaoApiAddressResponse {
-        val kakaoApiAddressResponse = webClient.get()
-            .uri { uriBuilder ->
-                uriBuilder.path("$KAKAO_API_BASE_URL.$FORMAT")
-                    .queryParam("query", query)
-                    .build()
-            }
+    fun requestAddress(query: String, baseUrl: String): KakaoApiAddressResponse {
+        val kakaoApiAddressResponse = webClient
+            .mutate()
+            .uriBuilderFactory(DefaultUriBuilderFactory())
+            .build()
+            .get()
+            .uri("$baseUrl/v2/local/search/address.json?query=$query")
             .header("Authorization", "KakaoAK $serviceKey")
             .retrieve()
             .bodyToMono(KakaoApiAddressResponse::class.java)
