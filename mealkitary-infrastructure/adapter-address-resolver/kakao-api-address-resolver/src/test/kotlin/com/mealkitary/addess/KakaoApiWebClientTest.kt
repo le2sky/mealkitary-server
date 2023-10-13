@@ -2,7 +2,11 @@ package com.mealkitary.addess
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.mealkitary.address.KakaoApiWebClient
+import com.mealkitary.address.payload.Address
+import com.mealkitary.address.payload.Document
 import com.mealkitary.address.payload.KakaoApiAddressResponse
+import com.mealkitary.address.payload.Meta
+import com.mealkitary.address.payload.RoadAddress
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.inspectors.forAll
 import io.kotest.matchers.shouldBe
@@ -14,7 +18,6 @@ import org.junit.jupiter.api.Test
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.client.WebClient
-import java.lang.RuntimeException
 
 class KakaoApiWebClientTest {
 
@@ -58,18 +61,22 @@ class KakaoApiWebClientTest {
                 .addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
         )
 
-        val actualResponse = kakaoApiWebClient.requestAddress(address)
+        val actualResponse = kakaoApiWebClient.requestAddress(address, mockWebServer.url("").toString())
 
         val recordedRequest = mockWebServer.takeRequest()
         recordedRequest.method shouldBe "GET"
 
-        actualResponse.document.road_address.h_code shouldBe response.document.road_address.h_code
-        actualResponse.document.x shouldBe response.document.x
-        actualResponse.document.y shouldBe response.document.y
-        actualResponse.document.address.region_1depth_name shouldBe response.document.address.region_1depth_name
-        actualResponse.document.address.region_2depth_name shouldBe response.document.address.region_2depth_name
-        actualResponse.document.address.region_3depth_name shouldBe response.document.address.region_3depth_name
-        actualResponse.document.road_address.road_name shouldBe response.document.road_address.road_name
+        actualResponse.documents[0].address!!.h_code shouldBe response.documents[0].address!!.h_code
+        actualResponse.documents[0].x shouldBe response.documents[0].x
+        actualResponse.documents[0].y shouldBe response.documents[0].y
+        actualResponse.documents[0].address!!.region_1depth_name shouldBe
+            response.documents[0].address!!.region_1depth_name
+        actualResponse.documents[0].address!!.region_2depth_name shouldBe
+            response.documents[0].address!!.region_2depth_name
+        actualResponse.documents[0].address!!.region_3depth_name shouldBe
+            response.documents[0].address!!.region_3depth_name
+        actualResponse.documents[0].road_address!!.road_name shouldBe
+            response.documents[0].road_address!!.road_name
     }
 
     @Test
@@ -81,25 +88,50 @@ class KakaoApiWebClientTest {
                     .setBody(objectMapper.writeValueAsString(createResponse()))
                     .addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
             )
+
             shouldThrow<RuntimeException> {
-                kakaoApiWebClient.requestAddress("경기도남양주시다산중앙로82번안길132-12")
+                kakaoApiWebClient.requestAddress("경기도남양주시다산중앙로82번안길132-12", mockWebServer.url("").toString())
             }
         }
     }
 
     private fun createResponse() = KakaoApiAddressResponse(
-        document = KakaoApiAddressResponse.Document(
-            x = "127.166069448936",
-            y = "37.6120947950094",
-            address = KakaoApiAddressResponse.Address(
-                region_1depth_name = "경기",
-                region_2depth_name = "남양주시",
-                region_3depth_name = "다산동"
-            ),
-            road_address = KakaoApiAddressResponse.RoadAddress(
-                road_name = "다산중앙로82번안길",
-                h_code = "4136011200"
+        documents = listOf(
+            Document(
+                x = "127.166069448936",
+                y = "37.6120947950094",
+                address = Address(
+                    region_1depth_name = "경기",
+                    region_2depth_name = "남양주시",
+                    region_3depth_name = "다산동",
+                    region_3depth_h_name = "",
+                    h_code = "4136011200",
+                    address_name = "",
+                    main_address_no = "",
+                    sub_address_no = "",
+                    mountain_yn = "",
+                    b_code = "",
+                    x = "",
+                    y = ""
+                ),
+                road_address = RoadAddress(
+                    road_name = "다산중앙로82번안길",
+                    address_name = "",
+                    x = "",
+                    y = "",
+                    building_name = "",
+                    main_building_no = "",
+                    sub_building_no = "",
+                    region_1depth_name = "",
+                    region_2depth_name = "",
+                    region_3depth_name = "",
+                    underground_yn = "",
+                    zone_no = ""
+                ),
+                address_name = "",
+                address_type = ""
             )
-        )
+        ),
+        meta = Meta(false, 1, 1)
     )
 }
