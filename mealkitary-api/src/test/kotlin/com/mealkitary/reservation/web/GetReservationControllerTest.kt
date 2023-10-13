@@ -69,10 +69,11 @@ class GetReservationControllerTest : WebIntegrationTestSupport() {
     @Test
     fun `api integration test - getAllReservation`() {
         val reservationId = UUID.randomUUID()
+        val shopId = UUID.randomUUID()
         val reserveAt = LocalDateTime.of(
             LocalDate.of(2023, 6, 23), LocalTime.of(6, 30)
         )
-        every { getReservationQuery.loadAllReservationByShopId(1L) } answers {
+        every { getReservationQuery.loadAllReservationByShopId(any()) } answers {
             listOf(
                 ReservationResponse(
                     reservationId,
@@ -98,7 +99,7 @@ class GetReservationControllerTest : WebIntegrationTestSupport() {
             )
         }
 
-        mvc.perform(get("/reservations?shopId=1"))
+        mvc.perform(get("/reservations?shopId=$shopId"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[0].reservationId").value(reservationId.toString()))
@@ -133,7 +134,7 @@ class GetReservationControllerTest : WebIntegrationTestSupport() {
     fun `api integration test - getAllReservation - 해당 가게의 예약이 존재하지 않으면 204 NoContent를 반환한다`() {
         every { getReservationQuery.loadAllReservationByShopId(any()) } answers { emptyList() }
 
-        mvc.perform(get("/reservations?shopId=1"))
+        mvc.perform(get("/reservations?shopId=${UUID.randomUUID()}"))
             .andExpect(status().isNoContent())
     }
 
@@ -143,6 +144,16 @@ class GetReservationControllerTest : WebIntegrationTestSupport() {
             get("/reservations/{reservationId}", "invalid-uuid-test")
         )
             .andExpect(status().isBadRequest())
+            .andExpect(jsonPath("$.status").value("400"))
+            .andExpect(jsonPath("$.message").value("잘못된 UUID 형식입니다."))
+    }
+
+    @Test
+    fun `api integration test - 가게 식별자가 UUID 형태가 아니라면 400 에러를 발생한다`() {
+        mvc.perform(
+            get("/reservations?shopId=invalid-uuid-test")
+        )
+            .andExpect(status().isBadRequest)
             .andExpect(jsonPath("$.status").value("400"))
             .andExpect(jsonPath("$.message").value("잘못된 UUID 형식입니다."))
     }

@@ -61,7 +61,7 @@ class GetReservationServiceTest : AnnotationSpec() {
             )
         }
 
-        val result = getReservationService.loadAllReservationByShopId(1L)
+        val result = getReservationService.loadAllReservationByShopId(UUID.randomUUID())
 
         val resultReservation = result.get(0)
         result.size shouldBe 2

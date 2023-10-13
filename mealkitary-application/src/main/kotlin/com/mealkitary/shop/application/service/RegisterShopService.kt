@@ -6,6 +6,7 @@ import com.mealkitary.shop.application.port.output.SaveShopPort
 import com.mealkitary.shop.domain.shop.factory.ShopFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.UUID
 
 @Service
 @Transactional
@@ -14,7 +15,7 @@ class RegisterShopService(
     private val shopFactory: ShopFactory
 ) : RegisterShopUseCase {
 
-    override fun register(registerShopRequest: RegisterShopRequest): Long {
+    override fun register(registerShopRequest: RegisterShopRequest): UUID {
         val shop = shopFactory.createOne(
             registerShopRequest.title,
             registerShopRequest.brn,

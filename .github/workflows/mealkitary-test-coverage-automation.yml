@@ -44,7 +44,8 @@ jobs:
                         ./mealkitary-infrastructure/adapter-firebase-notification/build/test-results/**/*.xml
                         ./mealkitary-infrastructure/adapter-business-registration-number-validator/simple-brn-validator/build/test-results/**/*.xml
                         ./mealkitary-infrastructure/adapter-business-registration-number-validator/open-api-brn-validator/build/test-results/**/*.xml
-                        ./mealkitary-infrastructure/adapter-address-resolver/build/test-results/**/*.xml
+                        ./mealkitary-infrastructure/adapter-address-resolver/simple-address-resolver/build/test-results/**/*.xml
+                        ./mealkitary-infrastructure/adapter-address-resolver/kakao-api-address-resolver/build/test-results/**/*.xml
 
             -   name: Jacoco Coverage 리포트 전송
                 uses: codecov/codecov-action@v3
@@ -59,6 +60,7 @@ jobs:
                         ./mealkitary-infrastructure/adapter-firebase-notification/build/reports/jacoco/test/jacocoTestReport.xml,
                         ./mealkitary-infrastructure/adapter-business-registration-number-validator/simple-brn-validator/build/reports/jacoco/test/jacocoTestReport.xml,
                         ./mealkitary-infrastructure/adapter-business-registration-number-validator/open-api-brn-validator/build/reports/jacoco/test/jacocoTestReport.xml,
-                        ./mealkitary-infrastructure/adapter-address-resolver/build/reports/jacoco/test/jacocoTestReport.xml
+                        ./mealkitary-infrastructure/adapter-address-resolver/simple-address-resolver/build/reports/jacoco/test/jacocoTestReport.xml,
+                        ./mealkitary-infrastructure/adapter-address-resolver/kakao-api-address-resolver/build/reports/jacoco/test/jacocoTestReport.xml
                     name: mealkitary-codecov
                     verbose: true

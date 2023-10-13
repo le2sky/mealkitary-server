@@ -1,4 +1,4 @@
-package com.mealkitary.shop.domain.shop.address
+package com.mealkitary.shop.domain.shop
 
 import com.mealkitary.common.model.Address
 import com.mealkitary.common.model.Coordinates

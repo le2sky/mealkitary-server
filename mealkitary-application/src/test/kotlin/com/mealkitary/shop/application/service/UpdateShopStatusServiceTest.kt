@@ -5,10 +5,10 @@ import com.mealkitary.common.model.Coordinates
 import com.mealkitary.shop.application.port.output.CheckExistenceShopPort
 import com.mealkitary.shop.application.port.output.LoadShopPort
 import com.mealkitary.shop.domain.shop.Shop
+import com.mealkitary.shop.domain.shop.ShopAddress
 import com.mealkitary.shop.domain.shop.ShopBusinessNumber
 import com.mealkitary.shop.domain.shop.ShopStatus
 import com.mealkitary.shop.domain.shop.ShopTitle
-import com.mealkitary.shop.domain.shop.address.ShopAddress
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
@@ -23,7 +23,6 @@ class UpdateShopStatusServiceTest : AnnotationSpec() {
 
     @Test
     fun `service unit test - 가게의 상태를 INVALID로 변경한다`() {
-        val shopId = 1L
         val validShop = Shop(
             ShopTitle.from("제목"),
             ShopStatus.VALID,
@@ -45,17 +44,16 @@ class UpdateShopStatusServiceTest : AnnotationSpec() {
             mutableListOf()
         )
 
-        every { loadShopPort.loadOneShopById(shopId) } returns validShop
-        every { checkExistenceShopPort.hasReservations(shopId) } returns false
+        every { loadShopPort.loadOneShopById(validShop.id) } returns validShop
+        every { checkExistenceShopPort.hasReservations(validShop.id) } returns false
 
-        updateShopStatusService.update(shopId)
+        updateShopStatusService.update(validShop.id)
 
         validShop.status shouldBe ShopStatus.INVALID
     }
 
     @Test
     fun `service unit test - 가게의 상태를 VALID로 변경한다`() {
-        val shopId = 1L
         val validShop = Shop(
             ShopTitle.from("제목"),
             ShopStatus.INVALID,
@@ -77,10 +75,10 @@ class UpdateShopStatusServiceTest : AnnotationSpec() {
             mutableListOf()
         )
 
-        every { loadShopPort.loadOneShopById(shopId) } returns validShop
-        every { checkExistenceShopPort.hasReservations(shopId) } returns false
+        every { loadShopPort.loadOneShopById(validShop.id) } returns validShop
+        every { checkExistenceShopPort.hasReservations(validShop.id) } returns false
 
-        updateShopStatusService.update(shopId)
+        updateShopStatusService.update(validShop.id)
 
         validShop.status shouldBe ShopStatus.VALID
     }
@@ -109,11 +107,11 @@ class UpdateShopStatusServiceTest : AnnotationSpec() {
             mutableListOf()
         )
 
-        every { loadShopPort.loadOneShopById(shopId) } returns validShop
-        every { checkExistenceShopPort.hasReservations(shopId) } returns true
+        every { loadShopPort.loadOneShopById(validShop.id) } returns validShop
+        every { checkExistenceShopPort.hasReservations(validShop.id) } returns true
 
         shouldThrow<IllegalStateException> {
-            updateShopStatusService.update(shopId)
+            updateShopStatusService.update(validShop.id)
         }
     }
 }

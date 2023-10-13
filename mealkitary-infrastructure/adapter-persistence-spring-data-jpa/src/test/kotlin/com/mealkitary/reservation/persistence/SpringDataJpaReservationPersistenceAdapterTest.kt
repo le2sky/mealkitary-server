@@ -23,7 +23,10 @@ class SpringDataJpaReservationPersistenceAdapterTest(
     @Test
     fun `db integration test - 신규 예약을 저장한다`() {
         val reservation = ReservationTestData.defaultReservation()
-            .withShop(shopRepository.findOneWithProductsById(1L).orElseThrow())
+            .withShop(
+                shopRepository.findOneWithProductsById(UUID.fromString("e9e3fcaf-e665-4b95-8e52-958c8f6c8163"))
+                    .orElseThrow()
+            )
             .build()
 
         val saved = adapterUnderTest.saveOne(reservation)
@@ -38,7 +41,10 @@ class SpringDataJpaReservationPersistenceAdapterTest(
     fun `db integration test - 신규 결제를 저장한다`() {
         val reservation = ReservationTestData.defaultReservation()
             .withReservationStatus(ReservationStatus.NOTPAID)
-            .withShop(shopRepository.findOneWithProductsById(1L).orElseThrow())
+            .withShop(
+                shopRepository.findOneWithProductsById(UUID.fromString("e9e3fcaf-e665-4b95-8e52-958c8f6c8163"))
+                    .orElseThrow()
+            )
             .build()
         val payment = Payment.of(
             "paymentKey",
@@ -61,7 +67,10 @@ class SpringDataJpaReservationPersistenceAdapterTest(
     fun `db integration test - 예약을 조회한다`() {
         val reservation = ReservationTestData.defaultReservation()
             .withReservationStatus(ReservationStatus.NOTPAID)
-            .withShop(shopRepository.findOneWithProductsById(1L).orElseThrow())
+            .withShop(
+                shopRepository.findOneWithProductsById(UUID.fromString("e9e3fcaf-e665-4b95-8e52-958c8f6c8163"))
+                    .orElseThrow()
+            )
             .build()
         val saved = adapterUnderTest.saveOne(reservation)
         em.flush()
@@ -77,7 +86,10 @@ class SpringDataJpaReservationPersistenceAdapterTest(
     fun `db integration test - 예약의 상세 정보를 조회한다`() {
         val reservation = ReservationTestData.defaultReservation()
             .withReservationStatus(ReservationStatus.NOTPAID)
-            .withShop(shopRepository.findOneWithProductsById(1L).orElseThrow())
+            .withShop(
+                shopRepository.findOneWithProductsById(UUID.fromString("e9e3fcaf-e665-4b95-8e52-958c8f6c8163"))
+                    .orElseThrow()
+            )
             .build()
         val saved = adapterUnderTest.saveOne(reservation)
         em.flush()
@@ -96,13 +108,17 @@ class SpringDataJpaReservationPersistenceAdapterTest(
     fun `db integration test - 가게 식별자로 예약의 상세 정보 목록을 조회한다`() {
         val reservation = ReservationTestData.defaultReservation()
             .withReservationStatus(ReservationStatus.NOTPAID)
-            .withShop(shopRepository.findOneWithProductsById(1L).orElseThrow())
+            .withShop(
+                shopRepository.findOneWithProductsById(UUID.fromString("e9e3fcaf-e665-4b95-8e52-958c8f6c8163"))
+                    .orElseThrow()
+            )
             .build()
         val saved = adapterUnderTest.saveOne(reservation)
         em.flush()
         em.clear()
 
-        val result = adapterUnderTest.queryAllReservationByShopId(1L)
+        val result =
+            adapterUnderTest.queryAllReservationByShopId(UUID.fromString("e9e3fcaf-e665-4b95-8e52-958c8f6c8163"))
 
         val resultReservation = result.get(0)
         result.size shouldBe 1
@@ -115,8 +131,8 @@ class SpringDataJpaReservationPersistenceAdapterTest(
 
     @Test
     fun `db integration test - 가게 식별자로 예약의 상세 목록을 조회할 때, 관련 데이터가 없으면 빈 리스트를 반환한다`() {
-        val unknownShopId = 12345L
-        val noReservationShopId = 1L
+        val unknownShopId = UUID.randomUUID()
+        val noReservationShopId = UUID.fromString("e9e3fcaf-e665-4b95-8e52-958c8f6c8163")
         val source = listOf(unknownShopId, noReservationShopId)
 
         source.forAll {
@@ -130,7 +146,10 @@ class SpringDataJpaReservationPersistenceAdapterTest(
     fun `db integration test - 결제를 조회한다`() {
         val reservation = ReservationTestData.defaultReservation()
             .withReservationStatus(ReservationStatus.NOTPAID)
-            .withShop(shopRepository.findOneWithProductsById(1L).orElseThrow())
+            .withShop(
+                shopRepository.findOneWithProductsById(UUID.fromString("e9e3fcaf-e665-4b95-8e52-958c8f6c8163"))
+                    .orElseThrow()
+            )
             .build()
         val payment = Payment.of(
             "paymentKey",

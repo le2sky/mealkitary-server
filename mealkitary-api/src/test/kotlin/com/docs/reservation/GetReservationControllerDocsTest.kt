@@ -90,10 +90,11 @@ class GetReservationControllerDocsTest : RestDocsSupport() {
     @Test
     fun `api docs test - getAllReservation`() {
         val reservationId = UUID.randomUUID()
+        val shopId = UUID.randomUUID()
         val reserveAt = LocalDateTime.of(
             LocalDate.of(2023, 6, 23), LocalTime.of(6, 30)
         )
-        every { getReservationQuery.loadAllReservationByShopId(1L) } answers {
+        every { getReservationQuery.loadAllReservationByShopId(shopId) } answers {
             listOf(
                 ReservationResponse(
                     reservationId,
@@ -119,7 +120,7 @@ class GetReservationControllerDocsTest : RestDocsSupport() {
             )
         }
 
-        mvc.perform(RestDocumentationRequestBuilders.get("/reservations?shopId=1"))
+        mvc.perform(RestDocumentationRequestBuilders.get("/reservations?shopId=$shopId"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andDo(

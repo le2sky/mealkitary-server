@@ -2,7 +2,6 @@ package com.mealkitary.shop.domain.shop
 
 import com.mealkitary.common.model.Address
 import com.mealkitary.common.model.Coordinates
-import com.mealkitary.shop.domain.shop.address.ShopAddress
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe

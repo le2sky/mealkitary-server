@@ -19,6 +19,7 @@ import org.springframework.restdocs.request.RequestDocumentation.parameterWithNa
 import org.springframework.restdocs.request.RequestDocumentation.pathParameters
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import java.util.UUID
 
 class GetProductControllerDocsTest : RestDocsSupport() {
 
@@ -26,11 +27,12 @@ class GetProductControllerDocsTest : RestDocsSupport() {
 
     @Test
     fun `api docs test - getAllProductOfShopTest`() {
-        every { getProductQuery.loadAllProductByShopId(1L) }.answers {
+        val shopId = UUID.randomUUID()
+        every { getProductQuery.loadAllProductByShopId(shopId) }.answers {
             listOf(ProductResponse(1L, "부대찌개", 15000))
         }
 
-        mvc.perform(RestDocumentationRequestBuilders.get("/shops/{shopId}/products", 1))
+        mvc.perform(RestDocumentationRequestBuilders.get("/shops/{shopId}/products", shopId))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andDo(

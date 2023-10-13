@@ -19,6 +19,7 @@ import org.springframework.restdocs.request.RequestDocumentation.pathParameters
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.time.LocalTime
+import java.util.UUID
 
 class GetReservableTimeControllerDocsTest : RestDocsSupport() {
 
@@ -26,11 +27,12 @@ class GetReservableTimeControllerDocsTest : RestDocsSupport() {
 
     @Test
     fun `api docs test - getAllReservableTimeOfShopTest`() {
-        every { getReservableTimeQuery.loadAllReservableTimeByShopId(1L) }.answers {
+        val shopId = UUID.randomUUID()
+        every { getReservableTimeQuery.loadAllReservableTimeByShopId(shopId) }.answers {
             listOf(LocalTime.of(6, 30))
         }
 
-        mvc.perform(RestDocumentationRequestBuilders.get("/shops/{shopId}/reservable-time", 1))
+        mvc.perform(RestDocumentationRequestBuilders.get("/shops/{shopId}/reservable-time", shopId))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andDo(

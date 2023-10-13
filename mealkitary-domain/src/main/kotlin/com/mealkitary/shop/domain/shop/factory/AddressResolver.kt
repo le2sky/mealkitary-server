@@ -1,8 +1,8 @@
 package com.mealkitary.shop.domain.shop.factory
 
-import com.mealkitary.shop.domain.shop.address.ShopAddress
+import com.mealkitary.shop.domain.shop.ShopAddress
 
 interface AddressResolver {
 
-    fun resolveAddress(address: String): ShopAddress
+    fun resolve(fullAddress: String): ShopAddress
 }
